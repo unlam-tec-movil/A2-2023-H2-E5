@@ -1,4 +1,4 @@
-# Mobile Scaffolding
+# Calorie Tracker
 
 Este repositorio se presenta como una referencia para organizar un proyecto de Android. La elección de packages está
 basada en las recomendaciones de android [1].

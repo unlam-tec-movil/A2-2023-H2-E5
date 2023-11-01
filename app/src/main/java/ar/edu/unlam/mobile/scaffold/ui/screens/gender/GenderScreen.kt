@@ -1,6 +1,14 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens.gender
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -11,17 +19,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
-import ar.edu.unlam.mobile.scaffold.domain.model.Gender
+import ar.edu.unlam.mobile.scaffold.R
 import ar.edu.unlam.mobile.scaffold.core.util.UiEvent
+import ar.edu.unlam.mobile.scaffold.domain.model.Gender
 import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
 import ar.edu.unlam.mobile.scaffold.ui.components.ActionButton
 import ar.edu.unlam.mobile.scaffold.ui.components.SelectableButton
-import ar.edu.unlam.mobile.scaffold.R
 
 @Composable
 fun GenderScreen(
     onNextClick: () -> Unit,
-    viewModel: GenderViewModel = hiltViewModel()
+    viewModel: GenderViewModel = hiltViewModel(),
 ) {
     val spacing = LocalSpacing.current
     LaunchedEffect(key1 = true) {
@@ -35,16 +43,16 @@ fun GenderScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(spacing.spaceLarge)
+            .padding(spacing.spaceLarge),
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = stringResource(id = R.string.whats_your_gender),
-                style = MaterialTheme.typography.h3
+                style = MaterialTheme.typography.h3,
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             Row {
@@ -55,8 +63,8 @@ fun GenderScreen(
                     selectedTextColor = Color.White,
                     onClick = { viewModel.onGenderClick(Gender.Male) },
                     textStyle = MaterialTheme.typography.button.copy(
-                        fontWeight = FontWeight.Normal
-                    )
+                        fontWeight = FontWeight.Normal,
+                    ),
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
                 SelectableButton(
@@ -66,16 +74,15 @@ fun GenderScreen(
                     selectedTextColor = Color.White,
                     onClick = { viewModel.onGenderClick(Gender.Female) },
                     textStyle = MaterialTheme.typography.button.copy(
-                        fontWeight = FontWeight.Normal
-                    )
+                        fontWeight = FontWeight.Normal,
+                    ),
                 )
             }
         }
         ActionButton(
             text = stringResource(id = R.string.next),
             onClick = viewModel::onNextClick,
-            modifier = Modifier.align(Alignment.BottomEnd)
+            modifier = Modifier.align(Alignment.BottomEnd),
         )
-
     }
 }

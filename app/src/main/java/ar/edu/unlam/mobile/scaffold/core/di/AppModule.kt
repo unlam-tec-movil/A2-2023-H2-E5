@@ -3,9 +3,9 @@ package ar.edu.unlam.mobile.scaffold.core.di
 import android.app.Application
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import ar.edu.unlam.mobile.scaffold.data.preferences.DefaultPreferences
 import ar.edu.unlam.mobile.scaffold.domain.preferences.Preferences
 import ar.edu.unlam.mobile.scaffold.domain.usecase.FilterOutDigits
-import ar.edu.unlam.mobile.scaffold.data.preferences.DefaultPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +19,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideSharedPreferences(
-        app: Application
+        app: Application,
     ): SharedPreferences {
         return app.getSharedPreferences("shared_pref", MODE_PRIVATE)
     }

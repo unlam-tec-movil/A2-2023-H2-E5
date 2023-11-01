@@ -1,6 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.domain.model
 
-import ar.edu.unlam.mobile.scaffold.domain.model.MealType
 import java.time.LocalDate
 
 data class TrackedFood(
@@ -13,5 +12,5 @@ data class TrackedFood(
     val amount: Int,
     val date: LocalDate,
     val calories: Int,
-    val id: Int? = null
+    val id: Int? = null,
 )

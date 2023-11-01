@@ -7,15 +7,15 @@ import ar.edu.unlam.mobile.scaffold.domain.repository.TrackerRepository
 import java.time.LocalDate
 import kotlin.math.roundToInt
 
-class TrackFood (
-    private val repository: TrackerRepository
+class TrackFood(
+    private val repository: TrackerRepository,
 ) {
 
     suspend operator fun invoke(
         food: TrackableFood,
         amount: Int,
         mealType: MealType,
-        date: LocalDate
+        date: LocalDate,
     ) {
         repository.insertTrackedFood(
             TrackedFood(
@@ -27,8 +27,8 @@ class TrackFood (
                 imageUrl = food.imageUrl,
                 mealType = mealType,
                 amount = amount,
-                date = date
-            )
+                date = date,
+            ),
         )
     }
 }

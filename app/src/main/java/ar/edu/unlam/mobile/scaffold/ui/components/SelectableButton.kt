@@ -26,7 +26,7 @@ fun SelectableButton(
     selectedTextColor: Color,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    textStyle: TextStyle = MaterialTheme.typography.button
+    textStyle: TextStyle = MaterialTheme.typography.button,
 ) {
     Box(
         contentAlignment = Alignment.Center,
@@ -35,21 +35,21 @@ fun SelectableButton(
             .border(
                 width = 2.dp,
                 color = color,
-                shape = RoundedCornerShape(100.dp)
+                shape = RoundedCornerShape(100.dp),
             )
             .background(
                 color = if (isSelected) color else Color.Transparent,
-                shape = RoundedCornerShape(100.dp)
+                shape = RoundedCornerShape(100.dp),
             )
             .clickable {
                 onClick()
             }
-            .padding(LocalSpacing.current.spaceMedium)
+            .padding(LocalSpacing.current.spaceMedium),
     ) {
         Text(
             text = text,
             style = textStyle,
-            color = if (isSelected) selectedTextColor else color
+            color = if (isSelected) selectedTextColor else color,
         )
     }
 }
@@ -62,7 +62,8 @@ fun SelectableButtonPreviewSelected() {
         isSelected = true,
         color = Color.Green,
         selectedTextColor = Color.Black,
-        onClick = {})
+        onClick = {},
+    )
 }
 
 @Preview
@@ -73,5 +74,6 @@ fun SelectableButtonPreviewUnselected() {
         isSelected = false,
         color = Color.Green,
         selectedTextColor = Color.White,
-        onClick = {})
+        onClick = {},
+    )
 }

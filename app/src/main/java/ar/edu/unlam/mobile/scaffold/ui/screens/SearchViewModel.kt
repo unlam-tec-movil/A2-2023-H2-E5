@@ -6,9 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.unlam.mobile.scaffold.R
-import ar.edu.unlam.mobile.scaffold.domain.usecase.FilterOutDigits
 import ar.edu.unlam.mobile.scaffold.core.util.UiEvent
 import ar.edu.unlam.mobile.scaffold.core.util.UiText
+import ar.edu.unlam.mobile.scaffold.domain.usecase.FilterOutDigits
 import ar.edu.unlam.mobile.scaffold.domain.usecase.TrackerUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val trackerUseCases: TrackerUseCases,
-    private val filterOutDigits: FilterOutDigits
+    private val filterOutDigits: FilterOutDigits,
 ) : ViewModel() {
 
     var state by mutableStateOf(SearchState())
@@ -38,8 +38,10 @@ class SearchViewModel @Inject constructor(
                     trackableFoods = state.trackableFoods.map {
                         if (it.food == event.food) {
                             it.copy(amount = filterOutDigits(event.amount))
-                        } else it
-                    }
+                        } else {
+                            it
+                        }
+                    },
                 )
             }
             is SearchEvent.OnSearch -> {
@@ -50,14 +52,15 @@ class SearchViewModel @Inject constructor(
                     trackableFoods = state.trackableFoods.map {
                         if (it.food == event.food) {
                             it.copy(isExpanded = !it.isExpanded)
-                        } else it
-                    }
+                        } else {
+                            it
+                        }
+                    },
                 )
-
             }
             is SearchEvent.OnSearchFocusChange -> {
                 state = state.copy(
-                    isHintVisible = !event.isFocused && state.query.isBlank()
+                    isHintVisible = !event.isFocused && state.query.isBlank(),
                 )
             }
             is SearchEvent.OnTrackFoodClick -> {
@@ -70,7 +73,7 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             state = state.copy(
                 isSearching = true,
-                trackableFoods = emptyList()
+                trackableFoods = emptyList(),
             )
             trackerUseCases
                 .searchFood(state.query)
@@ -80,15 +83,15 @@ class SearchViewModel @Inject constructor(
                             TrackableFoodUiState(it)
                         },
                         isSearching = false,
-                        query = ""
+                        query = "",
                     )
                 }
                 .onFailure {
                     state = state.copy(isSearching = false)
                     _uiEvent.send(
                         UiEvent.ShowSnackbar(
-                            UiText.StringResource(R.string.error_something_went_wrong)
-                        )
+                            UiText.StringResource(R.string.error_something_went_wrong),
+                        ),
                     )
                 }
         }
@@ -101,7 +104,7 @@ class SearchViewModel @Inject constructor(
                 food = uiState?.food ?: return@launch,
                 amount = uiState.amount.toIntOrNull() ?: return@launch,
                 mealType = event.mealType,
-                date = event.date
+                date = event.date,
             )
             _uiEvent.send(UiEvent.NavigateUp)
         }

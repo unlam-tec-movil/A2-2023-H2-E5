@@ -28,7 +28,7 @@ object TrackerDataModule {
             .addInterceptor(
                 HttpLoggingInterceptor().apply {
                     level = HttpLoggingInterceptor.Level.BODY
-                }
+                },
             )
             .build()
     }
@@ -50,7 +50,7 @@ object TrackerDataModule {
         return Room.databaseBuilder(
             app,
             TrackerDatabase::class.java,
-            "tracker_db"
+            "tracker_db",
         ).build()
     }
 
@@ -58,11 +58,11 @@ object TrackerDataModule {
     @Singleton
     fun provideTrackerRepository(
         api: OpenFoodApi,
-        db: TrackerDatabase
+        db: TrackerDatabase,
     ): TrackerRepository {
         return TrackerRepositoryImpl(
             dao = db.dao,
-            api = api
+            api = api,
         )
     }
 }

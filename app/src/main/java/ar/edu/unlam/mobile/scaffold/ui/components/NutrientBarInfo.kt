@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import ar.edu.unlam.mobile.scaffold.R
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -22,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ar.edu.unlam.mobile.scaffold.ui.components.UnitDisplay
+import ar.edu.unlam.mobile.scaffold.R
 
 @Composable
 fun NutrientBarInfo(
@@ -31,7 +30,7 @@ fun NutrientBarInfo(
     name: String,
     color: Color,
     modifier: Modifier = Modifier,
-    strokeWidth: Dp = 8.dp
+    strokeWidth: Dp = 8.dp,
 ) {
     val background = MaterialTheme.colors.background
     val goalExceedColor = MaterialTheme.colors.error
@@ -42,20 +41,22 @@ fun NutrientBarInfo(
         angelRatio.animateTo(
             targetValue = if (goal > 0) {
                 value / goal.toFloat()
-            } else 0f,
+            } else {
+                0f
+            },
             animationSpec = tween(
-                durationMillis = 300
-            )
+                durationMillis = 300,
+            ),
         )
     }
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(1f)
+                .aspectRatio(1f),
         ) {
             drawArc(
                 color = if (value <= goal) background else goalExceedColor,
@@ -65,8 +66,8 @@ fun NutrientBarInfo(
                 size = size,
                 style = Stroke(
                     width = strokeWidth.toPx(),
-                    cap = StrokeCap.Round
-                )
+                    cap = StrokeCap.Round,
+                ),
             )
             if (value <= goal) {
                 drawArc(
@@ -77,26 +78,26 @@ fun NutrientBarInfo(
                     size = size,
                     style = Stroke(
                         width = strokeWidth.toPx(),
-                        cap = StrokeCap.Round
-                    )
+                        cap = StrokeCap.Round,
+                    ),
                 )
             }
         }
         Column(
             modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             UnitDisplay(
                 amount = value,
                 unit = stringResource(id = R.string.grams),
                 amountColor = if (value <= goal) MaterialTheme.colors.onPrimary else goalExceedColor,
-                unitColor = if (value <= goal) MaterialTheme.colors.onPrimary else goalExceedColor
+                unitColor = if (value <= goal) MaterialTheme.colors.onPrimary else goalExceedColor,
             )
             Text(
                 text = name,
                 color = if (value <= goal) MaterialTheme.colors.onPrimary else goalExceedColor,
                 style = MaterialTheme.typography.body1,
-                fontWeight = FontWeight.Light
+                fontWeight = FontWeight.Light,
             )
         }
     }

@@ -5,5 +5,5 @@ import ar.edu.unlam.mobile.scaffold.domain.model.TrackableFood
 data class TrackableFoodUiState(
     val food: TrackableFood,
     val isExpanded: Boolean = false,
-    val amount: String = ""
+    val amount: String = "",
 )

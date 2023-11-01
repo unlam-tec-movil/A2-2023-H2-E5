@@ -24,11 +24,10 @@ import ar.edu.unlam.mobile.scaffold.ui.screens.age.AgeScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.gender.GenderScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.goal.GoalScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.height.HeightScreen
-import ar.edu.unlam.mobile.scaffold.ui.screens.nutrient_goal.NutrientGoalScreen
+import ar.edu.unlam.mobile.scaffold.ui.screens.nutrientgoal.NutrientGoalScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.weight.WeightScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.welcome.WelcomeScreen
 import ar.edu.unlam.mobile.scaffold.ui.theme.CalorieTrackerTheme
-
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -53,7 +52,7 @@ class MainActivity : ComponentActivity() {
                     NavHost(
                         navController = navController,
                         startDestination = if (shouldShowOnboarding) Route.WELCOME else Route.TRACKER_OVERVIEW,
-                        modifier = Modifier.padding(padding)
+                        modifier = Modifier.padding(padding),
                     ) {
                         composable(Route.WELCOME) {
                             WelcomeScreen(onNextClick = {
@@ -70,7 +69,7 @@ class MainActivity : ComponentActivity() {
                                 onNextClick = {
                                     navController.navigate(Route.HEIGHT)
                                 },
-                                scaffoldState = scaffoldState
+                                scaffoldState = scaffoldState,
                             )
                         }
                         composable(Route.HEIGHT) {
@@ -78,7 +77,7 @@ class MainActivity : ComponentActivity() {
                                 scaffoldState = scaffoldState,
                                 onNextClick = {
                                     navController.navigate(Route.WEIGHT)
-                                }
+                                },
                             )
                         }
                         composable(Route.WEIGHT) {
@@ -86,21 +85,21 @@ class MainActivity : ComponentActivity() {
                                 scaffoldState = scaffoldState,
                                 onNextClick = {
                                     navController.navigate(Route.ACTIVITY)
-                                }
+                                },
                             )
                         }
                         composable(Route.ACTIVITY) {
                             ActivityScreen(
                                 onNextClick = {
                                     navController.navigate(Route.GOAL)
-                                }
+                                },
                             )
                         }
                         composable(Route.GOAL) {
                             GoalScreen(
                                 onNextClick = {
                                     navController.navigate(Route.NUTRIENT_GOAL)
-                                }
+                                },
                             )
                         }
                         composable(Route.NUTRIENT_GOAL) {
@@ -108,14 +107,14 @@ class MainActivity : ComponentActivity() {
                                 scaffoldState = scaffoldState,
                                 onNextClick = {
                                     navController.navigate(Route.TRACKER_OVERVIEW)
-                                }
+                                },
                             )
                         }
                         composable(Route.TRACKER_OVERVIEW) {
                             TrackerOverviewScreen(onNavigateToSearch = { mealName, day, month, year ->
                                 navController.navigate(
                                     Route.SEARCH +
-                                            "/$mealName" + "/$day" + "/$month" + "/$year"
+                                        "/$mealName" + "/$day" + "/$month" + "/$year",
                                 )
                             })
                         }
@@ -133,8 +132,8 @@ class MainActivity : ComponentActivity() {
                                 },
                                 navArgument("year") {
                                     type = NavType.IntType
-                                }
-                            )
+                                },
+                            ),
                         ) {
                             val mealName = it.arguments?.getString("mealName")!!
                             val dayOfMonth = it.arguments?.getInt("dayOfMonth")!!
@@ -148,11 +147,11 @@ class MainActivity : ComponentActivity() {
                                 year = year,
                                 onNavigateUp = {
                                     navController.navigateUp()
-                                })
+                                },
+                            )
                         }
                     }
                 }
-
             }
         }
     }

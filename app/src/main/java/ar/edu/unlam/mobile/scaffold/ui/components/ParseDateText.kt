@@ -4,14 +4,14 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import java.time.LocalDate
 import ar.edu.unlam.mobile.scaffold.R
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun parseDateText(
-    date: LocalDate
+    date: LocalDate,
 ): String {
     val today = LocalDate.now()
     return when (date) {

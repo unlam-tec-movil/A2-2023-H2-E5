@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ar.edu.unlam.mobile.scaffold.domain.preferences.Preferences
 import ar.edu.unlam.mobile.scaffold.core.util.UiEvent
+import ar.edu.unlam.mobile.scaffold.domain.preferences.Preferences
 import ar.edu.unlam.mobile.scaffold.domain.usecase.TrackerUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TrackerOverviewViewmodel @Inject constructor(
     preferences: Preferences,
-    private val trackerUseCases: TrackerUseCases
+    private val trackerUseCases: TrackerUseCases,
 ) : ViewModel() {
 
     var state by mutableStateOf(TrackerOverviewState())
@@ -46,13 +46,13 @@ class TrackerOverviewViewmodel @Inject constructor(
             }
             is TrackerOverviewEvent.OnNextDayClick -> {
                 state = state.copy(
-                    date = state.date.plusDays(1)
+                    date = state.date.plusDays(1),
                 )
                 refreshFoods()
             }
             is TrackerOverviewEvent.OnPreviousDayClick -> {
                 state = state.copy(
-                    date = state.date.minusDays(1)
+                    date = state.date.minusDays(1),
                 )
                 refreshFoods()
             }
@@ -61,8 +61,10 @@ class TrackerOverviewViewmodel @Inject constructor(
                     meals = state.meals.map {
                         if (it.name == event.meal.name) {
                             it.copy(isExpanded = !it.isExpanded)
-                        } else it
-                    }
+                        } else {
+                            it
+                        }
+                    },
                 )
             }
         }
@@ -91,15 +93,15 @@ class TrackerOverviewViewmodel @Inject constructor(
                                     carbs = 0,
                                     protein = 0,
                                     fat = 0,
-                                    calories = 0
+                                    calories = 0,
                                 )
                         it.copy(
                             carbs = nutrientsForMeal.carbs,
                             protein = nutrientsForMeal.protein,
                             fat = nutrientsForMeal.fat,
-                            calories = nutrientsForMeal.calories
+                            calories = nutrientsForMeal.calories,
                         )
-                    }
+                    },
                 )
             }
             .launchIn(viewModelScope)

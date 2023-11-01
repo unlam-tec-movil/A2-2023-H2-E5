@@ -2,7 +2,11 @@ package ar.edu.unlam.mobile.scaffold.ui.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -16,15 +20,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
 import ar.edu.unlam.mobile.scaffold.R
+import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
 
 @Composable
 fun AddButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colors.primary
+    color: Color = MaterialTheme.colors.primary,
 ) {
     val spacing = LocalSpacing.current
     Row(
@@ -34,22 +38,22 @@ fun AddButton(
             .border(
                 width = 1.dp,
                 color = color,
-                shape = RoundedCornerShape(100f)
+                shape = RoundedCornerShape(100f),
             )
             .padding(spacing.spaceMedium),
         horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = Icons.Default.Add,
             contentDescription = stringResource(id = R.string.add),
-            tint = color
+            tint = color,
         )
         Spacer(modifier = Modifier.width(spacing.spaceMedium))
         Text(
             text = text,
             style = MaterialTheme.typography.button,
-            color = color
+            color = color,
         )
     }
 }

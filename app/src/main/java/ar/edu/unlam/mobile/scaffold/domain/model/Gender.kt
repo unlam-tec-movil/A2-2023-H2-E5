@@ -1,12 +1,12 @@
 package ar.edu.unlam.mobile.scaffold.domain.model
 
 sealed class Gender(val name: String) {
-    object Male: Gender("male")
-    object Female: Gender("female")
+    object Male : Gender("male")
+    object Female : Gender("female")
 
     companion object {
         fun fromString(name: String): Gender {
-            return when(name) {
+            return when (name) {
                 "male" -> Male
                 "female" -> Female
                 else -> Male

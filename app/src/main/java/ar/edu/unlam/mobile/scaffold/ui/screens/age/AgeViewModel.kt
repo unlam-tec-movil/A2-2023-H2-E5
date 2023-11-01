@@ -6,10 +6,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.unlam.mobile.scaffold.R
-import ar.edu.unlam.mobile.scaffold.domain.preferences.Preferences
-import ar.edu.unlam.mobile.scaffold.domain.usecase.FilterOutDigits
 import ar.edu.unlam.mobile.scaffold.core.util.UiEvent
 import ar.edu.unlam.mobile.scaffold.core.util.UiText
+import ar.edu.unlam.mobile.scaffold.domain.preferences.Preferences
+import ar.edu.unlam.mobile.scaffold.domain.usecase.FilterOutDigits
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -19,8 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AgeViewModel @Inject constructor(
     private val preferences: Preferences,
-    private val filterOutDigits: FilterOutDigits
-): ViewModel() {
+    private val filterOutDigits: FilterOutDigits,
+) : ViewModel() {
     var age by mutableStateOf("20")
         private set
 
@@ -37,7 +37,7 @@ class AgeViewModel @Inject constructor(
         viewModelScope.launch {
             val ageNumber = age.toIntOrNull() ?: kotlin.run {
                 _uiEvent.send(
-                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_age_cant_be_empty))
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_age_cant_be_empty)),
                 )
                 return@launch
             }

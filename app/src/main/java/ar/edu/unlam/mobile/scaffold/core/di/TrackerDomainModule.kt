@@ -8,7 +8,6 @@ import ar.edu.unlam.mobile.scaffold.domain.usecase.GetFoodsForDate
 import ar.edu.unlam.mobile.scaffold.domain.usecase.SearchFood
 import ar.edu.unlam.mobile.scaffold.domain.usecase.TrackFood
 import ar.edu.unlam.mobile.scaffold.domain.usecase.TrackerUseCases
-import ar.edu.unlam.mobile.scaffold.domain.usecase.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,14 +22,15 @@ object TrackerDomainModule {
     @Provides
     fun provideTrackerUseCases(
         repository: TrackerRepository,
-        preferences: Preferences
+        preferences: Preferences,
     ): TrackerUseCases {
+        // Todo esto no es necesario 🥹
         return TrackerUseCases(
             trackFood = TrackFood(repository),
             searchFood = SearchFood(repository),
             getFoodsForDate = GetFoodsForDate(repository),
             deleteTrackedFood = DeleteTrackedFood(repository),
-            calculateMealNutrients = CalculateMealNutrients(preferences)
+            calculateMealNutrients = CalculateMealNutrients(preferences),
         )
     }
 }

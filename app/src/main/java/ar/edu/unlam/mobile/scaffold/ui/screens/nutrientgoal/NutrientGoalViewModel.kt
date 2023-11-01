@@ -1,14 +1,14 @@
-package ar.edu.unlam.mobile.scaffold.ui.screens.nutrient_goal
+package ar.edu.unlam.mobile.scaffold.ui.screens.nutrientgoal
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ar.edu.unlam.mobile.scaffold.core.util.UiEvent
 import ar.edu.unlam.mobile.scaffold.domain.preferences.Preferences
 import ar.edu.unlam.mobile.scaffold.domain.usecase.FilterOutDigits
-import ar.edu.unlam.mobile.scaffold.core.util.UiEvent
-import com.dviss.onboarding_domain.use_case.ValidateNutrients
+import ar.edu.unlam.mobile.scaffold.domain.usecase.ValidateNutrients
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -19,8 +19,8 @@ import javax.inject.Inject
 class NutrientGoalViewModel @Inject constructor(
     private val preferences: Preferences,
     private val filterOutDigits: FilterOutDigits,
-    private val validateNutrients: ValidateNutrients
-): ViewModel() {
+    private val validateNutrients: ValidateNutrients,
+) : ViewModel() {
 
     var state by mutableStateOf(NutrientGoalState())
         private set
@@ -29,20 +29,20 @@ class NutrientGoalViewModel @Inject constructor(
     val uiEvent = _uiEvent.receiveAsFlow()
 
     fun onEvent(event: NutrientGoalEvent) {
-        when(event) {
+        when (event) {
             is NutrientGoalEvent.OnCarbRatioEnter -> {
                 state = state.copy(
-                    carbsRatio = filterOutDigits(event.ratio)
+                    carbsRatio = filterOutDigits(event.ratio),
                 )
             }
             is NutrientGoalEvent.OnProteinRatioEnter -> {
                 state = state.copy(
-                    proteinRatio = filterOutDigits(event.ratio)
+                    proteinRatio = filterOutDigits(event.ratio),
                 )
             }
             is NutrientGoalEvent.OnFatRatioEnter -> {
                 state = state.copy(
-                    fatRatio = filterOutDigits(event.ratio)
+                    fatRatio = filterOutDigits(event.ratio),
                 )
             }
             is NutrientGoalEvent.OnNextClick -> {

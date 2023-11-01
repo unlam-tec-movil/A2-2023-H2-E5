@@ -6,9 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.unlam.mobile.scaffold.R
-import ar.edu.unlam.mobile.scaffold.domain.preferences.Preferences
 import ar.edu.unlam.mobile.scaffold.core.util.UiEvent
 import ar.edu.unlam.mobile.scaffold.core.util.UiText
+import ar.edu.unlam.mobile.scaffold.domain.preferences.Preferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -17,8 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WeightViewModel @Inject constructor(
-    private val preferences: Preferences
-): ViewModel() {
+    private val preferences: Preferences,
+) : ViewModel() {
     var weight by mutableStateOf("60.0")
         private set
 
@@ -35,7 +35,7 @@ class WeightViewModel @Inject constructor(
         viewModelScope.launch {
             val weightNumber = weight.toFloatOrNull() ?: kotlin.run {
                 _uiEvent.send(
-                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_weight_cant_be_empty))
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_weight_cant_be_empty)),
                 )
                 return@launch
             }

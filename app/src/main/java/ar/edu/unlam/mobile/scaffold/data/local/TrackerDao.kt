@@ -1,6 +1,10 @@
 package ar.edu.unlam.mobile.scaffold.data.local
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import ar.edu.unlam.mobile.scaffold.data.local.entity.TrackedFoodEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -18,7 +22,7 @@ interface TrackerDao {
             SELECT *
             FROM trackedFoodEntity
             WHERE dayOfMonth = :day AND month = :month AND year = :year
-        """
+        """,
     )
     fun getFoodsForDate(day: Int, month: Int, year: Int): Flow<List<TrackedFoodEntity>>
 }

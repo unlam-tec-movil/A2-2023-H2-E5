@@ -8,8 +8,8 @@ import ar.edu.unlam.mobile.scaffold.domain.model.UserInfo
 import ar.edu.unlam.mobile.scaffold.domain.preferences.Preferences
 
 class DefaultPreferences(
-    private val sharedPref: SharedPreferences
-): Preferences {
+    private val sharedPref: SharedPreferences,
+) : Preferences {
     override fun saveGender(gender: Gender) {
         sharedPref.edit()
             .putString(Preferences.KEY_GENDER, gender.name)
@@ -67,20 +67,20 @@ class DefaultPreferences(
     override fun loadUserInfo(): UserInfo {
         return UserInfo(
             gender = Gender.fromString(
-                sharedPref.getString(Preferences.KEY_GENDER, null) ?: "male"
+                sharedPref.getString(Preferences.KEY_GENDER, null) ?: "male",
             ),
             age = sharedPref.getInt(Preferences.KEY_AGE, -1),
             height = sharedPref.getInt(Preferences.KEY_HEIGHT, -1),
             weight = sharedPref.getFloat(Preferences.KEY_WEIGHT, -1f),
             activityLevel = ActivityLevel.fromString(
-                sharedPref.getString(Preferences.KEY_ACTIVITY_LEVEL, null) ?: "low"
+                sharedPref.getString(Preferences.KEY_ACTIVITY_LEVEL, null) ?: "low",
             ),
             goalType = GoalType.fromString(
-                sharedPref.getString(Preferences.KEY_GOAL_TYPE, null) ?: "lose_weight"
+                sharedPref.getString(Preferences.KEY_GOAL_TYPE, null) ?: "lose_weight",
             ),
             carbRatio = sharedPref.getFloat(Preferences.KEY_CARB_RATIO, -1f),
             proteinRatio = sharedPref.getFloat(Preferences.KEY_PROTEIN_RATIO, -1f),
-            fatRatio = sharedPref.getFloat(Preferences.KEY_FAT_RATIO, -1f)
+            fatRatio = sharedPref.getFloat(Preferences.KEY_FAT_RATIO, -1f),
         )
     }
 

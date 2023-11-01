@@ -12,4 +12,4 @@ data class Nutriments(
     @field:Json(name = "proteins_100g")
     val proteins100g: Double,
 
-    )
+)

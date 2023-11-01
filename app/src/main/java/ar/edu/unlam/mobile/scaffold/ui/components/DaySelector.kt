@@ -24,27 +24,27 @@ fun DaySelector(
     date: LocalDate,
     onPreviousDayClick: () -> Unit,
     onNextDayClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         IconButton(onClick = onPreviousDayClick) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
-                contentDescription = stringResource(id = R.string.previous_day)
+                contentDescription = stringResource(id = R.string.previous_day),
             )
         }
         Text(
             text = parseDateText(date = date),
-            style = MaterialTheme.typography.h2
+            style = MaterialTheme.typography.h2,
         )
         IconButton(onClick = onNextDayClick) {
             Icon(
                 imageVector = Icons.Default.ArrowForward,
-                contentDescription = stringResource(id = R.string.next_day)
+                contentDescription = stringResource(id = R.string.next_day),
             )
         }
     }

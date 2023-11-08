@@ -43,8 +43,8 @@
     <string name="error_invalid_values">Valores no validos</string>
     <string name="what_are_your_nutrient_goals">Meta de nutrientes?</string>
     <string name="percent_proteins">% proteins</string>
-    <string name="percent_fats">% fats</string>
-    <string name="percent_carbs">% carbs</string>
+    <string name="percent_fats">%% fats</string>
+    <string name="percent_carbs">%% carbs</string>
     <string name="high">Alto</string>
     <string name="medium">Medio</string>
     <string name="years">Años</string>

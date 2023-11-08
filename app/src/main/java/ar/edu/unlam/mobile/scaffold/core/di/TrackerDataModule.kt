@@ -6,6 +6,8 @@ import ar.edu.unlam.mobile.scaffold.data.local.TrackerDatabase
 import ar.edu.unlam.mobile.scaffold.data.remote.OpenFoodApi
 import ar.edu.unlam.mobile.scaffold.data.repository.TrackerRepositoryImpl
 import ar.edu.unlam.mobile.scaffold.domain.repository.TrackerRepository
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,9 +38,12 @@ object TrackerDataModule {
     @Provides
     @Singleton
     fun provideOpenFoodApi(client: OkHttpClient): OpenFoodApi {
+        val moshi = Moshi.Builder()
+            .addLast(KotlinJsonAdapterFactory())
+            .build()
         return Retrofit.Builder()
             .baseUrl(OpenFoodApi.BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(client)
             .build()
             .create()

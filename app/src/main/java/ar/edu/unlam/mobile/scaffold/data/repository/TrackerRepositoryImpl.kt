@@ -50,10 +50,12 @@ class TrackerRepositoryImpl(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun insertTrackedFood(food: TrackedFood) {
         dao.insertTrackedFood(food.toTrackedFoodEntity())
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun deleteTrackedFood(food: TrackedFood) {
         dao.deleteTrackedFood(food.toTrackedFoodEntity())
     }

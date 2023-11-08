@@ -1,6 +1,7 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -82,6 +83,7 @@ fun SearchScreen(
             onSearch = {
                 keyboardController?.hide()
                 viewModel.onEvent(SearchEvent.OnSearch)
+                Log.i(null,"Metodo search llamado")
             },
             onFocusChange = {
                 viewModel.onEvent(SearchEvent.OnSearchFocusChange(it.isFocused))

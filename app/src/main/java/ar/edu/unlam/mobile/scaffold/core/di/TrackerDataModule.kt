@@ -7,7 +7,6 @@ import ar.edu.unlam.mobile.scaffold.data.remote.OpenFoodApi
 import ar.edu.unlam.mobile.scaffold.data.repository.TrackerRepositoryImpl
 import ar.edu.unlam.mobile.scaffold.domain.repository.TrackerRepository
 import com.google.gson.Gson
-
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,6 +27,7 @@ object TrackerDataModule {
     fun provideGson(): Gson {
         return Gson()
     }
+
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
@@ -42,7 +42,7 @@ object TrackerDataModule {
 
     @Provides
     @Singleton
-    fun provideOpenFoodApi(client: OkHttpClient,gson: Gson): OpenFoodApi {
+    fun provideOpenFoodApi(client: OkHttpClient, gson: Gson): OpenFoodApi {
         return Retrofit.Builder()
             .baseUrl(OpenFoodApi.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))

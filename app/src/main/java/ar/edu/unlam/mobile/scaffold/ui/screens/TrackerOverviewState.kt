@@ -1,8 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens
 
-import android.annotation.SuppressLint
-import android.os.Build
-import androidx.annotation.RequiresApi
 import ar.edu.unlam.mobile.scaffold.domain.model.TrackedFood
 import java.time.LocalDate
 

@@ -21,11 +21,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.R
+import ar.edu.unlam.mobile.scaffold.ui.screens.TrackerOverviewState
 import ar.edu.unlam.mobile.scaffold.ui.theme.CarbColor
 import ar.edu.unlam.mobile.scaffold.ui.theme.FatColor
 import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 import ar.edu.unlam.mobile.scaffold.ui.theme.ProteinColor
-import ar.edu.unlam.mobile.scaffold.ui.screens.TrackerOverviewState
 
 @Composable
 fun NutrientsHeader(

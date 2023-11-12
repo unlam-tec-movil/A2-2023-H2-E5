@@ -1,7 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue

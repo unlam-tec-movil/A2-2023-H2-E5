@@ -1,6 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
 
-
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import ar.edu.unlam.mobile.scaffold.R

@@ -1,5 +1,8 @@
 package ar.edu.unlam.mobile.scaffold.domain.model
 
+/**
+ * Tipos de comida
+ */
 sealed class MealType(val name: String) {
     object Desayuno : MealType("desayuno")
     object Almuerzo : MealType("almuerzo")

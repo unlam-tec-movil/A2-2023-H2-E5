@@ -7,15 +7,6 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
-import ar.edu.unlam.mobile.scaffold.ui.BrightGreen
-import ar.edu.unlam.mobile.scaffold.ui.DarkGray
-import ar.edu.unlam.mobile.scaffold.ui.DarkGreen
-import ar.edu.unlam.mobile.scaffold.ui.Dimensions
-import ar.edu.unlam.mobile.scaffold.ui.LightGray
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
-import ar.edu.unlam.mobile.scaffold.ui.MediumGray
-import ar.edu.unlam.mobile.scaffold.ui.Orange
-import ar.edu.unlam.mobile.scaffold.ui.TextWhite
 
 private val DarkColorPalette = darkColors(
     primary = BrightGreen,

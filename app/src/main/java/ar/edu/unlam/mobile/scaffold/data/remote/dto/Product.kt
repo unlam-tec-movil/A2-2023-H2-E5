@@ -1,11 +1,16 @@
 package ar.edu.unlam.mobile.scaffold.data.remote.dto
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
+/**
+ * Comida con sus valores nutricionales, nombre, e imagen.
+ */
 data class Product(
-    @field:Json(name = "image_front_thumb_url")
+
+    @SerializedName("image_front_thumb_url")
     val imageFrontThumbUrl: String?,
     val nutriments: Nutriments,
-    @field:Json(name = "product_name")
+    @SerializedName("product_name")
     val productName: String?,
 )
+

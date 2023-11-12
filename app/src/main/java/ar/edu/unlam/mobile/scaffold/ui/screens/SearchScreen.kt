@@ -1,7 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,12 +26,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ar.edu.unlam.mobile.scaffold.R
 import ar.edu.unlam.mobile.scaffold.core.util.UiEvent
 import ar.edu.unlam.mobile.scaffold.domain.model.MealType
-import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 import ar.edu.unlam.mobile.scaffold.ui.components.SearchTextField
 import ar.edu.unlam.mobile.scaffold.ui.components.TrackableFoodItem
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 import java.time.LocalDate
 
-@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SearchScreen(

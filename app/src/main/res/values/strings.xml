@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Calorie Tracker</string>
-    <string name="error_unknown">Unknown error</string>
+    <string name="error_unknown" tools:keep="@string/error_unknown">Unknown error</string>
     <string name="welcome_text">Hola! conozcamos mas sobre ti :)</string>
-    <string name="lets_go">Vamos!</string>
+    <string name="lets_go" tools:keep="@string/lets_go">Vamos!</string>
     <string name="whats_your_gender">Eres?</string>
     <string name="male">Hombre</string>
     <string name="female">Mujer</string>
@@ -23,7 +23,7 @@
     <string name="yesterday">Ayer</string>
     <string name="tomorrow">Mañana</string>
     <string name="nutrient_info" tools:ignore="PluralsCandidate">%dg • %dkcal</string>
-    <string name="amount_info">%dg</string>
+    <string name="amount_info" tools:keep="@string/amount_info">%dg</string>
     <string name="grams">g</string>
     <string name="extend">Extend</string>
     <string name="collapse">Collapse</string>
@@ -35,7 +35,7 @@
     <string name="add">Agregar</string>
     <string name="search">Buscar…</string>
     <string name="today">Hoy</string>
-    <string name="recent">Reciente</string>
+    <string name="recent" tools:keep="@string/recent">Reciente</string>
     <string name="kcal_per_100g" tools:ignore="PluralsCandidate">%dkcal / 100g</string>
     <string name="track">Track</string>
     <string name="error_something_went_wrong">Oops, algo salio mal! :(</string>

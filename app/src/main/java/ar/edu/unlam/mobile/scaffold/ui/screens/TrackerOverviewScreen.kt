@@ -1,7 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,14 +14,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import ar.edu.unlam.mobile.scaffold.R
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
 import ar.edu.unlam.mobile.scaffold.ui.components.AddButton
 import ar.edu.unlam.mobile.scaffold.ui.components.DaySelector
 import ar.edu.unlam.mobile.scaffold.ui.components.ExpandableMeal
 import ar.edu.unlam.mobile.scaffold.ui.components.NutrientsHeader
 import ar.edu.unlam.mobile.scaffold.ui.components.TrackedFoodItem
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TrackerOverviewScreen(
     onNavigateToSearch: (String, Int, Int, Int) -> Unit,

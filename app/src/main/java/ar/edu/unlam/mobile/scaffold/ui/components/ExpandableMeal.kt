@@ -25,8 +25,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.R
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
 import ar.edu.unlam.mobile.scaffold.ui.screens.Meal
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 
 @Composable
 fun ExpandableMeal(

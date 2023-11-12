@@ -7,15 +7,6 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
-import ar.edu.unlam.mobile.scaffold.ui.BrightGreen
-import ar.edu.unlam.mobile.scaffold.ui.DarkGray
-import ar.edu.unlam.mobile.scaffold.ui.DarkGreen
-import ar.edu.unlam.mobile.scaffold.ui.Dimensions
-import ar.edu.unlam.mobile.scaffold.ui.LightGray
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
-import ar.edu.unlam.mobile.scaffold.ui.MediumGray
-import ar.edu.unlam.mobile.scaffold.ui.Orange
-import ar.edu.unlam.mobile.scaffold.ui.TextWhite
 
 private val DarkColorPalette = darkColors(
     primary = BrightGreen,
@@ -26,7 +17,7 @@ private val DarkColorPalette = darkColors(
     surface = LightGray,
     onSurface = TextWhite,
     onPrimary = Color.White,
-    onSecondary = Color.White,
+    onSecondary = Color.White
 )
 
 private val LightColorPalette = lightColors(
@@ -38,15 +29,15 @@ private val LightColorPalette = lightColors(
     surface = Color.White,
     onSurface = DarkGray,
     onPrimary = Color.White,
-    onSecondary = Color.White,
+    onSecondary = Color.White
 )
 
 @Composable
 fun CalorieTrackerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content:
-    @Composable()
-    () -> Unit,
+        @Composable
+        () -> Unit
 ) {
     val colors = if (darkTheme) {
         DarkColorPalette
@@ -58,7 +49,7 @@ fun CalorieTrackerTheme(
             colors = colors,
             typography = Typography,
             shapes = Shapes,
-            content = content,
+            content = content
         )
     }
 }

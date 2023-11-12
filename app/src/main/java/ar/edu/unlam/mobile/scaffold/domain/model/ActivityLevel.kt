@@ -1,5 +1,8 @@
 package ar.edu.unlam.mobile.scaffold.domain.model
 
+/**
+ * Nivel de actividad
+ */
 sealed class ActivityLevel(val name: String) {
     object Low : ActivityLevel("low")
     object Medium : ActivityLevel("medium")

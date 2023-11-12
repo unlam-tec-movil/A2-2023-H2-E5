@@ -19,10 +19,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import ar.edu.unlam.mobile.scaffold.R
 import ar.edu.unlam.mobile.scaffold.core.util.UiEvent
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
 import ar.edu.unlam.mobile.scaffold.ui.components.ActionButton
 import ar.edu.unlam.mobile.scaffold.ui.components.UnitTextField
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 
+/**
+ * Pantalla para introducir la edad
+ */
 @Composable
 fun AgeScreen(
     scaffoldState: ScaffoldState,

@@ -70,6 +70,9 @@ class TrackerOverviewViewmodel @Inject constructor(
         }
     }
 
+    /**
+     * Devuelve las comidas seguidas por fecha
+     */
     private fun refreshFoods() {
         getFoodsForDate?.cancel()
         getFoodsForDate = trackerUseCases

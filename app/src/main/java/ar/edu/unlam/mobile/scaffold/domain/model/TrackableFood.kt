@@ -1,5 +1,8 @@
 package ar.edu.unlam.mobile.scaffold.domain.model
 
+/**
+ *
+ */
 data class TrackableFood(
     val name: String,
     val imageUrl: String?,

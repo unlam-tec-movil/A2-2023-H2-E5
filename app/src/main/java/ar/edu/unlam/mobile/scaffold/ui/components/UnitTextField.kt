@@ -16,7 +16,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 
 @Composable
 fun UnitTextField(
@@ -40,8 +40,8 @@ fun UnitTextField(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             singleLine = true,
             modifier = Modifier
-                .width(IntrinsicSize.Min) // always takes minimum size
-                .alignBy(LastBaseline), // align to bottom (text's baseline) of component
+                .width(IntrinsicSize.Min)
+                .alignBy(LastBaseline),
             textStyle = textStyle,
         )
         Spacer(modifier = Modifier.width(spacing.spaceSmall))

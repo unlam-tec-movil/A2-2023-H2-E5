@@ -14,9 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import ar.edu.unlam.mobile.scaffold.R
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
 import ar.edu.unlam.mobile.scaffold.ui.components.ActionButton
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 
+/**
+ * Pantalla de Introduccion a la app
+ */
 @Composable
 fun WelcomeScreen(
     onNextClick: () -> Unit,

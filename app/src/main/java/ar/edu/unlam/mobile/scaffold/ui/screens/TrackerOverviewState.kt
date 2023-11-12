@@ -3,7 +3,7 @@ package ar.edu.unlam.mobile.scaffold.ui.screens
 import ar.edu.unlam.mobile.scaffold.domain.model.TrackedFood
 import java.time.LocalDate
 
-data class TrackerOverviewState(
+data class TrackerOverviewState constructor(
     val totalCarbs: Int = 0,
     val totalProtein: Int = 0,
     val totalFat: Int = 0,

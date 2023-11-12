@@ -1,5 +1,8 @@
 package ar.edu.unlam.mobile.scaffold.domain.model
 
+/**
+ * Informacion sobre el usuario y lo relacionado a sus objetivos alimenticios.
+ */
 data class UserInfo(
     val gender: Gender,
     val age: Int,

@@ -1,7 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.data.repository
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import ar.edu.unlam.mobile.scaffold.data.local.TrackerDao
 import ar.edu.unlam.mobile.scaffold.data.mapper.toTrackableFood
 import ar.edu.unlam.mobile.scaffold.data.mapper.toTrackedFood
@@ -18,7 +16,6 @@ class TrackerRepositoryImpl(
     private val dao: TrackerDao,
     private val api: OpenFoodApi,
 ) : TrackerRepository {
-
     override suspend fun searchFood(
         query: String,
         page: Int,
@@ -58,7 +55,6 @@ class TrackerRepositoryImpl(
         dao.deleteTrackedFood(food.toTrackedFoodEntity())
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun getFoodsForDate(localDate: LocalDate): Flow<List<TrackedFood>> {
         return dao.getFoodsForDate(
             day = localDate.dayOfMonth,

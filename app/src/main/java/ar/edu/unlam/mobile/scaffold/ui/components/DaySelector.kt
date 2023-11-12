@@ -1,7 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Icon
@@ -18,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import ar.edu.unlam.mobile.scaffold.R
 import java.time.LocalDate
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DaySelector(
     date: LocalDate,

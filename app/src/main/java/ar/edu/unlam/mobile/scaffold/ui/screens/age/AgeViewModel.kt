@@ -24,11 +24,13 @@ class AgeViewModel @Inject constructor(
     var age by mutableStateOf("20")
         private set
 
+    val MAX_AGE=99
+
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
     fun onAgeEnter(age: String) {
-        if (age.length <= 3) {
+        if (age.length < 3) {
             this.age = filterOutDigits(age)
         }
     }

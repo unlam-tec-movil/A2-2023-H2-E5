@@ -26,7 +26,9 @@ class WeightViewModel @Inject constructor(
     val uiEvent = _uiEvent.receiveAsFlow()
 
     fun onWeightEnter(weight: String) {
-        if (weight.length <= 5) {
+        val weightDouble= weight.toDoubleOrNull()
+
+        if (weight.length <= 5 && (weightDouble == null || weightDouble <= 300 )) {
             this.weight = weight
         }
     }

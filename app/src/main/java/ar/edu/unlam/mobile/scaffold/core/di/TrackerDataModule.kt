@@ -6,8 +6,8 @@ import ar.edu.unlam.mobile.scaffold.data.local.TrackerDatabase
 import ar.edu.unlam.mobile.scaffold.data.remote.OpenFoodApi
 import ar.edu.unlam.mobile.scaffold.data.repository.TrackerRepositoryImpl
 import ar.edu.unlam.mobile.scaffold.domain.repository.TrackerRepository
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.google.gson.Gson
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +15,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import javax.inject.Singleton
 
@@ -23,6 +23,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object TrackerDataModule {
 
+    @Provides
+    @Singleton
+    fun provideGson(): Gson {
+        return Gson()
+    }
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
@@ -37,13 +42,10 @@ object TrackerDataModule {
 
     @Provides
     @Singleton
-    fun provideOpenFoodApi(client: OkHttpClient): OpenFoodApi {
-        val moshi = Moshi.Builder()
-            .addLast(KotlinJsonAdapterFactory())
-            .build()
+    fun provideOpenFoodApi(client: OkHttpClient,gson: Gson): OpenFoodApi {
         return Retrofit.Builder()
             .baseUrl(OpenFoodApi.BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
             .create()

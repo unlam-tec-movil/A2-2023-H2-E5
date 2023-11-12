@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 
 @Composable
 fun SelectableButton(

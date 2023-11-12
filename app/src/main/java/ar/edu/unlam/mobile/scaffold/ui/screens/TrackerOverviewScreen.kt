@@ -16,7 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import ar.edu.unlam.mobile.scaffold.R
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 import ar.edu.unlam.mobile.scaffold.ui.components.AddButton
 import ar.edu.unlam.mobile.scaffold.ui.components.DaySelector
 import ar.edu.unlam.mobile.scaffold.ui.components.ExpandableMeal

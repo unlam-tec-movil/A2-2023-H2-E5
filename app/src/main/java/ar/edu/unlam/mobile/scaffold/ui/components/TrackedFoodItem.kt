@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.R
 import ar.edu.unlam.mobile.scaffold.domain.model.TrackedFood
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 

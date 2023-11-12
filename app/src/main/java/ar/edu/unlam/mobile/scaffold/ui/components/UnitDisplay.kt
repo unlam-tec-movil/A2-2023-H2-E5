@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
@@ -11,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 
 @Composable
 fun UnitDisplay(
@@ -23,6 +24,7 @@ fun UnitDisplay(
     unitTextSize: TextUnit = 14.sp,
     unitColor: Color = MaterialTheme.colors.onBackground,
 ) {
+
     val spacing = LocalSpacing.current
     Row(modifier = modifier) {
         Text(

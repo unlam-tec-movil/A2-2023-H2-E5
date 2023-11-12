@@ -1,6 +1,7 @@
 package ar.edu.unlam.mobile.scaffold.data.repository
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import ar.edu.unlam.mobile.scaffold.data.local.TrackerDao
 import ar.edu.unlam.mobile.scaffold.data.mapper.toTrackableFood
@@ -18,7 +19,6 @@ class TrackerRepositoryImpl(
     private val dao: TrackerDao,
     private val api: OpenFoodApi,
 ) : TrackerRepository {
-
     override suspend fun searchFood(
         query: String,
         page: Int,

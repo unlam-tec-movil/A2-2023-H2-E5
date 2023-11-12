@@ -9,9 +9,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Size
-import ar.edu.unlam.mobile.scaffold.ui.CarbColor
-import ar.edu.unlam.mobile.scaffold.ui.FatColor
-import ar.edu.unlam.mobile.scaffold.ui.ProteinColor
+import ar.edu.unlam.mobile.scaffold.ui.theme.CarbColor
+import ar.edu.unlam.mobile.scaffold.ui.theme.FatColor
+import ar.edu.unlam.mobile.scaffold.ui.theme.ProteinColor
 
 @Composable
 fun NutrientsBar(

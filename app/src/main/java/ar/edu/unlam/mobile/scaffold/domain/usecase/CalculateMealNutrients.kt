@@ -13,6 +13,12 @@ class CalculateMealNutrients(
     private val preferences: Preferences,
 ) {
 
+    /**
+     * Agrupa las comidas seguidas por tipo en un Map,
+     * luego se obtiene la lista de comidas por cada tipo, y se calculan los nutrientes
+     * haciendo una suma de las valores encontrados.
+     * Utilizamos un Map con el tipo de comida, y como valor ponemos los datos nutricionales.
+     */
     operator fun invoke(trackedFoods: List<TrackedFood>): Result {
         val allNutrients = trackedFoods
             .groupBy { it.mealType }
@@ -69,6 +75,10 @@ class CalculateMealNutrients(
         }
     }
 
+    /**
+     * calcula un criterio calorias segun la actividad fisica del usuario y su objetivo
+     */
+
     private fun dailyCalorieRequirement(userInfo: UserInfo): Int {
         val activityFactor = when (userInfo.activityLevel) {
             is ActivityLevel.Low -> 1.2f
@@ -83,6 +93,9 @@ class CalculateMealNutrients(
         return (bmr(userInfo) * activityFactor + calorieExtra).roundToInt()
     }
 
+    /**
+     * Datos nutricionales de la comida
+     */
     data class MealNutrients(
         val carbs: Int,
         val protein: Int,
@@ -91,6 +104,9 @@ class CalculateMealNutrients(
         val mealType: MealType,
     )
 
+    /**
+     * Informacion sobre el total de lo consumido, y los objetivos.
+     */
     data class Result(
         val carbsGoal: Int,
         val proteinGoal: Int,

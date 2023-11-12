@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -25,7 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.R
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 import ar.edu.unlam.mobile.scaffold.ui.screens.Meal
 
 @Composable
@@ -35,6 +36,7 @@ fun ExpandableMeal(
     content: @Composable () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+
     val spacing = LocalSpacing.current
     val context = LocalContext.current
     Column(

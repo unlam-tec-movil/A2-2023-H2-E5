@@ -130,7 +130,7 @@ fun SearchScreen(
             state.isSearching -> CircularProgressIndicator()
             state.trackableFoods.isEmpty() -> {
                 Text(
-                    text = stringResource(id = R.string.no_results),
+                    text = stringResource(id = R.string.search),
                     style = MaterialTheme.typography.body1,
                     textAlign = TextAlign.Center,
                 )

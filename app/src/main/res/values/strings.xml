@@ -58,4 +58,8 @@
     <string name="error_not_100_percent">Los valores no pueden ser mayores a 100</string>
     <string name="your_goal">Meta:</string>
     <string name="delete">Borrar</string>
+    <string name="error_age_exceeds_limit">La edad no puede ser mayor a 99 años</string>
+    <string name="error_age_zero">La edad no puede ser cero</string>
+    <string name="error_invalid_number">Ingrese un valor admitido</string>
+    <string name="error_empty_age">La edad no puede estar vacia</string>
 </resources>

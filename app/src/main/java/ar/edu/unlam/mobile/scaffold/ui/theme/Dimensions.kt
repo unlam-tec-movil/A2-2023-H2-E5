@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.ui
+package ar.edu.unlam.mobile.scaffold.ui.theme
 
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.unit.Dp

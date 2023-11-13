@@ -21,10 +21,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.R
-import ar.edu.unlam.mobile.scaffold.ui.CarbColor
-import ar.edu.unlam.mobile.scaffold.ui.FatColor
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
-import ar.edu.unlam.mobile.scaffold.ui.ProteinColor
+import ar.edu.unlam.mobile.scaffold.ui.theme.CarbColor
+import ar.edu.unlam.mobile.scaffold.ui.theme.FatColor
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
+import ar.edu.unlam.mobile.scaffold.ui.theme.ProteinColor
 import ar.edu.unlam.mobile.scaffold.ui.screens.TrackerOverviewState
 
 @Composable
@@ -46,7 +46,7 @@ fun NutrientsHeader(
             .background(MaterialTheme.colors.primary)
             .padding(
                 horizontal = spacing.spaceLarge,
-                vertical = spacing.spaceExtraLarge,
+                vertical = spacing.spaceLarge,
             ),
     ) {
         Row(

@@ -96,7 +96,6 @@ class SearchViewModel @Inject constructor(
                 }
         }
     }
-
     private fun trackFood(event: SearchEvent.OnTrackFoodClick) {
         viewModelScope.launch {
             val uiState = state.trackableFoods.find { it.food == event.food }

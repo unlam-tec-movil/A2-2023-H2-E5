@@ -5,6 +5,9 @@ import ar.edu.unlam.mobile.scaffold.R
 import ar.edu.unlam.mobile.scaffold.core.util.UiText
 import ar.edu.unlam.mobile.scaffold.domain.model.MealType
 
+/**
+ * Atributos relacionados a los valores nutricionales del tipo de comida elegido
+ */
 data class Meal(
     val name: UiText,
     @DrawableRes val drawableRes: Int,

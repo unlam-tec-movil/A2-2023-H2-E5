@@ -2,6 +2,9 @@ package ar.edu.unlam.mobile.scaffold.domain.model
 
 import java.time.LocalDate
 
+/**
+ * Comida seguida
+ */
 data class TrackedFood(
     val name: String,
     val carbs: Int,

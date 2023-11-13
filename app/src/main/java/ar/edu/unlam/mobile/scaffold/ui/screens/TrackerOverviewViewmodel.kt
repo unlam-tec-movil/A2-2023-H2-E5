@@ -1,5 +1,7 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -17,6 +19,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@RequiresApi(Build.VERSION_CODES.O)
 @HiltViewModel
 class TrackerOverviewViewmodel @Inject constructor(
     preferences: Preferences,
@@ -36,6 +39,7 @@ class TrackerOverviewViewmodel @Inject constructor(
         preferences.saveShouldShowOnboarding(false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onEvent(event: TrackerOverviewEvent) {
         when (event) {
             is TrackerOverviewEvent.OnDeleteTrackedFoodClick -> {
@@ -70,6 +74,9 @@ class TrackerOverviewViewmodel @Inject constructor(
         }
     }
 
+    /**
+     * Devuelve las comidas seguidas por fecha
+     */
     private fun refreshFoods() {
         getFoodsForDate?.cancel()
         getFoodsForDate = trackerUseCases

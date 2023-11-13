@@ -28,7 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ar.edu.unlam.mobile.scaffold.R
 import ar.edu.unlam.mobile.scaffold.core.util.UiEvent
 import ar.edu.unlam.mobile.scaffold.domain.model.MealType
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 import ar.edu.unlam.mobile.scaffold.ui.components.SearchTextField
 import ar.edu.unlam.mobile.scaffold.ui.components.TrackableFoodItem
 import java.time.LocalDate
@@ -47,6 +47,7 @@ fun SearchScreen(
 ) {
     val spacing = LocalSpacing.current
     val state = viewModel.state
+
     val context = LocalContext.current
     val keyboardController = LocalSoftwareKeyboardController.current
     LaunchedEffect(key1 = keyboardController) {
@@ -129,7 +130,7 @@ fun SearchScreen(
             state.isSearching -> CircularProgressIndicator()
             state.trackableFoods.isEmpty() -> {
                 Text(
-                    text = stringResource(id = R.string.no_results),
+                    text = stringResource(id = R.string.search),
                     style = MaterialTheme.typography.body1,
                     textAlign = TextAlign.Center,
                 )

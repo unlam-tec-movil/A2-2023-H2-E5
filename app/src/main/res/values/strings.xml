@@ -43,8 +43,8 @@
     <string name="error_invalid_values">Valores no validos</string>
     <string name="what_are_your_nutrient_goals">Meta de nutrientes?</string>
     <string name="percent_proteins">% proteins</string>
-    <string name="percent_fats">% fats</string>
-    <string name="percent_carbs">% carbs</string>
+    <string name="percent_fats">%% fats</string>
+    <string name="percent_carbs">%% carbs</string>
     <string name="high">Alto</string>
     <string name="medium">Medio</string>
     <string name="years">Años</string>
@@ -55,7 +55,20 @@
     <string name="lose">Perder</string>
     <string name="lose_keep_or_gain_weight">Que quieres lograr con tu peso?</string>
     <string name="whats_your_activity_level">Cual es tu nivel de actividad fisica?</string>
-    <string name="error_not_100_percent">Los valores no pueden ser mayores a 100</string>
+    <string name="error_not_100_percent">Los valores no pueden ser mayores a 100%</string>
     <string name="your_goal">Meta:</string>
     <string name="delete">Borrar</string>
+    <string name="error_height_cant_be_zero">La altura no puede ser cero</string>
+    <string name="error_height_too_short">La altura no puede ser menor a 140 cm</string>
+    <string name="error_height_too_tall">La altura no puede ser mayor a 215 cm</string>
+    <string name="error_age_too_young">La edad no puede ser menor a 13</string>
+    <string name="error_age_too_old">La edad no puede ser mayor a 100</string>
+    <string name="error_weight_too_light">El peso no puede ser menor a 40 kg</string>
+    <string name="error_weight_too_heavy">El peso no puede ser mayor a 250 kg</string>
+    <string name="error_age_cant_be_zero">La edad no puede ser cero</string>
+    <string name="error_MIN_AGE">La edad no puede ser menor a 13</string>
+    <string name="error_MAX_AGE">La edad no puede ser mayor a 100</string>
+    <string name="error_MAX_weight">El peso no puede ser mayor a 500 Kg</string>
+    <string name="error_MIN_weight">El peso no puede ser menor a 40 kg</string>
+    <string name="error_weight_cant_be_zero">El peso no puede ser cero</string>
 </resources>

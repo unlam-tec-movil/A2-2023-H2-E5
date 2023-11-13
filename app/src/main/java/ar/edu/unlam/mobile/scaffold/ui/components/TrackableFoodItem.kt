@@ -42,7 +42,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.R
-import ar.edu.unlam.mobile.scaffold.ui.LocalSpacing
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 import ar.edu.unlam.mobile.scaffold.ui.screens.TrackableFoodUiState
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest

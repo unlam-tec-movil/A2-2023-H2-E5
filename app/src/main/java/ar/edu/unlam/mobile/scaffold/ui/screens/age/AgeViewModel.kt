@@ -21,9 +21,9 @@ class AgeViewModel @Inject constructor(
     private val preferences: Preferences,
     private val filterOutDigits: FilterOutDigits,
 ) : ViewModel() {
-    var age by mutableStateOf("")
+    var age by mutableStateOf("12")
         private set
-
+    private val MIN_AGE = 12
     private val MAX_AGE = 99
 
     private val _uiEvent = Channel<UiEvent>()
@@ -51,9 +51,9 @@ class AgeViewModel @Inject constructor(
                 return@launch
             }
 
-            if (ageNumber <= 0) {
+            if (ageNumber <= MIN_AGE) {
                 _uiEvent.send(
-                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_age_zero))
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_age_ten))
                 )
                 return@launch
             }

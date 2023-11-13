@@ -55,11 +55,18 @@
     <string name="lose">Perder</string>
     <string name="lose_keep_or_gain_weight">Que quieres lograr con tu peso?</string>
     <string name="whats_your_activity_level">Cual es tu nivel de actividad fisica?</string>
-    <string name="error_not_100_percent">Los valores no pueden ser mayores a 100</string>
+    <string name="error_not_100_percent">Los valores no pueden ser mayores a 100%</string>
     <string name="your_goal">Meta:</string>
     <string name="delete">Borrar</string>
     <string name="error_age_exceeds_limit">La edad no puede ser mayor a 99 años</string>
-    <string name="error_age_zero">La edad no puede ser cero</string>
+    <string name="error_age_ten">La edad no puede ser menor a 10 años</string>
     <string name="error_invalid_number">Ingrese un valor admitido</string>
     <string name="error_empty_age">La edad no puede estar vacia</string>
+    <string name="error_height_cant_be_zero">La altura no puede ser cero</string>
+    <string name="error_height_too_tall">La altura no puede ser mayor a 215 cm</string>
+    <string name="error_height_too_short">La altura no puede ser manor a 152 cm</string>
+    <string name="error_invalid_weight">Ingrese un peso valido</string>
+    <string name="error_weight_cant_be_zero">El peso no puede ser cero</string>
+    <string name="error_min_weight">El peso no puede ser menor a 40 kg</string>
+    <string name="error_max_weight">El peso no puede ser maxor a 250 kg</string>
 </resources>

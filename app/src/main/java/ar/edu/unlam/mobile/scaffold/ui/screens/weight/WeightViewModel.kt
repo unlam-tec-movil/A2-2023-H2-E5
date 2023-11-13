@@ -9,6 +9,7 @@ import ar.edu.unlam.mobile.scaffold.R
 import ar.edu.unlam.mobile.scaffold.core.util.UiEvent
 import ar.edu.unlam.mobile.scaffold.core.util.UiText
 import ar.edu.unlam.mobile.scaffold.domain.preferences.Preferences
+import ar.edu.unlam.mobile.scaffold.domain.usecase.FilterOutDigits
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -18,31 +19,58 @@ import javax.inject.Inject
 @HiltViewModel
 class WeightViewModel @Inject constructor(
     private val preferences: Preferences,
+    private val filterOutDigits: FilterOutDigits,
 ) : ViewModel() {
-    var weight by mutableStateOf("60.0")
+    var weight by mutableStateOf("40.0")
         private set
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    fun onWeightEnter(weight: String) {
-        val weightDouble= weight.toDoubleOrNull()
+    private val MIN_WEIGHT = 40.0
+    private val MAX_WEIGHT = 250.0
 
-        if (weight.length <= 5 && (weightDouble == null || weightDouble <= 300 )) {
+    fun onHeightEnter(weight: String) {
+        val weightDouble = weight.toIntOrNull()
+        if (weightDouble!= null) {
+            this.weight = filterOutDigits(weight)
+        }
+    }
+
+    suspend fun onWeightEnter(weight: String) {
+        val weightDouble = weight.toDoubleOrNull()
+        if (weight.length <= 5) {
             this.weight = weight
+        } else {
+            _uiEvent.send(
+                UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_invalid_weight)),
+            )
         }
     }
 
     fun onNextClick() {
         viewModelScope.launch {
-            val weightNumber = weight.toFloatOrNull() ?: kotlin.run {
+            val weightNumber = weight.toIntOrNull()
+            if (weightNumber == null) {
                 _uiEvent.send(
                     UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_weight_cant_be_empty)),
                 )
-                return@launch
+            } else if (weightNumber == 0) {
+                _uiEvent.send(
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_weight_cant_be_zero)),
+                )
+            } else if (weightNumber < MIN_WEIGHT) {
+                _uiEvent.send(
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_min_weight)),
+                )
+            } else if (weightNumber > MAX_WEIGHT) {
+                _uiEvent.send(
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_max_weight),
+                ))
+            } else {
+                preferences.saveHeight(weightNumber)
+                _uiEvent.send(UiEvent.Success)
             }
-            preferences.saveWeight(weightNumber)
-            _uiEvent.send(UiEvent.Success)
         }
     }
 }

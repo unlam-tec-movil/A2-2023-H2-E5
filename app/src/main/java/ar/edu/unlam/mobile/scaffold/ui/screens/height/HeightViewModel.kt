@@ -21,28 +21,44 @@ class HeightViewModel @Inject constructor(
     private val preferences: Preferences,
     private val filterOutDigits: FilterOutDigits,
 ) : ViewModel() {
-    var height by mutableStateOf("160")
+    var height by mutableStateOf("140")
         private set
+    private val MIN_HEIGHT = 140
+    private val MAX_HEIGHT = 215
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
     fun onHeightEnter(height: String) {
-        if (height.length <= 3) {
-            this.height = filterOutDigits(height)
+        val filteredHeight = filterOutDigits(height)
+        if (filteredHeight != this.height) {
+            this.height = filteredHeight
         }
     }
 
     fun onNextClick() {
         viewModelScope.launch {
-            val heightNumber = height.toIntOrNull() ?: kotlin.run {
+            val heightNumber = height.toIntOrNull()
+            if (heightNumber == null) {
                 _uiEvent.send(
                     UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_height_cant_be_empty)),
                 )
-                return@launch
+            } else if (heightNumber <= 0) {
+                _uiEvent.send(
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_height_cant_be_zero)),
+                )
+            } else if (heightNumber < MIN_HEIGHT) {
+                _uiEvent.send(
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_height_too_short)),
+                )
+            } else if (heightNumber > MAX_HEIGHT) {
+                _uiEvent.send(
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_height_too_tall)),
+                )
+            } else {
+                preferences.saveHeight(heightNumber)
+                _uiEvent.send(UiEvent.Success)
             }
-            preferences.saveHeight(heightNumber)
-            _uiEvent.send(UiEvent.Success)
         }
     }
 }

@@ -86,6 +86,9 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.11")
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11'
 
+    // Splash
+    implementation 'androidx.core:core-splashscreen:1.0.0'
+
 
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'

@@ -21,26 +21,50 @@ class AgeViewModel @Inject constructor(
     private val preferences: Preferences,
     private val filterOutDigits: FilterOutDigits,
 ) : ViewModel() {
-    var age by mutableStateOf("20")
+    var age by mutableStateOf("12")
         private set
+    private val MIN_AGE = 12
+    private val MAX_AGE = 99
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
     fun onAgeEnter(age: String) {
-        if (age.length <= 3) {
-            this.age = filterOutDigits(age)
-        }
+        val filteredAge = filterOutDigits(age)
+        this.age = filteredAge
     }
 
     fun onNextClick() {
         viewModelScope.launch {
-            val ageNumber = age.toIntOrNull() ?: kotlin.run {
+            if (age.isEmpty()) {
                 _uiEvent.send(
-                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_age_cant_be_empty)),
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_age_cant_be_empty))
                 )
                 return@launch
             }
+
+            val ageNumber = age.toIntOrNull()
+            if (ageNumber == null) {
+                _uiEvent.send(
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_invalid_number))
+                )
+                return@launch
+            }
+
+            if (ageNumber <= MIN_AGE) {
+                _uiEvent.send(
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_age_ten))
+                )
+                return@launch
+            }
+
+            if (ageNumber > MAX_AGE) {
+                _uiEvent.send(
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_age_exceeds_limit))
+                )
+                return@launch
+            }
+
             preferences.saveAge(ageNumber)
             _uiEvent.send(UiEvent.Success)
         }

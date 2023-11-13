@@ -4,7 +4,6 @@ import ar.edu.unlam.mobile.scaffold.data.remote.dto.SearchDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-
 interface OpenFoodApi {
 
     @GET("cgi/search.pl?search_simple=1&json=1&action=process&fields=product_name,nutriments,image_front_thumb_url")

@@ -30,12 +30,12 @@ class WeightViewModel @Inject constructor(
     private val MIN_WEIGHT = 40.0
     private val MAX_WEIGHT = 250.0
 
-    fun onHeightEnter(weight: String) {
+    /*fun onHeightEnter(weight: String) {
         val weightDouble = weight.toIntOrNull()
         if (weightDouble!= null) {
             this.weight = filterOutDigits(weight)
         }
-    }
+    }*/
 
     suspend fun onWeightEnter(weight: String) {
         val weightDouble = weight.toDoubleOrNull()

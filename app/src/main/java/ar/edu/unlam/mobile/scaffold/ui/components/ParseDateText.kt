@@ -8,7 +8,6 @@ import ar.edu.unlam.mobile.scaffold.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun parseDateText(
     date: LocalDate,

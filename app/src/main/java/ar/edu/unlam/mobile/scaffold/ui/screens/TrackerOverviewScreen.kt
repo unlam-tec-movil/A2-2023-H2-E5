@@ -23,7 +23,6 @@ import ar.edu.unlam.mobile.scaffold.ui.components.ExpandableMeal
 import ar.edu.unlam.mobile.scaffold.ui.components.NutrientsHeader
 import ar.edu.unlam.mobile.scaffold.ui.components.TrackedFoodItem
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TrackerOverviewScreen(
     onNavigateToSearch: (String, Int, Int, Int) -> Unit,

@@ -1,11 +1,9 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import ar.edu.unlam.mobile.scaffold.domain.model.TrackedFood
 import java.time.LocalDate
 
-data class TrackerOverviewState @RequiresApi(Build.VERSION_CODES.O) constructor(
+data class TrackerOverviewState constructor(
     val totalCarbs: Int = 0,
     val totalProtein: Int = 0,
     val totalFat: Int = 0,

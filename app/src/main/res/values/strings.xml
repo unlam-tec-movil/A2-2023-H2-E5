@@ -1,8 +1,6 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Calorie Tracker</string>
-    <string name="error_unknown">Unknown error</string>
     <string name="welcome_text">Hola! conozcamos mas sobre ti :)</string>
-    <string name="lets_go">Vamos!</string>
     <string name="whats_your_gender">Eres?</string>
     <string name="male">Hombre</string>
     <string name="female">Mujer</string>
@@ -22,8 +20,7 @@
     <string name="next_day">Siguiente dia</string>
     <string name="yesterday">Ayer</string>
     <string name="tomorrow">Mañana</string>
-    <string name="nutrient_info">%dg • %dkcal</string>
-    <string name="amount_info">%dg</string>
+    <string name="nutrient_info" tools:ignore="PluralsCandidate">%dg • %dkcal</string>
     <string name="grams">g</string>
     <string name="extend">Extend</string>
     <string name="collapse">Collapse</string>
@@ -35,11 +32,9 @@
     <string name="add">Agregar</string>
     <string name="search">Buscar...</string>
     <string name="today">Hoy</string>
-    <string name="recent">Reciente</string>
-    <string name="kcal_per_100g">%dkcal / 100g</string>
+    <string name="kcal_per_100g" tools:ignore="PluralsCandidate">%dkcal / 100g</string>
     <string name="track">Track</string>
     <string name="error_something_went_wrong">Oops, algo salio mal! :(</string>
-    <string name="no_results">Sin resultados</string>
     <string name="error_invalid_values">Valores no validos</string>
     <string name="what_are_your_nutrient_goals">Meta de nutrientes?</string>
     <string name="percent_proteins">% proteins</string>
@@ -61,10 +56,6 @@
     <string name="error_height_cant_be_zero">La altura no puede ser cero</string>
     <string name="error_height_too_short">La altura no puede ser menor a 140 cm</string>
     <string name="error_height_too_tall">La altura no puede ser mayor a 215 cm</string>
-    <string name="error_age_too_young">La edad no puede ser menor a 13</string>
-    <string name="error_age_too_old">La edad no puede ser mayor a 100</string>
-    <string name="error_weight_too_light">El peso no puede ser menor a 40 kg</string>
-    <string name="error_weight_too_heavy">El peso no puede ser mayor a 250 kg</string>
     <string name="error_age_cant_be_zero">La edad no puede ser cero</string>
     <string name="error_MIN_AGE">La edad no puede ser menor a 13</string>
     <string name="error_MAX_AGE">La edad no puede ser mayor a 100</string>

@@ -50,17 +50,14 @@ class TrackerRepositoryImpl(
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun insertTrackedFood(food: TrackedFood) {
         dao.insertTrackedFood(food.toTrackedFoodEntity())
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun deleteTrackedFood(food: TrackedFood) {
         dao.deleteTrackedFood(food.toTrackedFoodEntity())
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun getFoodsForDate(localDate: LocalDate): Flow<List<TrackedFood>> {
         return dao.getFoodsForDate(
             day = localDate.dayOfMonth,

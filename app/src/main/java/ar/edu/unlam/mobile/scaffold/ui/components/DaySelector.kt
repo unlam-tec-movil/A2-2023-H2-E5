@@ -1,7 +1,6 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -19,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import ar.edu.unlam.mobile.scaffold.R
 import java.time.LocalDate
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DaySelector(
     date: LocalDate,
@@ -26,8 +26,6 @@ fun DaySelector(
     onNextDayClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    // TODO borrar esto
-    Log.i("mytag","Se lanzo un DaySelector")
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.SpaceBetween,

@@ -1,7 +1,6 @@
 package ar.edu.unlam.mobile.scaffold.data.repository
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import ar.edu.unlam.mobile.scaffold.data.local.TrackerDao
 import ar.edu.unlam.mobile.scaffold.data.mapper.toTrackableFood
@@ -58,6 +57,7 @@ class TrackerRepositoryImpl(
         dao.deleteTrackedFood(food.toTrackedFoodEntity())
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun getFoodsForDate(localDate: LocalDate): Flow<List<TrackedFood>> {
         return dao.getFoodsForDate(
             day = localDate.dayOfMonth,

@@ -25,7 +25,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,8 +41,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.R
-import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 import ar.edu.unlam.mobile.scaffold.ui.screens.TrackableFoodUiState
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 
@@ -72,7 +71,7 @@ fun TrackableFoodItem(
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = CenterVertically,
         ) {
             Row(
                 modifier = Modifier.weight(1f),
@@ -147,7 +146,7 @@ fun TrackableFoodItem(
                     .fillMaxWidth()
                     .padding(spacing.spaceMedium),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
+                verticalAlignment = CenterVertically,
             ) {
                 Row {
                     BasicTextField(

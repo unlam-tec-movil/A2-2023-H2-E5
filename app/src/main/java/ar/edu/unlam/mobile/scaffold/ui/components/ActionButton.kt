@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button

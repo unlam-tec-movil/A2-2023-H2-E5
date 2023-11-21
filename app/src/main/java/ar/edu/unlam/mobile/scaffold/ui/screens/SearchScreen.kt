@@ -1,5 +1,7 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,6 +33,7 @@ import ar.edu.unlam.mobile.scaffold.ui.components.TrackableFoodItem
 import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 import java.time.LocalDate
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SearchScreen(
@@ -127,7 +130,7 @@ fun SearchScreen(
             state.isSearching -> CircularProgressIndicator()
             state.trackableFoods.isEmpty() -> {
                 Text(
-                    text = stringResource(id = R.string.no_results),
+                    text = stringResource(id = R.string.search),
                     style = MaterialTheme.typography.body1,
                     textAlign = TextAlign.Center,
                 )

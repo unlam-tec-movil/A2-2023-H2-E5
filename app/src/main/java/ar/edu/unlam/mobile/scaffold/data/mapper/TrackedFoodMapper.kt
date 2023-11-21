@@ -1,5 +1,7 @@
 package ar.edu.unlam.mobile.scaffold.data.mapper
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import ar.edu.unlam.mobile.scaffold.data.local.entity.TrackedFoodEntity
 import ar.edu.unlam.mobile.scaffold.domain.model.MealType
 import ar.edu.unlam.mobile.scaffold.domain.model.TrackedFood

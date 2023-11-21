@@ -17,7 +17,7 @@ private val DarkColorPalette = darkColors(
     surface = LightGray,
     onSurface = TextWhite,
     onPrimary = Color.White,
-    onSecondary = Color.White
+    onSecondary = Color.White,
 )
 
 private val LightColorPalette = lightColors(
@@ -29,15 +29,15 @@ private val LightColorPalette = lightColors(
     surface = Color.White,
     onSurface = DarkGray,
     onPrimary = Color.White,
-    onSecondary = Color.White
+    onSecondary = Color.White,
 )
 
 @Composable
 fun CalorieTrackerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content:
-        @Composable
-        () -> Unit
+    @Composable
+    () -> Unit,
 ) {
     val colors = if (darkTheme) {
         DarkColorPalette
@@ -49,7 +49,7 @@ fun CalorieTrackerTheme(
             colors = colors,
             typography = Typography,
             shapes = Shapes,
-            content = content
+            content = content,
         )
     }
 }

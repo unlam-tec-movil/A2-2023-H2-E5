@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffold.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -30,6 +31,7 @@ fun AddButton(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colors.primary,
 ) {
+
     val spacing = LocalSpacing.current
     Row(
         modifier = modifier

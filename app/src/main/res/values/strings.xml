@@ -22,7 +22,7 @@
     <string name="next_day">Siguiente dia</string>
     <string name="yesterday">Ayer</string>
     <string name="tomorrow">Mañana</string>
-    <string name="nutrient_info" tools:ignore="PluralsCandidate">%dg • %dkcal</string>
+
     <string name="amount_info" tools:keep="@string/amount_info">%dg</string>
     <string name="nutrient_info" tools:ignore="PluralsCandidate">%dg • %dkcal</string>
     <string name="grams">g</string>
@@ -36,7 +36,7 @@
     <string name="add">Agregar</string>
     <string name="search">Buscar…</string>
     <string name="today">Hoy</string>
-    <string name="kcal_per_100g" tools:ignore="PluralsCandidate">%dkcal / 100g</string>
+
     <string name="recent" tools:keep="@string/recent">Reciente</string>
     <string name="kcal_per_100g" tools:ignore="PluralsCandidate">%dkcal / 100g</string>
     <string name="track">Track</string>

@@ -15,7 +15,6 @@ import ar.edu.unlam.mobile.scaffold.core.util.UiText
 import ar.edu.unlam.mobile.scaffold.domain.preferences.Preferences
 import javax.inject.Inject
 
-
 @HiltViewModel
 class WeightViewModel @Inject constructor(
     private val preferences: Preferences,
@@ -34,7 +33,7 @@ class WeightViewModel @Inject constructor(
 
     fun onWeightEnter(weight: String) {
         val filteredWeight = filterOutNonNumeric(weight)
-        if (filteredWeight != this.weight && weight.length <=5) {
+        if (filteredWeight != this.weight && weight.length <= 5) {
             this.weight = filteredWeight
         } else {
             // Asigna una cadena vacía si el resultado del filtrado es igual al valor actual

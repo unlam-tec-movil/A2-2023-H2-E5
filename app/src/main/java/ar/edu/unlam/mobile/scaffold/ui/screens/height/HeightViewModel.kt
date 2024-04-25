@@ -31,7 +31,7 @@ class HeightViewModel @Inject constructor(
 
     fun onHeightEnter(height: String) {
         val filteredHeight = filterOutDigits(height)
-        if (filteredHeight != this.height && height.length<=3) {
+        if (filteredHeight != this.height && height.length <= 3) {
             this.height = filteredHeight
         }
     }

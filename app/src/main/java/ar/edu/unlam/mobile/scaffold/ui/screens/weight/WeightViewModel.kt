@@ -19,28 +19,51 @@ import javax.inject.Inject
 class WeightViewModel @Inject constructor(
     private val preferences: Preferences,
 ) : ViewModel() {
-    var weight by mutableStateOf("60.0")
+    var weight by mutableStateOf("40.00")
         private set
+    private val MIN_WEIGHT = 40.00
+    private val MAX_WEIGHT = 500.00
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
+    private fun filterOutNonNumeric(input: String): String {
+        return input.filter { it.isDigit() || it == '.' }
+    }
+
     fun onWeightEnter(weight: String) {
-        if (weight.length <= 5) {
-            this.weight = weight
+        val filteredWeight = filterOutNonNumeric(weight)
+        if (filteredWeight != this.weight && weight.length <= 5) {
+            this.weight = filteredWeight
+        } else {
+            // Asigna una cadena vacía si el resultado del filtrado es igual al valor actual
+            this.weight = ""
         }
     }
 
     fun onNextClick() {
         viewModelScope.launch {
-            val weightNumber = weight.toFloatOrNull() ?: kotlin.run {
+            val weightNumber = weight.toDoubleOrNull()
+            if (weightNumber == null) {
                 _uiEvent.send(
                     UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_weight_cant_be_empty)),
                 )
-                return@launch
+            } else if (weightNumber <= 0) {
+                _uiEvent.send(
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_weight_cant_be_zero)),
+                )
+            } else if (weightNumber < MIN_WEIGHT) {
+                _uiEvent.send(
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_min_weight)),
+                )
+            } else if (weightNumber > MAX_WEIGHT) {
+                _uiEvent.send(
+                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_max_weight)),
+                )
+            } else {
+                preferences.saveWeight(weightNumber.toFloat())
+                _uiEvent.send(UiEvent.Success)
             }
-            preferences.saveWeight(weightNumber)
-            _uiEvent.send(UiEvent.Success)
         }
     }
 }

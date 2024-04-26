@@ -20,17 +20,13 @@ import javax.inject.Inject
 class StepsViewModel @Inject constructor(
     private val preferences: Preferences,
     private val filterOutDigits: FilterOutDigits,
-    ) : ViewModel() {
-    var step by mutableStateOf ("100")
+) : ViewModel() {
+    var step by mutableStateOf("100")
         private set
     private val minStep = 100
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
-
-    //private fun filterOutNonNumeric(input: String): String {
-      //  return input.filter { it.isDigit() || it == '.' }
-    //}
 
     fun onStepEnter(step: String) {
         val filteredStep = filterOutDigits(step)
@@ -56,8 +52,10 @@ class StepsViewModel @Inject constructor(
                 _uiEvent.send(
                     UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_min_step)),
                 )
-            }  else {
+            } else {
                 preferences.saveStepsGoals(stepNumber.toInt())
                 _uiEvent.send(UiEvent.Success)
             }
-        } } }
+        }
+    }
+}

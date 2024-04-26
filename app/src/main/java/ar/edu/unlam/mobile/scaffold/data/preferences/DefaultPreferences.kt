@@ -81,7 +81,7 @@ class DefaultPreferences(
             carbRatio = sharedPref.getFloat(Preferences.KEY_CARB_RATIO, -1f),
             proteinRatio = sharedPref.getFloat(Preferences.KEY_PROTEIN_RATIO, -1f),
             fatRatio = sharedPref.getFloat(Preferences.KEY_FAT_RATIO, -1f),
-            steps= sharedPref.getInt(Preferences.KEY_STEP, -1)
+            steps = sharedPref.getInt(Preferences.KEY_STEP, -1)
         )
     }
 

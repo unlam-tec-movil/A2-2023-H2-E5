@@ -6,6 +6,7 @@ object Route {
     const val GENDER = "gender"
     const val HEIGHT = "height"
     const val WEIGHT = "weight"
+    const val STEP = "steps"
     const val NUTRIENT_GOAL = "nutrient_goal"
     const val ACTIVITY = "activity"
     const val GOAL = "goal"

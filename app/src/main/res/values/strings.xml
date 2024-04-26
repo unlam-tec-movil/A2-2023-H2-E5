@@ -70,4 +70,9 @@
     <string name="error_MIN_AGE">La edad no puede ser menor a 13</string>
     <string name="error_MAX_AGE">La edad no puede ser mayor a 100</string>
     <string name="error_age_cant_be_zero">La edad no puede ser 0</string>
+    <string name="whats_your_step">Cuántos pasos quieres hacer por día?</string>
+    <string name="steps">Pasos</string>
+    <string name="error_step_cant_be_empty">No puede estar vacío</string>
+    <string name="error_step_cant_be_zero">Los pasos no pueden ser 0</string>
+    <string name="error_min_step">Los pasos no pueden ser menores a 100</string>
 </resources>

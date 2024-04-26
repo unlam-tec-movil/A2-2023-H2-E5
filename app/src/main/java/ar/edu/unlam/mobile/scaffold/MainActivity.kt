@@ -23,6 +23,7 @@ import ar.edu.unlam.mobile.scaffold.ui.screens.gender.GenderScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.goal.GoalScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.height.HeightScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.nutrientgoal.NutrientGoalScreen
+import ar.edu.unlam.mobile.scaffold.ui.screens.steps.StepScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.weight.WeightScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.welcome.WelcomeScreen
 import ar.edu.unlam.mobile.scaffold.ui.theme.CalorieTrackerTheme
@@ -79,6 +80,14 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(Route.WEIGHT) {
                             WeightScreen(
+                                scaffoldState = scaffoldState,
+                                onNextClick = {
+                                    navController.navigate(Route.STEP)
+                                },
+                            )
+                        }
+                        composable(Route.STEP) {
+                            StepScreen(
                                 scaffoldState = scaffoldState,
                                 onNextClick = {
                                     navController.navigate(Route.ACTIVITY)

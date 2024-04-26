@@ -81,6 +81,7 @@ class DefaultPreferences(
             carbRatio = sharedPref.getFloat(Preferences.KEY_CARB_RATIO, -1f),
             proteinRatio = sharedPref.getFloat(Preferences.KEY_PROTEIN_RATIO, -1f),
             fatRatio = sharedPref.getFloat(Preferences.KEY_FAT_RATIO, -1f),
+            steps= sharedPref.getInt(Preferences.KEY_STEP, -1)
         )
     }
 
@@ -92,5 +93,11 @@ class DefaultPreferences(
 
     override fun loadShouldShowOnboarding(): Boolean {
         return sharedPref.getBoolean(Preferences.KEY_SHOULD_SHOW_ONBOARDING, true)
+    }
+
+    override fun saveStepsGoals(step: Int) {
+        sharedPref.edit()
+            .putInt(Preferences.KEY_STEP, step)
+            .apply()
     }
 }

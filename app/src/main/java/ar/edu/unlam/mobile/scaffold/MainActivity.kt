@@ -117,12 +117,16 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(Route.TRACKER_OVERVIEW) {
-                            TrackerOverviewScreen(onNavigateToSearch = { mealName, day, month, year ->
-                                navController.navigate(
-                                    Route.SEARCH +
-                                        "/$mealName" + "/$day" + "/$month" + "/$year",
-                                )
-                            })
+                            TrackerOverviewScreen(
+                                onNavigateToSearch = { mealName, day, month, year ->
+                                    navController.navigate(
+                                        Route.SEARCH +
+                                                "/$mealName" + "/$day" + "/$month" + "/$year",
+                                    )
+                                },
+                                onTabSelected = {},
+                                selectedTabIndex = 0
+                            )
                         }
                         composable(
                             route = Route.SEARCH + "/{mealName}/{dayOfMonth}/{month}/{year}",

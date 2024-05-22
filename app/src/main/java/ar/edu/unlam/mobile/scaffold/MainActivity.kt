@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffold
 
+import CustomBottomNavigation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,6 +15,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import ar.edu.unlam.mobile.scaffold.domain.preferences.Preferences
+import ar.edu.unlam.mobile.scaffold.navigation.AppState
+import ar.edu.unlam.mobile.scaffold.navigation.NavigationScreen
 import ar.edu.unlam.mobile.scaffold.navigation.Route
 import ar.edu.unlam.mobile.scaffold.ui.screens.SearchScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.TrackerOverviewScreen
@@ -22,7 +25,9 @@ import ar.edu.unlam.mobile.scaffold.ui.screens.age.AgeScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.gender.GenderScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.goal.GoalScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.height.HeightScreen
+import ar.edu.unlam.mobile.scaffold.ui.screens.home.HomeScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.nutrientgoal.NutrientGoalScreen
+import ar.edu.unlam.mobile.scaffold.ui.screens.profile.ProfileScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.steps.StepScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.weight.WeightScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.welcome.WelcomeScreen
@@ -43,13 +48,23 @@ class MainActivity : ComponentActivity() {
             CalorieTrackerTheme {
                 val navController = rememberNavController()
                 val scaffoldState = rememberScaffoldState()
+                val bottomBarScreens = listOf(NavigationScreen.Home, NavigationScreen.Search, NavigationScreen.Profile)
+                val appState = AppState(navController, bottomBarScreens)
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     scaffoldState = scaffoldState,
+                    bottomBar = {
+                        if (appState.shouldShowBottomBar) {
+                            CustomBottomNavigation(
+                                items = bottomBarScreens,
+                                navController = navController,
+                            )
+                        }
+                    },
                 ) { padding ->
                     NavHost(
                         navController = navController,
-                        startDestination = if (shouldShowOnboarding) Route.WELCOME else Route.TRACKER_OVERVIEW,
+                        startDestination = if (shouldShowOnboarding) Route.WELCOME else Route.HOME,
                         modifier = Modifier.padding(padding),
                     ) {
                         composable(Route.WELCOME) {
@@ -112,7 +127,7 @@ class MainActivity : ComponentActivity() {
                             NutrientGoalScreen(
                                 scaffoldState = scaffoldState,
                                 onNextClick = {
-                                    navController.navigate(Route.TRACKER_OVERVIEW)
+                                    navController.navigate(Route.HOME)
                                 },
                             )
                         }
@@ -121,11 +136,9 @@ class MainActivity : ComponentActivity() {
                                 onNavigateToSearch = { mealName, day, month, year ->
                                     navController.navigate(
                                         Route.SEARCH +
-                                                "/$mealName" + "/$day" + "/$month" + "/$year",
+                                            "/$mealName" + "/$day" + "/$month" + "/$year",
                                     )
                                 },
-                                onTabSelected = {},
-                                selectedTabIndex = 0
                             )
                         }
                         composable(
@@ -159,6 +172,12 @@ class MainActivity : ComponentActivity() {
                                     navController.navigateUp()
                                 },
                             )
+                        }
+                        composable(Route.HOME) {
+                            HomeScreen(modifier = Modifier.padding(padding))
+                        }
+                        composable(Route.PROFILE) {
+                            ProfileScreen(modifier = Modifier.padding(padding))
                         }
                     }
                 }

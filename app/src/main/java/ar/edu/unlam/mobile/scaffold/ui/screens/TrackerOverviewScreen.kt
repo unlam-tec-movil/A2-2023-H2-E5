@@ -29,8 +29,11 @@ fun TrackerOverviewScreen(
     val spacing = LocalSpacing.current
     val state = viewmodel.state
     val context = LocalContext.current
+
     LazyColumn(
-        modifier = Modifier.fillMaxSize().padding(bottom = spacing.spaceMedium),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = spacing.spaceMedium),
     ) {
         item {
             NutrientsHeader(state = state)
@@ -43,7 +46,9 @@ fun TrackerOverviewScreen(
                 onNextDayClick = {
                     viewmodel.onEvent(TrackerOverviewEvent.OnNextDayClick)
                 },
-                modifier = Modifier.fillMaxWidth().padding(horizontal = spacing.spaceMedium),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = spacing.spaceMedium),
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
         }
@@ -55,7 +60,9 @@ fun TrackerOverviewScreen(
                 },
                 content = {
                     Column(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = spacing.spaceSmall),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = spacing.spaceSmall),
                     ) {
                         val foods = state.trackedFoods.filter {
                             it.mealType == meal.mealType

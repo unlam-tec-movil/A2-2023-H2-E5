@@ -75,4 +75,7 @@
     <string name="error_step_cant_be_empty">No puede estar vacío</string>
     <string name="error_step_cant_be_zero">Los pasos no pueden ser 0</string>
     <string name="error_min_step">Los pasos no pueden ser menores a 100</string>
+    <string name="profile">Perfil</string>
+    <string name="home">Home</string>
+    <string name="map">Mapa</string>
 </resources>

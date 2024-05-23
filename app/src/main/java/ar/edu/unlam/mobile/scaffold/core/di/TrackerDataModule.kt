@@ -18,7 +18,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
-import kotlin.time.Duration
 
 @Module
 @InstallIn(SingletonComponent::class)

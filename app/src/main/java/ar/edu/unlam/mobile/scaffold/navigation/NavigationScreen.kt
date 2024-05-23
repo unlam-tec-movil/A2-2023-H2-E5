@@ -14,9 +14,9 @@ sealed class NavigationScreen(
     val route: String,
 ) {
     object Home : NavigationScreen(Icons.Default.Home, R.string.home, Route.HOME)
-    object Search : NavigationScreen(Icons.Default.Search, R.string.search, Route.TRACKER_OVERVIEW) //Cambiar ruta por la pantalla de Busqueda
+    object Search : NavigationScreen(Icons.Default.Search, R.string.search, Route.TRACKER_OVERVIEW) // Cambiar ruta por la pantalla de Busqueda
     object Profile : NavigationScreen(Icons.Default.Person, R.string.profile, Route.PROFILE)
     object Map : NavigationScreen(Icons.Default.Place, R.string.map, Route.MAP)
 
-    //Agregar pantalla de comidas y tracker
+    // Agregar pantalla de comidas y tracker
 }

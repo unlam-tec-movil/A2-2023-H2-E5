@@ -37,7 +37,7 @@ fun CustomBottomNavigation(
                 },
                 label = { Text(text = stringResource(item.title)) },
                 selected = currentRoute == item.route,
-                onClick = { navController.navigate(item.route) },
+                onClick = { if (currentRoute == item.route) { } else { navController.navigate(item.route) } },
             )
         }
     }

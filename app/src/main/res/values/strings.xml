@@ -77,4 +77,5 @@
     <string name="error_min_step">Los pasos no pueden ser menores a 100</string>
     <string name="profile">Perfil</string>
     <string name="home">Home</string>
+    <string name="map">Mapa</string>
 </resources>

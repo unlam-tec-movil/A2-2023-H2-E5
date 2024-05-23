@@ -15,4 +15,5 @@ object Route {
     const val SEARCH = "search"
     const val HOME = "home"
     const val PROFILE = "profile"
+    const val MAP = "map"
 }

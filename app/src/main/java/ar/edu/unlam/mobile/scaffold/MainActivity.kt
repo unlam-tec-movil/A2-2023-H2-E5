@@ -49,7 +49,13 @@ class MainActivity : ComponentActivity() {
             CalorieTrackerTheme {
                 val navController = rememberNavController()
                 val scaffoldState = rememberScaffoldState()
-                val bottomBarScreens = listOf(NavigationScreen.Home, NavigationScreen.Search, NavigationScreen.Map, NavigationScreen.Profile)
+                val bottomBarScreens = listOf(
+                    NavigationScreen.Home,
+                    NavigationScreen.Search,
+                    NavigationScreen.Food,
+                    NavigationScreen.Map,
+                    NavigationScreen.Profile
+                )
                 val appState = AppState(navController, bottomBarScreens)
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -137,7 +143,7 @@ class MainActivity : ComponentActivity() {
                                 onNavigateToSearch = { mealName, day, month, year ->
                                     navController.navigate(
                                         Route.SEARCH +
-                                            "/$mealName" + "/$day" + "/$month" + "/$year",
+                                                "/$mealName" + "/$day" + "/$month" + "/$year",
                                     )
                                 },
                             )
@@ -183,9 +189,18 @@ class MainActivity : ComponentActivity() {
                         composable(Route.MAP) {
                             MapScreen(modifier = Modifier.padding(padding))
                         }
+                        composable(Route.SEARCH) {
+                            SearchScreen(
+                                scaffoldState = scaffoldState,
+                                mealName = "Comida",
+                                dayOfMonth = 26,
+                                month = 5,
+                                year = 2024,
+                                onNavigateUp = { })
+                        }
                     }
                 }
             }
         }
-    }
-}
+    }}
+

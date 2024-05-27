@@ -1,6 +1,7 @@
 package ar.edu.unlam.mobile.scaffold.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Place
@@ -14,8 +15,9 @@ sealed class NavigationScreen(
     val route: String,
 ) {
     object Home : NavigationScreen(Icons.Default.Home, R.string.home, Route.HOME)
-    object Search : NavigationScreen(Icons.Default.Search, R.string.search, Route.TRACKER_OVERVIEW) // Cambiar ruta por la pantalla de Busqueda
+    object Search : NavigationScreen(Icons.Default.Search, R.string.search, Route.SEARCH)
     object Profile : NavigationScreen(Icons.Default.Person, R.string.profile, Route.PROFILE)
+    object Food : NavigationScreen(Icons.Default.Favorite, R.string.food, Route.TRACKER_OVERVIEW)
     object Map : NavigationScreen(Icons.Default.Place, R.string.map, Route.MAP)
 
     // Agregar pantalla de comidas y tracker

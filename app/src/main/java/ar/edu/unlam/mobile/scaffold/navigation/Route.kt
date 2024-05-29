@@ -16,5 +16,5 @@ object Route {
     const val HOME = "home"
     const val PROFILE = "profile"
     const val MAP = "map"
-    const val SEARCHBAR= "search_navigation"
+    const val SEARCHBAR = "search_navigation"
 }

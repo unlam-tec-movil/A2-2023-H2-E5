@@ -143,8 +143,7 @@ class MainActivity : ComponentActivity() {
                             TrackerOverviewScreen(
                                 onNavigateToSearch = { mealName, day, month, year ->
                                     navController.navigate(
-                                        Route.SEARCH +
-                                                "/$mealName" + "/$day" + "/$month" + "/$year",
+                                        Route.SEARCH + "/$mealName" + "/$day" + "/$month" + "/$year",
                                     )
                                 },
                             )
@@ -190,18 +189,21 @@ class MainActivity : ComponentActivity() {
                         composable(Route.MAP) {
                             MapScreen(modifier = Modifier.padding(padding))
                         }
-                        composable(Route.SEARCHBAR){
+                        composable(Route.SEARCHBAR) {
                             SearchBarNavigation(
                                 scaffoldState = scaffoldState,
                                 mealName = "comida",
                                 dayOfMonth = 29,
                                 month = 5,
                                 year = 2024,
-                                onNavigateUp = {navController.navigate(Route.TRACKER_OVERVIEW)})
+                                onNavigateUp = {
+                                    navController.navigate(Route.TRACKER_OVERVIEW)
+                                },
+                            )
                         }
                     }
                 }
             }
         }
-    }}
-
+    }
+}

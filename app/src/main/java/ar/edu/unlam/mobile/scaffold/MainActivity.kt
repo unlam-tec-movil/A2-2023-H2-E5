@@ -29,6 +29,7 @@ import ar.edu.unlam.mobile.scaffold.ui.screens.home.HomeScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.map.MapScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.nutrientgoal.NutrientGoalScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.profile.ProfileScreen
+import ar.edu.unlam.mobile.scaffold.ui.screens.search.SearchBarNavigation
 import ar.edu.unlam.mobile.scaffold.ui.screens.steps.StepScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.weight.WeightScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.welcome.WelcomeScreen
@@ -189,14 +190,14 @@ class MainActivity : ComponentActivity() {
                         composable(Route.MAP) {
                             MapScreen(modifier = Modifier.padding(padding))
                         }
-                        composable(Route.SEARCH) {
-                            SearchScreen(
+                        composable(Route.SEARCHBAR){
+                            SearchBarNavigation(
                                 scaffoldState = scaffoldState,
-                                mealName = "Comida",
-                                dayOfMonth = 26,
+                                mealName = "comida",
+                                dayOfMonth = 29,
                                 month = 5,
                                 year = 2024,
-                                onNavigateUp = { })
+                                onNavigateUp = {navController.navigate(Route.TRACKER_OVERVIEW)})
                         }
                     }
                 }

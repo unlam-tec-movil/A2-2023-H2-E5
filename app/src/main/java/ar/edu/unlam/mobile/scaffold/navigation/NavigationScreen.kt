@@ -15,7 +15,7 @@ sealed class NavigationScreen(
     val route: String,
 ) {
     object Home : NavigationScreen(Icons.Default.Home, R.string.home, Route.HOME)
-    object Search : NavigationScreen(Icons.Default.Search, R.string.search, Route.SEARCH)
+    object Search : NavigationScreen(Icons.Default.Search, R.string.search, Route.SEARCHBAR)
     object Profile : NavigationScreen(Icons.Default.Person, R.string.profile, Route.PROFILE)
     object Food : NavigationScreen(Icons.Default.Favorite, R.string.food, Route.TRACKER_OVERVIEW)
     object Map : NavigationScreen(Icons.Default.Place, R.string.map, Route.MAP)

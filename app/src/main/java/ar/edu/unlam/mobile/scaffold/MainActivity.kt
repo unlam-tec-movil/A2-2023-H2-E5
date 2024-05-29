@@ -29,6 +29,7 @@ import ar.edu.unlam.mobile.scaffold.ui.screens.home.HomeScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.map.MapScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.nutrientgoal.NutrientGoalScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.profile.ProfileScreen
+import ar.edu.unlam.mobile.scaffold.ui.screens.search.SearchBarNavigation
 import ar.edu.unlam.mobile.scaffold.ui.screens.steps.StepScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.weight.WeightScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.welcome.WelcomeScreen
@@ -49,7 +50,13 @@ class MainActivity : ComponentActivity() {
             CalorieTrackerTheme {
                 val navController = rememberNavController()
                 val scaffoldState = rememberScaffoldState()
-                val bottomBarScreens = listOf(NavigationScreen.Home, NavigationScreen.Search, NavigationScreen.Map, NavigationScreen.Profile)
+                val bottomBarScreens = listOf(
+                    NavigationScreen.Home,
+                    NavigationScreen.Search,
+                    NavigationScreen.Food,
+                    NavigationScreen.Map,
+                    NavigationScreen.Profile
+                )
                 val appState = AppState(navController, bottomBarScreens)
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -136,8 +143,7 @@ class MainActivity : ComponentActivity() {
                             TrackerOverviewScreen(
                                 onNavigateToSearch = { mealName, day, month, year ->
                                     navController.navigate(
-                                        Route.SEARCH +
-                                            "/$mealName" + "/$day" + "/$month" + "/$year",
+                                        Route.SEARCH + "/$mealName" + "/$day" + "/$month" + "/$year",
                                     )
                                 },
                             )
@@ -182,6 +188,18 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(Route.MAP) {
                             MapScreen(modifier = Modifier.padding(padding))
+                        }
+                        composable(Route.SEARCHBAR) {
+                            SearchBarNavigation(
+                                scaffoldState = scaffoldState,
+                                mealName = "comida",
+                                dayOfMonth = 29,
+                                month = 5,
+                                year = 2024,
+                                onNavigateUp = {
+                                    navController.navigate(Route.TRACKER_OVERVIEW)
+                                },
+                            )
                         }
                     }
                 }

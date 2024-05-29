@@ -24,7 +24,7 @@ fun CustomBottomNavigation(
 
     BottomNavigation(
         modifier = Modifier.height(56.dp),
-        backgroundColor = MaterialTheme.colors.primary,
+        backgroundColor = MaterialTheme.colors.primaryVariant,
         contentColor = MaterialTheme.colors.onPrimary,
     ) {
         items.forEach { item ->

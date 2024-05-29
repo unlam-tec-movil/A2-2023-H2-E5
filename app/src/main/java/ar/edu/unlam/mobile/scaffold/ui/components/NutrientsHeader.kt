@@ -43,7 +43,7 @@ fun NutrientsHeader(
                     bottomEnd = 50.dp,
                 ),
             )
-            .background(MaterialTheme.colors.primary)
+            .background(MaterialTheme.colors.primaryVariant)
             .padding(
                 horizontal = spacing.spaceLarge,
                 vertical = spacing.spaceExtraLarge,

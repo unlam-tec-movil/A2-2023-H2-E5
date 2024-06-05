@@ -71,7 +71,7 @@
     <string name="error_MAX_AGE">La edad no puede ser mayor a 100</string>
     <string name="error_age_cant_be_zero">La edad no puede ser 0</string>
     <string name="whats_your_step">Cuántos pasos quieres hacer por día?</string>
-    <string name="steps">Pasos</string>
+    <string name="steps">Steps</string>
     <string name="error_step_cant_be_empty">No puede estar vacío</string>
     <string name="error_step_cant_be_zero">Los pasos no pueden ser 0</string>
     <string name="error_min_step">Los pasos no pueden ser menores a 100</string>
@@ -79,4 +79,12 @@
     <string name="home">Home</string>
     <string name="map">Mapa</string>
     <string name="food">Comidas</string>
+    <string name="steps_unit">Pasos</string>
+    <string name="water">Water</string>
+    <string name="ml">ml</string>
+    <string name="enter_name">Coloque su nombre</string>
+    <string name="first_name">nombre</string>
+    <string name="last_name">coloque su apellido</string>
+
+
 </resources>

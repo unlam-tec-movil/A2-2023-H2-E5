@@ -1,6 +1,8 @@
 package ar.edu.unlam.mobile.scaffold
 
 import CustomBottomNavigation
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -43,6 +45,7 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var preferences: Preferences
 
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val shouldShowOnboarding = preferences.loadShouldShowOnboarding()
@@ -187,7 +190,9 @@ class MainActivity : ComponentActivity() {
                             ProfileScreen(modifier = Modifier.padding(padding))
                         }
                         composable(Route.MAP) {
-                            MapScreen(modifier = Modifier.padding(padding))
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                                MapScreen(modifier = Modifier.padding(padding))
+                            }
                         }
                         composable(Route.SEARCHBAR) {
                             SearchBarNavigation(

@@ -4,6 +4,24 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- Permiso de notificaciones -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <!-- Permiso de Camara -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <!-- Permiso de uso en false-->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature android:name="android.hardware.screen.portrait" />
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.sensor.gyroscope"
+        android:required="false" />
+
 
     <application
         android:name=".CalorieTrackerApp"
@@ -16,6 +34,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCfcwo2LEBJ11aiW3bxZ9tUujYULXI-GN8" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

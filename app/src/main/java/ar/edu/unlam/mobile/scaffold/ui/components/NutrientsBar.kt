@@ -12,6 +12,9 @@ import androidx.compose.ui.geometry.Size
 import ar.edu.unlam.mobile.scaffold.ui.theme.CarbColor
 import ar.edu.unlam.mobile.scaffold.ui.theme.FatColor
 import ar.edu.unlam.mobile.scaffold.ui.theme.ProteinColor
+import ar.edu.unlam.mobile.scaffold.ui.theme.StepsColor
+import ar.edu.unlam.mobile.scaffold.ui.theme.WaterColor
+
 
 @Composable
 fun NutrientsBar(
@@ -19,7 +22,11 @@ fun NutrientsBar(
     protein: Int,
     fat: Int,
     calories: Int,
+    steps: Int,
+    water:Int,
     calorieGoal: Int,
+    stepsGoal:Int,
+    waterGoal:Int,
     modifier: Modifier = Modifier,
 ) {
     val background = MaterialTheme.colors.background
@@ -31,6 +38,12 @@ fun NutrientsBar(
         Animatable(0f)
     }
     val fatWidthRatio = remember {
+        Animatable(0f)
+    }
+    val stepsWidthRatio = remember {
+        Animatable(0f)
+    }
+    val waterWidthRatio = remember {
         Animatable(0f)
     }
     LaunchedEffect(key1 = carbs) {
@@ -48,16 +61,31 @@ fun NutrientsBar(
             targetValue = (fat * 9f / calorieGoal),
         )
     }
+    LaunchedEffect(key1 = steps) {
+        stepsWidthRatio.animateTo(
+            targetValue = (steps.toFloat() / stepsGoal.toFloat()),
+        )
+    }
+    LaunchedEffect(key1 = water) {
+        waterWidthRatio.animateTo(
+            targetValue = (water.toFloat() / waterGoal.toFloat()),
+        )
+    }
     Canvas(modifier = modifier) {
         if (calories <= calorieGoal) {
             val carbsWidth = carbWidthRatio.value * size.width
             val proteinWidth = proteinWidthRatio.value * size.width
             val fatWidth = fatWidthRatio.value * size.width
+            val stepsWidth = stepsWidthRatio.value * size.width
+            val waterWidth = waterWidthRatio.value * size.width
+
             drawRoundRect(
                 color = background,
                 size = size,
                 cornerRadius = CornerRadius(100f),
             )
+
+            // Dibuja la barra de progreso de calorías
             drawRoundRect(
                 color = FatColor,
                 size = Size(
@@ -82,6 +110,26 @@ fun NutrientsBar(
                 ),
                 cornerRadius = CornerRadius(100f),
             )
+
+            // Dibuja la barra de progreso de pasos
+            drawRoundRect(
+                color = StepsColor,
+                size = Size(
+                    width = stepsWidth,
+                    height = size.height,
+                ),
+                cornerRadius = CornerRadius(100f),
+            )
+
+            // Dibuja la barra de progreso de agua
+            drawRoundRect(
+                color = WaterColor,
+                size = Size(
+                    width = waterWidth,
+                    height = size.height,
+                ),
+                cornerRadius = CornerRadius(100f),
+            )
         } else {
             drawRoundRect(
                 color = caloriesExceedColor,
@@ -90,4 +138,5 @@ fun NutrientsBar(
             )
         }
     }
+
 }

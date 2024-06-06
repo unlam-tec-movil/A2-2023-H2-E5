@@ -1,7 +1,6 @@
 package ar.edu.unlam.mobile.scaffold
 
 import CustomBottomNavigation
-import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -45,7 +44,6 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var preferences: Preferences
 
-    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val shouldShowOnboarding = preferences.loadShouldShowOnboarding()

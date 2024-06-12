@@ -17,4 +17,5 @@ object Route {
     const val PROFILE = "profile"
     const val MAP = "map"
     const val SEARCHBAR = "search_navigation"
+    const val CAMERA = "camera"
 }

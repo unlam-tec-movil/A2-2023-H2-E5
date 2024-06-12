@@ -4,9 +4,9 @@ package ar.edu.unlam.mobile.scaffold.domain.model
  * Nivel de actividad
  */
 sealed class ActivityLevel(val name: String) {
-    object Low : ActivityLevel("low")
-    object Medium : ActivityLevel("medium")
-    object High : ActivityLevel("high")
+    object Low : ActivityLevel("Baja")
+    object Medium : ActivityLevel("Media")
+    object High : ActivityLevel("Alta")
 
     companion object {
         fun fromString(name: String): ActivityLevel {

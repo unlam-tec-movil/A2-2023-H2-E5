@@ -28,6 +28,7 @@ import ar.edu.unlam.mobile.scaffold.ui.screens.height.HeightScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.home.HomeScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.map.MapScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.nutrientgoal.NutrientGoalScreen
+import ar.edu.unlam.mobile.scaffold.ui.screens.profile.CameraScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.profile.ProfileScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.search.SearchBarNavigation
 import ar.edu.unlam.mobile.scaffold.ui.screens.steps.StepScreen
@@ -184,7 +185,10 @@ class MainActivity : ComponentActivity() {
                             HomeScreen(modifier = Modifier.padding(padding))
                         }
                         composable(Route.PROFILE) {
-                            ProfileScreen(modifier = Modifier.padding(padding))
+                            ProfileScreen(
+                                modifier = Modifier.padding(padding),
+                                navController = navController
+                            )
                         }
                         composable(Route.MAP) {
                             MapScreen(modifier = Modifier.padding(padding))
@@ -199,6 +203,18 @@ class MainActivity : ComponentActivity() {
                                 onNavigateUp = {
                                     navController.navigate(Route.TRACKER_OVERVIEW)
                                 },
+                            )
+                        }
+                        composable(Route.CAMERA){
+                            CameraScreen(
+                                onImageSaved = { uri ->
+                                    navController.previousBackStackEntry?.savedStateHandle?.set("imageUri", uri)
+                                    navController.popBackStack()
+                                },
+                                onCancel = {
+                                    navController.popBackStack()
+                                },
+                                navController = navController
                             )
                         }
                     }

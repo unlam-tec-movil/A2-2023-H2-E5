@@ -20,6 +20,6 @@ fun HomeScreen(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(text = "Bienvenido/a Usuario", fontSize = 30.sp, modifier = Modifier.padding(top = 15.dp))
+        Text(text = "Bienvenido/a Usuario!", fontSize = 30.sp, modifier = Modifier.padding(top = 15.dp))
     }
 }

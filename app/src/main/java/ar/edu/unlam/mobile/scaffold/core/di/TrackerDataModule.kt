@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.room.Room
 import ar.edu.unlam.mobile.scaffold.data.local.TrackerDatabase
 import ar.edu.unlam.mobile.scaffold.data.remote.OpenFoodApi
+import ar.edu.unlam.mobile.scaffold.data.repository.LocationTrackingRepository
+import ar.edu.unlam.mobile.scaffold.data.repository.LocationTrackingRepositoryImpl
 import ar.edu.unlam.mobile.scaffold.data.repository.TrackerRepositoryImpl
 import ar.edu.unlam.mobile.scaffold.domain.repository.TrackerRepository
 import com.google.gson.Gson
@@ -73,6 +75,16 @@ object TrackerDataModule {
         return TrackerRepositoryImpl(
             dao = db.dao,
             api = api,
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationTrackingRepository(
+        db: TrackerDatabase,
+    ): LocationTrackingRepository {
+        return LocationTrackingRepositoryImpl(
+            locationDao = db.locationDao,
         )
     }
 }

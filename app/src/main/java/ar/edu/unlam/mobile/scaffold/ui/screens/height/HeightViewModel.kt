@@ -35,7 +35,6 @@ class HeightViewModel @Inject constructor(
             this.height = filteredHeight
         }
     }
-
     fun onNextClick() {
         viewModelScope.launch {
             val heightNumber = height.toIntOrNull()
@@ -62,3 +61,4 @@ class HeightViewModel @Inject constructor(
         }
     }
 }
+

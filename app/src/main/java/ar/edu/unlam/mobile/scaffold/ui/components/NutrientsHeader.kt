@@ -1,32 +1,34 @@
+
 package ar.edu.unlam.mobile.scaffold.ui.components
 
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffold.R
 import ar.edu.unlam.mobile.scaffold.ui.screens.TrackerOverviewState
 import ar.edu.unlam.mobile.scaffold.ui.theme.CarbColor
 import ar.edu.unlam.mobile.scaffold.ui.theme.FatColor
-import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 import ar.edu.unlam.mobile.scaffold.ui.theme.ProteinColor
-
+import ar.edu.unlam.mobile.scaffold.ui.theme.WaterColor
+import ar.edu.unlam.mobile.scaffold.ui.theme.StepsColor
 @Composable
 fun NutrientsHeader(
     state: TrackerOverviewState,
@@ -78,11 +80,15 @@ fun NutrientsHeader(
         }
         Spacer(modifier = Modifier.height(spacing.spaceSmall))
         NutrientsBar(
+            steps = state.steps,
             carbs = state.totalCarbs,
             protein = state.totalProtein,
             fat = state.totalFat,
             calories = state.totalCalories,
+            water = state.water,
             calorieGoal = state.caloriesGoal,
+            stepsGoal = state.stepsGoal,
+            waterGoal = state.waterGoal,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(30.dp),
@@ -92,6 +98,13 @@ fun NutrientsHeader(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
+            NutrientBarInfo(
+                value = state.totalSteps,
+                goal = state.stepsGoal,
+                name = stringResource(id = R.string.steps),
+                color = StepsColor,
+                modifier = Modifier.size(90.dp),
+            )
             NutrientBarInfo(
                 value = state.totalCarbs,
                 goal = state.carbsGoal,
@@ -106,11 +119,32 @@ fun NutrientsHeader(
                 color = ProteinColor,
                 modifier = Modifier.size(90.dp),
             )
+
+        }
+        Spacer(modifier = Modifier.height(spacing.spaceLarge))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
             NutrientBarInfo(
                 value = state.totalFat,
                 goal = state.fatGoal,
                 name = stringResource(id = R.string.fat),
                 color = FatColor,
+                modifier = Modifier.size(90.dp),
+            )
+            NutrientBarInfo(
+                value = state.totalWater,
+                goal = state.waterGoal,
+                name = stringResource(id = R.string.water),
+                color = WaterColor,
+                modifier = Modifier.size(90.dp),
+            )
+            NutrientBarInfo(
+                value = state.totalSteps,
+                goal = state.stepsGoal,
+                name = stringResource(id = R.string.steps),
+                color = StepsColor,
                 modifier = Modifier.size(90.dp),
             )
         }

@@ -1,9 +1,12 @@
+
 package ar.edu.unlam.mobile.scaffold
 
 import CustomBottomNavigation
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
@@ -28,9 +31,10 @@ import ar.edu.unlam.mobile.scaffold.ui.screens.height.HeightScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.home.HomeScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.map.MapScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.nutrientgoal.NutrientGoalScreen
+import ar.edu.unlam.mobile.scaffold.ui.screens.profile.CameraScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.profile.ProfileScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.search.SearchBarNavigation
-import ar.edu.unlam.mobile.scaffold.ui.screens.steps.StepScreen
+import ar.edu.unlam.mobile.scaffold.ui.screens.steps.StepsScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.weight.WeightScreen
 import ar.edu.unlam.mobile.scaffold.ui.screens.welcome.WelcomeScreen
 import ar.edu.unlam.mobile.scaffold.ui.theme.CalorieTrackerTheme
@@ -43,6 +47,7 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var preferences: Preferences
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val shouldShowOnboarding = preferences.loadShouldShowOnboarding()
@@ -110,7 +115,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(Route.STEP) {
-                            StepScreen(
+                            StepsScreen(
                                 scaffoldState = scaffoldState,
                                 onNextClick = {
                                     navController.navigate(Route.ACTIVITY)
@@ -184,7 +189,10 @@ class MainActivity : ComponentActivity() {
                             HomeScreen(modifier = Modifier.padding(padding))
                         }
                         composable(Route.PROFILE) {
-                            ProfileScreen(modifier = Modifier.padding(padding))
+                            ProfileScreen(
+                                modifier = Modifier.padding(padding),
+                                navController = navController
+                            )
                         }
                         composable(Route.MAP) {
                             MapScreen(modifier = Modifier.padding(padding))
@@ -199,6 +207,18 @@ class MainActivity : ComponentActivity() {
                                 onNavigateUp = {
                                     navController.navigate(Route.TRACKER_OVERVIEW)
                                 },
+                            )
+                        }
+                        composable(Route.CAMERA){
+                            CameraScreen(
+                                onImageSaved = { uri ->
+                                    navController.previousBackStackEntry?.savedStateHandle?.set("imageUri", uri)
+                                    navController.popBackStack()
+                                },
+                                onCancel = {
+                                    navController.popBackStack()
+                                },
+                                navController = navController
                             )
                         }
                     }

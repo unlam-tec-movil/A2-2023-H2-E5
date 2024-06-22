@@ -1,6 +1,7 @@
 package ar.edu.unlam.mobile.scaffold.navigation
 
 object Route {
+    const val CAMERA = "camera"
     const val WELCOME = "welcome"
     const val AGE = "age"
     const val GENDER = "gender"
@@ -10,7 +11,6 @@ object Route {
     const val NUTRIENT_GOAL = "nutrient_goal"
     const val ACTIVITY = "activity"
     const val GOAL = "goal"
-
     const val TRACKER_OVERVIEW = "tracker_overview"
     const val SEARCH = "search"
     const val HOME = "home"

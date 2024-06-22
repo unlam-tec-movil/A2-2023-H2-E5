@@ -23,8 +23,9 @@ import ar.edu.unlam.mobile.scaffold.ui.components.ActionButton
 import ar.edu.unlam.mobile.scaffold.ui.components.UnitTextField
 import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 
+
 @Composable
-fun StepScreen(
+fun StepsScreen(
     scaffoldState: ScaffoldState,
     onNextClick: () -> Unit,
     viewModel: StepsViewModel = hiltViewModel(),

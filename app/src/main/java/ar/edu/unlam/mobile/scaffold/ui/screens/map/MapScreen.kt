@@ -8,11 +8,13 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -30,8 +32,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -63,6 +68,7 @@ fun MapScreen(
     viewModel: MapViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     val permissionState = rememberMultiplePermissionsState(
         permissions = listOf(
@@ -71,13 +77,34 @@ fun MapScreen(
         )
     )
 
-    val viewState by viewModel.viewState.collectAsStateWithLifecycle()
+    val viewState by viewModel.viewState.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
 
     LaunchedEffect(Unit) {
         if (!permissionState.allPermissionsGranted) {
             permissionState.launchMultiplePermissionRequest()
         }
     }
+
+    when {
+        permissionState.allPermissionsGranted -> {
+            LaunchedEffect(Unit) {
+                viewModel.handle(PermissionEvent.Granted)
+            }
+        }
+
+        permissionState.shouldShowRationale -> {
+            LaunchedEffect(Unit) {
+                permissionState.launchMultiplePermissionRequest()
+            }
+        }
+
+        !permissionState.allPermissionsGranted && !permissionState.shouldShowRationale -> {
+            LaunchedEffect(Unit) {
+                viewModel.handle(PermissionEvent.Revoked)
+            }
+        }
+    }
+
 
     when (val currentState = viewState) {
         is ViewState.Loading -> {
@@ -126,10 +153,10 @@ fun MapScreen(
                             intent.data = Uri.parse("package:${context.packageName}")
                             context.startActivity(intent)
                         },
-                        colors = ButtonDefaults.buttonColors(Color.Yellow)
+                        colors = ButtonDefaults.buttonColors(Color.Green)
                     ) {
                         Text(
-                            "Settings",
+                            "Ajustes",
                             fontSize = 20.sp,
                             color = Color.Black
                         )
@@ -144,7 +171,7 @@ fun MapScreen(
                 position = CameraPosition.fromLatLngZoom(currentLoc, 18f)
             }
 
-            val puntosDeEncuentroState by viewModel.point.collectAsStateWithLifecycle()
+            val puntosDeEncuentroState by viewModel.point.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
 
             Map(
                 modifier = modifier.fillMaxSize(),
@@ -155,7 +182,6 @@ fun MapScreen(
         }
     }
 }
-
 
 @Composable
 fun isGpsEnabled(context: Context): Boolean {
@@ -179,20 +205,10 @@ fun Map(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Color.Yellow),
+                .background(color = Color.Green),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                "Puntos de Encuentro",
-                modifier = Modifier
-                    .padding(10.dp)
-                    .testTag("MapScreen title"),
-                style = MaterialTheme.typography.headlineLarge,
-                textAlign = TextAlign.Center,
-                fontSize = 40.sp,
-                color = Color.Black
-            )
 
             GoogleMap(
                 modifier = Modifier
@@ -210,7 +226,7 @@ fun Map(
                 )
                 MarkerInfoWindowContent(
                     state = MarkerState(position = punto1),
-                    snippet = "Punto de encuentro 1",
+                    snippet = "Punto 1",
                     icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_map),
                 ) {
                     selectedDestination = punto1
@@ -218,11 +234,31 @@ fun Map(
                         modifier = Modifier
                             .height(290.dp)
                             .width(300.dp)
-                            .background(Color.Green)
+                            .background(Color.White)
                     ) {
-                        // Aquí iría el contenido que deseamos mostrar para el punto de encuentro 1
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_map),
+                            contentDescription = null,
+                            contentScale = ContentScale.FillHeight,
+                            modifier = Modifier
+                                .width(500.dp)
+                                .height(250.dp)
+                                .testTag("imagen punto uno de encuentro"),
+                        )
+                        Text(
+                            text = "Punto De Encuentro 1",
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .padding(top = 250.dp)
+                                .fillMaxWidth()
+                                .testTag(tag = "MapScreen Text punto de encuentro uno"),
+                            fontSize = 30.sp,
+                            color = Color.Black,
+
+                        )
                     }
                 }
+
 
                 MarkerInfoWindowContent(
                     state = MarkerState(position = punto2),

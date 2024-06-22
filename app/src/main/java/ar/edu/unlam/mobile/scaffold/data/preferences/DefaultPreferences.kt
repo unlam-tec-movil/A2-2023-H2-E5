@@ -6,6 +6,7 @@ import ar.edu.unlam.mobile.scaffold.domain.model.Gender
 import ar.edu.unlam.mobile.scaffold.domain.model.GoalType
 import ar.edu.unlam.mobile.scaffold.domain.model.UserInfo
 import ar.edu.unlam.mobile.scaffold.domain.preferences.Preferences
+import kotlinx.coroutines.flow.StateFlow
 
 class DefaultPreferences(
     private val sharedPref: SharedPreferences,
@@ -99,5 +100,9 @@ class DefaultPreferences(
         sharedPref.edit()
             .putInt(Preferences.KEY_STEP, step)
             .apply()
+    }
+
+    override fun saveUserName(firstName: StateFlow<String>, lastName: StateFlow<String>) {
+        TODO("Not yet implemented")
     }
 }

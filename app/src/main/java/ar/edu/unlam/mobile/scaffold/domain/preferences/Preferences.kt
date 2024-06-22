@@ -4,6 +4,7 @@ import ar.edu.unlam.mobile.scaffold.domain.model.ActivityLevel
 import ar.edu.unlam.mobile.scaffold.domain.model.Gender
 import ar.edu.unlam.mobile.scaffold.domain.model.GoalType
 import ar.edu.unlam.mobile.scaffold.domain.model.UserInfo
+import kotlinx.coroutines.flow.StateFlow
 
 interface Preferences {
     fun saveGender(gender: Gender)
@@ -15,12 +16,11 @@ interface Preferences {
     fun saveCarbRatio(ratio: Float)
     fun saveProteinRatio(ratio: Float)
     fun saveFatRatio(ratio: Float)
-
     fun loadUserInfo(): UserInfo
-
     fun saveShouldShowOnboarding(shouldShow: Boolean)
     fun loadShouldShowOnboarding(): Boolean
     fun saveStepsGoals(step: Int)
+    fun saveUserName(firstName: StateFlow<String>, lastName: StateFlow<String>)
 
     companion object {
         const val KEY_GENDER = "gender"

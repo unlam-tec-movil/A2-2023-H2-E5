@@ -3,6 +3,8 @@
     <string name="error_unknown" tools:keep="@string/error_unknown">Unknown error</string>
     <string name="welcome_text">Hola! conozcamos mas sobre ti :)</string>
     <string name="lets_go" tools:keep="@string/lets_go">Vamos!</string>
+    <string name="error_first_name_cant_be_empty">El nombre no puede estar vacío</string>
+    <string name="error_last_name_cant_be_empty">El apellido no puede estar vacío</string>
     <string name="whats_your_gender">Eres?</string>
     <string name="male">Hombre</string>
     <string name="female">Mujer</string>

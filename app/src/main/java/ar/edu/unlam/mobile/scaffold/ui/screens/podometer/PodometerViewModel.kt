@@ -13,10 +13,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import java.util.concurrent.TimeUnit
 
-data class StepCounter(val steps: Int, val goal: Int)
+data class StepCounter(
+    val steps: Int,
+    val goal: Int,
+)
 
-class PodometerViewModel(application: Application, private val state: SavedStateHandle) : AndroidViewModel(application), SensorEventListener {
-
+class PodometerViewModel(
+    application: Application,
+    private val state: SavedStateHandle,
+) : AndroidViewModel(application),
+    SensorEventListener {
     companion object {
         private const val PERMISSION_REQUEST_CODE = 123
     }
@@ -66,10 +72,11 @@ class PodometerViewModel(application: Application, private val state: SavedState
 
     fun requestPermission() {
         if (permissionRequestCount < 2) {
-            val permissionGranted = ContextCompat.checkSelfPermission(
-                getApplication(),
-                Manifest.permission.ACTIVITY_RECOGNITION
-            ) == PackageManager.PERMISSION_GRANTED
+            val permissionGranted =
+                ContextCompat.checkSelfPermission(
+                    getApplication(),
+                    Manifest.permission.ACTIVITY_RECOGNITION,
+                ) == PackageManager.PERMISSION_GRANTED
 
             if (!permissionGranted) {
                 permissionRequestCount++
@@ -125,7 +132,10 @@ class PodometerViewModel(application: Application, private val state: SavedState
         }
     }
 
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+    override fun onAccuracyChanged(
+        sensor: Sensor?,
+        accuracy: Int,
+    ) {
         // No need to handle accuracy changes in this case
     }
 

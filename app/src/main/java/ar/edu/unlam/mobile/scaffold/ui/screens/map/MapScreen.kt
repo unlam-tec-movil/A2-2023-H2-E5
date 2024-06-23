@@ -58,24 +58,24 @@ import com.google.maps.android.compose.MarkerInfoWindowContent
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 
-
-
 @OptIn(ExperimentalPermissionsApi::class)
 @RequiresApi(Build.VERSION_CODES.S)
 @Composable
 fun MapScreen(
     modifier: Modifier,
-    viewModel: MapViewModel = hiltViewModel()
+    viewModel: MapViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    val permissionState = rememberMultiplePermissionsState(
-        permissions = listOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+    val permissionState =
+        rememberMultiplePermissionsState(
+            permissions =
+                listOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                ),
         )
-    )
 
     val viewState by viewModel.viewState.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
 
@@ -105,24 +105,23 @@ fun MapScreen(
         }
     }
 
-
     when (val currentState = viewState) {
         is ViewState.Loading -> {
             if (!isGpsEnabled(context)) {
                 Box(
                     modifier = modifier,
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     Text(
                         text = "Por Favor activa el Gps para usar el mapa",
                         style = MaterialTheme.typography.headlineLarge,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
                     )
                 }
             } else {
                 Box(
                     modifier = modifier,
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     CircularProgressIndicator()
                 }
@@ -132,19 +131,20 @@ fun MapScreen(
         ViewState.RevokedPermissions -> {
             Box(
                 modifier = modifier,
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(24.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .padding(24.dp),
                     verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Text(
                         "Necesitas los permisos de localizacion y Gps activado para usar el mapa",
                         style = MaterialTheme.typography.headlineLarge,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
                     )
                     Button(
                         modifier = Modifier.padding(16.dp),
@@ -153,12 +153,12 @@ fun MapScreen(
                             intent.data = Uri.parse("package:${context.packageName}")
                             context.startActivity(intent)
                         },
-                        colors = ButtonDefaults.buttonColors(Color.Green)
+                        colors = ButtonDefaults.buttonColors(Color.Green),
                     ) {
                         Text(
                             "Ajustes",
                             fontSize = 20.sp,
-                            color = Color.Black
+                            color = Color.Black,
                         )
                     }
                 }
@@ -167,9 +167,10 @@ fun MapScreen(
 
         is ViewState.Success -> {
             val currentLoc = currentState.location ?: LatLng(0.0, 0.0)
-            val cameraState = rememberCameraPositionState {
-                position = CameraPosition.fromLatLngZoom(currentLoc, 18f)
-            }
+            val cameraState =
+                rememberCameraPositionState {
+                    position = CameraPosition.fromLatLngZoom(currentLoc, 18f)
+                }
 
             val puntosDeEncuentroState by viewModel.point.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
 
@@ -177,7 +178,7 @@ fun MapScreen(
                 modifier = modifier.fillMaxSize(),
                 currentPosition = currentLoc,
                 cameraState = cameraState,
-                puntosDeEncuentroState = puntosDeEncuentroState
+                puntosDeEncuentroState = puntosDeEncuentroState,
             )
         }
     }
@@ -188,12 +189,13 @@ fun isGpsEnabled(context: Context): Boolean {
     val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 }
+
 @Composable
 fun Map(
     modifier: Modifier = Modifier,
     currentPosition: LatLng,
     cameraState: CameraPositionState,
-    puntosDeEncuentroState: List<Point>
+    puntosDeEncuentroState: List<Point>,
 ) {
     val punto1 = LatLng(puntosDeEncuentroState[0].coordinates1, puntosDeEncuentroState[0].coordinates2)
     val punto2 = LatLng(puntosDeEncuentroState[1].coordinates1, puntosDeEncuentroState[1].coordinates2)
@@ -203,22 +205,24 @@ fun Map(
 
     Box(modifier) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color.Green),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            GoogleMap(
-                modifier = Modifier
+            modifier =
+                Modifier
                     .fillMaxSize()
-                    .testTag("MapScreen googleMap"),
+                    .background(color = Color.Green),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            GoogleMap(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .testTag("MapScreen googleMap"),
                 cameraPositionState = cameraState,
-                properties = MapProperties(
-                    isMyLocationEnabled = true,
-                    mapType = MapType.NORMAL,
-                )
+                properties =
+                    MapProperties(
+                        isMyLocationEnabled = true,
+                        mapType = MapType.NORMAL,
+                    ),
             ) {
                 Marker(
                     state = MarkerState(position = marker),
@@ -231,47 +235,49 @@ fun Map(
                 ) {
                     selectedDestination = punto1
                     Box(
-                        modifier = Modifier
-                            .height(290.dp)
-                            .width(300.dp)
-                            .background(Color.White)
+                        modifier =
+                            Modifier
+                                .height(290.dp)
+                                .width(300.dp)
+                                .background(Color.White),
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_map),
                             contentDescription = null,
                             contentScale = ContentScale.FillHeight,
-                            modifier = Modifier
-                                .width(500.dp)
-                                .height(250.dp)
-                                .testTag("imagen punto uno de encuentro"),
+                            modifier =
+                                Modifier
+                                    .width(500.dp)
+                                    .height(250.dp)
+                                    .testTag("imagen punto uno de encuentro"),
                         )
                         Text(
                             text = "Punto De Encuentro 1",
                             textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .padding(top = 250.dp)
-                                .fillMaxWidth()
-                                .testTag(tag = "MapScreen Text punto de encuentro uno"),
+                            modifier =
+                                Modifier
+                                    .padding(top = 250.dp)
+                                    .fillMaxWidth()
+                                    .testTag(tag = "MapScreen Text punto de encuentro uno"),
                             fontSize = 30.sp,
                             color = Color.Black,
-
                         )
                     }
                 }
 
-
                 MarkerInfoWindowContent(
                     state = MarkerState(position = punto2),
                     snippet = "Punto de encuentro 2",
-                    icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_map)
+                    icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_map),
                 ) {
                     selectedDestination = punto2
 
                     Box(
-                        modifier = Modifier
-                            .height(270.dp)
-                            .width(300.dp)
-                            .background(Color.Green)
+                        modifier =
+                            Modifier
+                                .height(270.dp)
+                                .width(300.dp)
+                                .background(Color.Green),
                     ) {
                         // Aquí iría el contenido que deseamos mostrar para el punto de encuentro 2
                     }
@@ -280,4 +286,3 @@ fun Map(
         }
     }
 }
-

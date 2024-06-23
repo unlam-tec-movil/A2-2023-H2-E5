@@ -7,7 +7,9 @@ import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -56,6 +58,7 @@ import com.google.maps.android.compose.MapType
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerInfoWindowContent
 import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 
 
@@ -78,6 +81,7 @@ fun MapScreen(
     )
 
     val viewState by viewModel.viewState.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
+    val listaDePuntos by viewModel.locations.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
 
     LaunchedEffect(Unit) {
         if (!permissionState.allPermissionsGranted) {
@@ -166,18 +170,18 @@ fun MapScreen(
         }
 
         is ViewState.Success -> {
-            val currentLoc = currentState.location ?: LatLng(0.0, 0.0)
+            val currentLoc = currentState.currentLocation?: LatLng(0.0, 0.0)
             val cameraState = rememberCameraPositionState {
                 position = CameraPosition.fromLatLngZoom(currentLoc, 18f)
             }
 
             val puntosDeEncuentroState by viewModel.point.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
-
             Map(
                 modifier = modifier.fillMaxSize(),
                 currentPosition = currentLoc,
                 cameraState = cameraState,
-                puntosDeEncuentroState = puntosDeEncuentroState
+                puntosDeEncuentroState = puntosDeEncuentroState,
+                locationsList = listaDePuntos
             )
         }
     }
@@ -193,10 +197,13 @@ fun Map(
     modifier: Modifier = Modifier,
     currentPosition: LatLng,
     cameraState: CameraPositionState,
-    puntosDeEncuentroState: List<Point>
+    puntosDeEncuentroState: List<Point>,
+    locationsList: List<LatLng>
 ) {
+
     val punto1 = LatLng(puntosDeEncuentroState[0].coordinates1, puntosDeEncuentroState[0].coordinates2)
     val punto2 = LatLng(puntosDeEncuentroState[1].coordinates1, puntosDeEncuentroState[1].coordinates2)
+
     val marker = LatLng(currentPosition.latitude, currentPosition.longitude)
 
     var selectedDestination by remember { mutableStateOf<LatLng?>(null) }
@@ -276,8 +283,25 @@ fun Map(
                         // Aquí iría el contenido que deseamos mostrar para el punto de encuentro 2
                     }
                 }
+
+                    DrawPathPoints(puntos = locationsList)
+                
             }
+
         }
+
     }
+
 }
 
+
+@Composable
+fun DrawPathPoints(puntos: List<LatLng>) {
+    if(puntos.isNotEmpty() && puntos.size > 2){
+        Polyline(
+            points = puntos,
+            color = Color.Green,
+            width = 11f
+        )
+    }
+}

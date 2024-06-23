@@ -19,8 +19,8 @@ class GetCurrentActivityStateUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(): Flow<List<LatLng>> {
        return repository.getLocationPoints().map {
-           it.map {
-               it.toLatLng()
+           it.map {location ->
+               location.toLatLng()
            }
        }
 

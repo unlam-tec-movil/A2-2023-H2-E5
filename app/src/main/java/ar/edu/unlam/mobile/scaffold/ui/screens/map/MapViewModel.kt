@@ -12,11 +12,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import ar.edu.unlam.mobile.scaffold.domain.model.Point
+import ar.edu.unlam.mobile.scaffold.domain.usecase.LocationUseCases
 
 @RequiresApi(Build.VERSION_CODES.S)
 @HiltViewModel
 class MapViewModel @Inject constructor(
-    private val getLocationUseCase: GetLocationUseCase
+    private val getLocationUseCase: GetLocationUseCase,
+    private val locationUseCases: LocationUseCases
 ) : ViewModel() {
 
     private val _viewState: MutableStateFlow<ViewState> = MutableStateFlow(ViewState.Loading)
@@ -25,12 +27,16 @@ class MapViewModel @Inject constructor(
     private var _point = MutableStateFlow(listOf<Point>())
     val point = _point.asStateFlow()
 
+    private var _locations = MutableStateFlow(listOf<LatLng>())
+    val locations = _locations.asStateFlow()
+
     init {
         viewModelScope.launch {
             _point.value = listOf(
                 Point(-34.63333, -58.56667),
                 Point(-34.7, -58.58333)
             )
+            updateLocations()
         }
     }
 
@@ -40,6 +46,9 @@ class MapViewModel @Inject constructor(
                 viewModelScope.launch {
                     getLocationUseCase.invoke().collect {
                         _viewState.value = ViewState.Success(it)
+                        if(it != null){
+                            locationUseCases.saveCurrentActivityState(it)
+                        }
                     }
                 }
             }
@@ -49,11 +58,18 @@ class MapViewModel @Inject constructor(
             }
         }
     }
+
+    private suspend fun updateLocations(){
+        locationUseCases.getCurrentActivityState().collect{
+            _locations.value = it
+        }
+    }
 }
+
 
 sealed interface ViewState {
     object Loading : ViewState
-    data class Success(val location: LatLng?) : ViewState
+    data class Success(val currentLocation: LatLng?) : ViewState
     object RevokedPermissions : ViewState
 }
 

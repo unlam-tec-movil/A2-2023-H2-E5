@@ -80,15 +80,11 @@ fun NutrientsHeader(
         }
         Spacer(modifier = Modifier.height(spacing.spaceSmall))
         NutrientsBar(
-            steps = state.steps,
             carbs = state.totalCarbs,
             protein = state.totalProtein,
             fat = state.totalFat,
             calories = state.totalCalories,
-            water = state.water,
             calorieGoal = state.caloriesGoal,
-            stepsGoal = state.stepsGoal,
-            waterGoal = state.waterGoal,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(30.dp),
@@ -98,18 +94,19 @@ fun NutrientsHeader(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            NutrientBarInfo(
-                value = state.totalSteps,
-                goal = state.stepsGoal,
-                name = stringResource(id = R.string.steps),
-                color = StepsColor,
-                modifier = Modifier.size(90.dp),
-            )
+
             NutrientBarInfo(
                 value = state.totalCarbs,
                 goal = state.carbsGoal,
                 name = stringResource(id = R.string.carbs),
                 color = CarbColor,
+                modifier = Modifier.size(90.dp),
+            )
+            NutrientBarInfo(
+                value = state.totalFat,
+                goal = state.fatGoal,
+                name = stringResource(id = R.string.fat),
+                color = FatColor,
                 modifier = Modifier.size(90.dp),
             )
             NutrientBarInfo(
@@ -126,27 +123,7 @@ fun NutrientsHeader(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            NutrientBarInfo(
-                value = state.totalFat,
-                goal = state.fatGoal,
-                name = stringResource(id = R.string.fat),
-                color = FatColor,
-                modifier = Modifier.size(90.dp),
-            )
-            NutrientBarInfo(
-                value = state.totalWater,
-                goal = state.waterGoal,
-                name = stringResource(id = R.string.water),
-                color = WaterColor,
-                modifier = Modifier.size(90.dp),
-            )
-            NutrientBarInfo(
-                value = state.totalSteps,
-                goal = state.stepsGoal,
-                name = stringResource(id = R.string.steps),
-                color = StepsColor,
-                modifier = Modifier.size(90.dp),
-            )
+
         }
     }
 }

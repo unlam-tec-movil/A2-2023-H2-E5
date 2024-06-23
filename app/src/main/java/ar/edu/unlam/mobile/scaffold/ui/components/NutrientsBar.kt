@@ -23,11 +23,7 @@ fun NutrientsBar(
     protein: Int,
     fat: Int,
     calories: Int,
-    steps: Int,
-    water:Int,
     calorieGoal: Int,
-    stepsGoal:Int,
-    waterGoal:Int,
     modifier: Modifier = Modifier,
 ) {
     val background = MaterialTheme.colors.background
@@ -62,16 +58,7 @@ fun NutrientsBar(
             targetValue = (fat * 9f / calorieGoal),
         )
     }
-    LaunchedEffect(key1 = steps) {
-        stepsWidthRatio.animateTo(
-            targetValue = (steps.toFloat() / stepsGoal.toFloat()),
-        )
-    }
-    LaunchedEffect(key1 = water) {
-        waterWidthRatio.animateTo(
-            targetValue = (water.toFloat() / waterGoal.toFloat()),
-        )
-    }
+
     Canvas(modifier = modifier) {
         if (calories <= calorieGoal) {
             val carbsWidth = carbWidthRatio.value * size.width

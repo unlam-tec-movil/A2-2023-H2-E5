@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9beb7547290d84011f81cce9341b7241",
+    "identityHash": "40859e7857408f83131881f752156bc1",
     "entities": [
       {
-        "tableName": "step_history",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `date` TEXT NOT NULL, `steps` INTEGER NOT NULL, `activeTime` INTEGER NOT NULL, `distance` REAL NOT NULL, `calories` INTEGER NOT NULL)",
+        "tableName": "step_counter",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `date` TEXT NOT NULL, `steps` INTEGER NOT NULL, `goal` INTEGER NOT NULL, `activityTime` INTEGER NOT NULL, `activityDistance` REAL NOT NULL, `activityCalories` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -27,20 +27,26 @@
             "notNull": true
           },
           {
-            "fieldPath": "activeTime",
-            "columnName": "activeTime",
+            "fieldPath": "goal",
+            "columnName": "goal",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "distance",
-            "columnName": "distance",
+            "fieldPath": "activityTime",
+            "columnName": "activityTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "activityDistance",
+            "columnName": "activityDistance",
             "affinity": "REAL",
             "notNull": true
           },
           {
-            "fieldPath": "calories",
-            "columnName": "calories",
+            "fieldPath": "activityCalories",
+            "columnName": "activityCalories",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -58,7 +64,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9beb7547290d84011f81cce9341b7241')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '40859e7857408f83131881f752156bc1')"
     ]
   }
 }

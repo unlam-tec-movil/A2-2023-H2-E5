@@ -87,6 +87,6 @@
     <string name="enter_name">Coloque su nombre</string>
     <string name="first_name">nombre</string>
     <string name="last_name">coloque su apellido</string>
-
+    <string name="calories_burnt">Calorías quemadas: %d Kcal</string>
 
 </resources>

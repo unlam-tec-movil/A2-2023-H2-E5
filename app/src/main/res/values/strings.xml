@@ -88,5 +88,6 @@
     <string name="first_name">nombre</string>
     <string name="last_name">coloque su apellido</string>
     <string name="calories_burnt">Calorías quemadas: %d Kcal</string>
+    <string name="permission_required">Se requiere habilitar los permisos</string>
 
 </resources>

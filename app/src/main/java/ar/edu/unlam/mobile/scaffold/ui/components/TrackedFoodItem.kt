@@ -43,39 +43,44 @@ fun TrackedFoodItem(
 ) {
     val spacing = LocalSpacing.current
     Row(
-        modifier = modifier
-            .clip(RoundedCornerShape(5.dp))
-            .padding(spacing.spaceExtraSmall)
-            .shadow(
-                elevation = 1.dp,
-                shape = RoundedCornerShape(5.dp),
-            )
-            .background(MaterialTheme.colors.surface)
-            .padding(end = spacing.spaceMedium)
-            .height(100.dp),
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(5.dp))
+                .padding(spacing.spaceExtraSmall)
+                .shadow(
+                    elevation = 1.dp,
+                    shape = RoundedCornerShape(5.dp),
+                ).background(MaterialTheme.colors.surface)
+                .padding(end = spacing.spaceMedium)
+                .height(100.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
-            painter = rememberAsyncImagePainter(
-                ImageRequest.Builder(LocalContext.current).data(data = trackedFood.imageUrl)
-                    .apply(block = fun ImageRequest.Builder.() {
-                        crossfade(true)
-                        error(R.drawable.ic_burger)
-                        fallback(R.drawable.ic_burger)
-                    }).build(),
-            ),
+            painter =
+                rememberAsyncImagePainter(
+                    ImageRequest
+                        .Builder(LocalContext.current)
+                        .data(data = trackedFood.imageUrl)
+                        .apply(block = fun ImageRequest.Builder.() {
+                            crossfade(true)
+                            error(R.drawable.ic_burger)
+                            fallback(R.drawable.ic_burger)
+                        })
+                        .build(),
+                ),
             contentDescription = trackedFood.name,
             contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxHeight()
-                .aspectRatio(1f)
-                .clip(
-                    RoundedCornerShape(
-                        topStart = 5.dp,
-                        bottomStart = 5.dp,
+            modifier =
+                Modifier
+                    .fillMaxHeight()
+                    .aspectRatio(1f)
+                    .clip(
+                        RoundedCornerShape(
+                            topStart = 5.dp,
+                            bottomStart = 5.dp,
+                        ),
                     ),
-                ),
         )
         Spacer(modifier = Modifier.width(spacing.spaceMedium))
         Column(
@@ -89,11 +94,12 @@ fun TrackedFoodItem(
             )
             Spacer(modifier = Modifier.height(spacing.spaceExtraSmall))
             Text(
-                text = stringResource(
-                    id = R.string.nutrient_info,
-                    trackedFood.amount,
-                    trackedFood.calories,
-                ),
+                text =
+                    stringResource(
+                        id = R.string.nutrient_info,
+                        trackedFood.amount,
+                        trackedFood.calories,
+                    ),
             )
         }
         Spacer(modifier = Modifier.width(spacing.spaceMedium))
@@ -104,9 +110,10 @@ fun TrackedFoodItem(
             Icon(
                 imageVector = Icons.Default.Close,
                 contentDescription = stringResource(id = R.string.delete),
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .clickable { onDeleteClick() },
+                modifier =
+                    Modifier
+                        .align(Alignment.End)
+                        .clickable { onDeleteClick() },
             )
             Spacer(modifier = Modifier.height(spacing.spaceExtraSmall))
             Row(

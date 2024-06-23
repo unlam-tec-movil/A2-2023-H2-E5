@@ -8,6 +8,6 @@ interface ApiService {
     suspend fun getRoute(
         @Query("api_key") key: String,
         @Query("start", encoded = true) start: String,
-        @Query("end", encoded = true) end: String
-    ):Response<RouteResponse>
+        @Query("end", encoded = true) end: String,
+    ): Response<RouteResponse>
 }

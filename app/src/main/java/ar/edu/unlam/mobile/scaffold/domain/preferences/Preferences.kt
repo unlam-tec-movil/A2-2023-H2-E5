@@ -8,19 +8,35 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface Preferences {
     fun saveGender(gender: Gender)
+
     fun saveAge(age: Int)
+
     fun saveWeight(weight: Float)
+
     fun saveHeight(height: Int)
+
     fun saveActivityLevel(level: ActivityLevel)
+
     fun saveGoalType(type: GoalType)
+
     fun saveCarbRatio(ratio: Float)
+
     fun saveProteinRatio(ratio: Float)
+
     fun saveFatRatio(ratio: Float)
+
     fun loadUserInfo(): UserInfo
+
     fun saveShouldShowOnboarding(shouldShow: Boolean)
+
     fun loadShouldShowOnboarding(): Boolean
+
     fun saveStepsGoals(step: Int)
-    fun saveUserName(firstName: StateFlow<String>, lastName: StateFlow<String>)
+
+    fun saveUserName(
+        firstName: StateFlow<String>,
+        lastName: StateFlow<String>,
+    )
 
     companion object {
         const val KEY_GENDER = "gender"

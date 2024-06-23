@@ -21,14 +21,13 @@ import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
  * Pantalla de Introduccion a la app
  */
 @Composable
-fun WelcomeScreen(
-    onNextClick: () -> Unit,
-) {
+fun WelcomeScreen(onNextClick: () -> Unit) {
     val spacing = LocalSpacing.current
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(spacing.spaceMedium),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(spacing.spaceMedium),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

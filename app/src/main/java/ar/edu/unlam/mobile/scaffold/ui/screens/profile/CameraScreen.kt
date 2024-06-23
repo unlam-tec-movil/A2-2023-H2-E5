@@ -24,6 +24,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Scaffold
@@ -48,17 +49,13 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import java.io.File
 import java.util.concurrent.Executor
-import androidx.compose.material.icons.filled.CameraAlt
-
-
-
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun CameraScreen(
     onImageSaved: (Uri?) -> Unit,
     onCancel: () -> Unit,
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     val permissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
     val context = LocalContext.current
@@ -72,14 +69,15 @@ fun CameraScreen(
         if (isCameraActive) {
             Box(
                 modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.BottomCenter
+                contentAlignment = Alignment.BottomCenter,
             ) {
                 Box(
-                    modifier = Modifier
-                        .size(56.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colors.primaryVariant),
-                    contentAlignment = Alignment.Center
+                    modifier =
+                        Modifier
+                            .size(56.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colors.primaryVariant),
+                    contentAlignment = Alignment.Center,
                 ) {
                     IconButton(
                         onClick = {
@@ -108,40 +106,46 @@ fun CameraScreen(
                     Image(
                         painter = rememberAsyncImagePainter(uri),
                         contentDescription = null,
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        contentScale = ContentScale.FillWidth
-
+                        modifier =
+                            Modifier
+                                .fillMaxSize(),
+                        contentScale = ContentScale.FillWidth,
                     )
                     Box(
                         modifier = Modifier.fillMaxSize().padding(15.dp),
-                        contentAlignment = Alignment.BottomCenter
+                        contentAlignment = Alignment.BottomCenter,
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceEvenly
+                            horizontalArrangement = Arrangement.SpaceEvenly,
                         ) {
-                            Button(onClick = {
-                                onImageSaved(uri)
-                            },
-                                colors = ButtonDefaults.buttonColors(
-                                    backgroundColor = MaterialTheme.colors.primaryVariant
-                                )) {
+                            Button(
+                                onClick = {
+                                    onImageSaved(uri)
+                                },
+                                colors =
+                                    ButtonDefaults.buttonColors(
+                                        backgroundColor = MaterialTheme.colors.primaryVariant,
+                                    ),
+                            ) {
                                 Icon(
                                     imageVector = Icons.Filled.Check,
-                                    contentDescription = "Save"
+                                    contentDescription = "Save",
                                 )
                             }
-                            Button(onClick = {
-                                imageUri = null
-                                isCameraActive = true
-                            },
-                                colors = ButtonDefaults.buttonColors(
-                                    backgroundColor = MaterialTheme.colors.primaryVariant
-                                )) {
+                            Button(
+                                onClick = {
+                                    imageUri = null
+                                    isCameraActive = true
+                                },
+                                colors =
+                                    ButtonDefaults.buttonColors(
+                                        backgroundColor = MaterialTheme.colors.primaryVariant,
+                                    ),
+                            ) {
                                 Icon(
                                     imageVector = Icons.Filled.Close,
-                                    contentDescription = "Cancel"
+                                    contentDescription = "Cancel",
                                 )
                             }
                         }
@@ -149,14 +153,13 @@ fun CameraScreen(
                 }
             }
         }
-
     }
 }
 
 private fun takePicture(
     cameraController: LifecycleCameraController,
     executor: Executor,
-    onImageSaved: (Uri?) -> Unit
+    onImageSaved: (Uri?) -> Unit,
 ) {
     val file = File.createTempFile("imagentest", ".jpg")
     val outputDirectory = ImageCapture.OutputFileOptions.Builder(file).build()
@@ -172,7 +175,7 @@ private fun takePicture(
             override fun onError(exception: ImageCaptureException) {
                 onImageSaved(null)
             }
-        }
+        },
     )
 }
 
@@ -180,17 +183,19 @@ private fun takePicture(
 fun CameraComponent(
     modifier: Modifier = Modifier,
     cameraController: LifecycleCameraController,
-    lifecycle: LifecycleOwner
+    lifecycle: LifecycleOwner,
 ) {
     cameraController.bindToLifecycle(lifecycle)
 
     AndroidView(modifier = modifier, factory = { context ->
-        val previewView = PreviewView(context).apply {
-            layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-        }
+        val previewView =
+            PreviewView(context).apply {
+                layoutParams =
+                    ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                    )
+            }
         previewView.controller = cameraController
         previewView
     })

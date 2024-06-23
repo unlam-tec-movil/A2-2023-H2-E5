@@ -18,45 +18,47 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class StepsViewModel @Inject constructor(
-    private val preferences: Preferences,
-    private val filterOutDigits: FilterOutDigits,
-) : ViewModel() {
-    var step by mutableStateOf("100")
-        private set
-    private val minStep = 100
+class StepsViewModel
+    @Inject
+    constructor(
+        private val preferences: Preferences,
+        private val filterOutDigits: FilterOutDigits,
+    ) : ViewModel() {
+        var step by mutableStateOf("100")
+            private set
+        private val minStep = 100
 
-    private val _uiEvent = Channel<UiEvent>()
-    val uiEvent = _uiEvent.receiveAsFlow()
+        private val _uiEvent = Channel<UiEvent>()
+        val uiEvent = _uiEvent.receiveAsFlow()
 
-    fun onStepEnter(step: String) {
-        val filteredStep = filterOutDigits(step)
-        if (filteredStep != this.step) {
-            this.step = filteredStep
-        } else {
-            this.step = ""
-        }
-    }
-
-    fun onNextClick() {
-        viewModelScope.launch {
-            val stepNumber = step.toIntOrNull()
-            if (stepNumber == null) {
-                _uiEvent.send(
-                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_step_cant_be_empty)),
-                )
-            } else if (stepNumber <= 0) {
-                _uiEvent.send(
-                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_step_cant_be_zero)),
-                )
-            } else if (stepNumber < minStep) {
-                _uiEvent.send(
-                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_min_step)),
-                )
+        fun onStepEnter(step: String) {
+            val filteredStep = filterOutDigits(step)
+            if (filteredStep != this.step) {
+                this.step = filteredStep
             } else {
-                preferences.saveStepsGoals(stepNumber.toInt())
-                _uiEvent.send(UiEvent.Success)
+                this.step = ""
+            }
+        }
+
+        fun onNextClick() {
+            viewModelScope.launch {
+                val stepNumber = step.toIntOrNull()
+                if (stepNumber == null) {
+                    _uiEvent.send(
+                        UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_step_cant_be_empty)),
+                    )
+                } else if (stepNumber <= 0) {
+                    _uiEvent.send(
+                        UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_step_cant_be_zero)),
+                    )
+                } else if (stepNumber < minStep) {
+                    _uiEvent.send(
+                        UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_min_step)),
+                    )
+                } else {
+                    preferences.saveStepsGoals(stepNumber.toInt())
+                    _uiEvent.send(UiEvent.Success)
+                }
             }
         }
     }
-}

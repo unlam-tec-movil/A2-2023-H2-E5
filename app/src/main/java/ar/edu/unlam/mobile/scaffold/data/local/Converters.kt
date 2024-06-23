@@ -8,13 +8,9 @@ import java.time.LocalDate
 object Converters {
     @RequiresApi(Build.VERSION_CODES.O)
     @TypeConverter
-    fun fromLocalDate(date: LocalDate?): Long? {
-        return date?.toEpochDay()
-    }
+    fun fromLocalDate(date: LocalDate?): Long? = date?.toEpochDay()
 
     @RequiresApi(Build.VERSION_CODES.O)
     @TypeConverter
-    fun toLocalDate(epochDay: Long?): LocalDate? {
-        return epochDay?.let { LocalDate.ofEpochDay(it) }
-    }
+    fun toLocalDate(epochDay: Long?): LocalDate? = epochDay?.let { LocalDate.ofEpochDay(it) }
 }

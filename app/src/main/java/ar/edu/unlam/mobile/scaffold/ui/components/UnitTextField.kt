@@ -24,10 +24,11 @@ fun UnitTextField(
     onValueChange: (String) -> Unit,
     unit: String,
     modifier: Modifier = Modifier,
-    textStyle: TextStyle = TextStyle(
-        color = MaterialTheme.colors.primaryVariant,
-        fontSize = 70.sp,
-    ),
+    textStyle: TextStyle =
+        TextStyle(
+            color = MaterialTheme.colors.primaryVariant,
+            fontSize = 70.sp,
+        ),
 ) {
     val spacing = LocalSpacing.current
     Row(
@@ -39,9 +40,10 @@ fun UnitTextField(
             onValueChange = onValueChange,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             singleLine = true,
-            modifier = Modifier
-                .width(IntrinsicSize.Min)
-                .alignBy(LastBaseline),
+            modifier =
+                Modifier
+                    .width(IntrinsicSize.Min)
+                    .alignBy(LastBaseline),
             textStyle = textStyle,
         )
         Spacer(modifier = Modifier.width(spacing.spaceSmall))

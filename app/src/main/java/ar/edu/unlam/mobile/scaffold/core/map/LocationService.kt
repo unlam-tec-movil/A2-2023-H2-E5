@@ -20,54 +20,60 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
-class LocationService @Inject constructor(
-    private val context: Context,
-    private val locationClient: FusedLocationProviderClient
-) : ILocationService {
-    @SuppressLint("MissingPermission")
-    @RequiresApi(Build.VERSION_CODES.S)
-    override fun requestLocationUpdates(): Flow<LatLng?> = callbackFlow {
-        if (!context.hasLocationPermission()) {
-            trySend(null)
-            return@callbackFlow
-        }
+class LocationService
+    @Inject
+    constructor(
+        private val context: Context,
+        private val locationClient: FusedLocationProviderClient,
+    ) : ILocationService {
+        @SuppressLint("MissingPermission")
+        @RequiresApi(Build.VERSION_CODES.S)
+        override fun requestLocationUpdates(): Flow<LatLng?> =
+            callbackFlow {
+                if (!context.hasLocationPermission()) {
+                    trySend(null)
+                    return@callbackFlow
+                }
 
-        val request = LocationRequest.Builder(10000L)
-            .setIntervalMillis(10000L)
-            .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
-            .build()
+                val request =
+                    LocationRequest
+                        .Builder(10000L)
+                        .setIntervalMillis(10000L)
+                        .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+                        .build()
 
-        val locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult) {
-                locationResult.locations.lastOrNull()?.let {
-                    trySend(LatLng(it.latitude, it.longitude))
-                    Log.i("locationExample", "onLocationResult: $it")
+                val locationCallback =
+                    object : LocationCallback() {
+                        override fun onLocationResult(locationResult: LocationResult) {
+                            locationResult.locations.lastOrNull()?.let {
+                                trySend(LatLng(it.latitude, it.longitude))
+                                Log.i("locationExample", "onLocationResult: $it")
+                            }
+                        }
+                    }
+
+                locationClient.requestLocationUpdates(
+                    request,
+                    locationCallback,
+                    Looper.getMainLooper(),
+                )
+
+                awaitClose {
+                    locationClient.removeLocationUpdates(locationCallback)
                 }
             }
+
+        override fun requestCurrentLocation(): Flow<LatLng?> {
+            TODO("Not yet implemented")
         }
 
-        locationClient.requestLocationUpdates(
-            request,
-            locationCallback,
-            Looper.getMainLooper()
-        )
-
-        awaitClose {
-            locationClient.removeLocationUpdates(locationCallback)
-        }
+        fun Context.hasLocationPermission(): Boolean =
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+            ) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                ) == PackageManager.PERMISSION_GRANTED
     }
-
-    override fun requestCurrentLocation(): Flow<LatLng?> {
-        TODO("Not yet implemented")
-    }
-
-    fun Context.hasLocationPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-}

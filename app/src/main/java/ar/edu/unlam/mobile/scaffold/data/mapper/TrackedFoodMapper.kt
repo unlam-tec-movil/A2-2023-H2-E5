@@ -5,8 +5,8 @@ import ar.edu.unlam.mobile.scaffold.domain.model.MealType
 import ar.edu.unlam.mobile.scaffold.domain.model.TrackedFood
 import java.time.LocalDate
 
-fun TrackedFoodEntity.toTrackedFood(): TrackedFood {
-    return TrackedFood(
+fun TrackedFoodEntity.toTrackedFood(): TrackedFood =
+    TrackedFood(
         name = name,
         carbs = carbs,
         protein = protein,
@@ -18,10 +18,9 @@ fun TrackedFoodEntity.toTrackedFood(): TrackedFood {
         calories = calories,
         id = id,
     )
-}
 
-fun TrackedFood.toTrackedFoodEntity(): TrackedFoodEntity {
-    return TrackedFoodEntity(
+fun TrackedFood.toTrackedFoodEntity(): TrackedFoodEntity =
+    TrackedFoodEntity(
         name = name,
         carbs = carbs,
         protein = protein,
@@ -35,4 +34,3 @@ fun TrackedFood.toTrackedFoodEntity(): TrackedFoodEntity {
         year = date.year,
         id = id,
     )
-}

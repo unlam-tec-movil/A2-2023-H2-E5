@@ -43,7 +43,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     @Inject
     lateinit var preferences: Preferences
 
@@ -55,13 +54,14 @@ class MainActivity : ComponentActivity() {
             CalorieTrackerTheme {
                 val navController = rememberNavController()
                 val scaffoldState = rememberScaffoldState()
-                val bottomBarScreens = listOf(
-                    NavigationScreen.Home,
-                    NavigationScreen.Search,
-                    NavigationScreen.Food,
-                    NavigationScreen.Map,
-                    NavigationScreen.Profile
-                )
+                val bottomBarScreens =
+                    listOf(
+                        NavigationScreen.Home,
+                        NavigationScreen.Search,
+                        NavigationScreen.Food,
+                        NavigationScreen.Map,
+                        NavigationScreen.Profile,
+                    )
                 val appState = AppState(navController, bottomBarScreens)
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -155,20 +155,21 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(
                             route = Route.SEARCH + "/{mealName}/{dayOfMonth}/{month}/{year}",
-                            arguments = listOf(
-                                navArgument("mealName") {
-                                    type = NavType.StringType
-                                },
-                                navArgument("dayOfMonth") {
-                                    type = NavType.IntType
-                                },
-                                navArgument("month") {
-                                    type = NavType.IntType
-                                },
-                                navArgument("year") {
-                                    type = NavType.IntType
-                                },
-                            ),
+                            arguments =
+                                listOf(
+                                    navArgument("mealName") {
+                                        type = NavType.StringType
+                                    },
+                                    navArgument("dayOfMonth") {
+                                        type = NavType.IntType
+                                    },
+                                    navArgument("month") {
+                                        type = NavType.IntType
+                                    },
+                                    navArgument("year") {
+                                        type = NavType.IntType
+                                    },
+                                ),
                         ) {
                             val mealName = it.arguments?.getString("mealName")!!
                             val dayOfMonth = it.arguments?.getInt("dayOfMonth")!!
@@ -191,7 +192,7 @@ class MainActivity : ComponentActivity() {
                         composable(Route.PROFILE) {
                             ProfileScreen(
                                 modifier = Modifier.padding(padding),
-                                navController = navController
+                                navController = navController,
                             )
                         }
                         composable(Route.MAP) {
@@ -209,7 +210,7 @@ class MainActivity : ComponentActivity() {
                                 },
                             )
                         }
-                        composable(Route.CAMERA){
+                        composable(Route.CAMERA) {
                             CameraScreen(
                                 onImageSaved = { uri ->
                                     navController.previousBackStackEntry?.savedStateHandle?.set("imageUri", uri)
@@ -218,7 +219,7 @@ class MainActivity : ComponentActivity() {
                                 onCancel = {
                                     navController.popBackStack()
                                 },
-                                navController = navController
+                                navController = navController,
                             )
                         }
                     }

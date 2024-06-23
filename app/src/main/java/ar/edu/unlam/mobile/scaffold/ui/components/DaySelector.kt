@@ -16,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import ar.edu.unlam.mobile.scaffold.R
 import java.time.LocalDate
 
-
 @Composable
 fun DaySelector(
     date: LocalDate,

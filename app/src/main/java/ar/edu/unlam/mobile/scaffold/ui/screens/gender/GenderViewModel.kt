@@ -15,24 +15,25 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GenderViewModel @Inject constructor(
-    private val preferences: Preferences,
-) : ViewModel() {
+class GenderViewModel
+    @Inject
+    constructor(
+        private val preferences: Preferences,
+    ) : ViewModel() {
+        var selectedGender by mutableStateOf<Gender>(Gender.Male)
+            private set
 
-    var selectedGender by mutableStateOf<Gender>(Gender.Male)
-        private set
+        private val _uiEvent = Channel<UiEvent>()
+        val uiEvent = _uiEvent.receiveAsFlow()
 
-    private val _uiEvent = Channel<UiEvent>()
-    val uiEvent = _uiEvent.receiveAsFlow()
+        fun onGenderClick(gender: Gender) {
+            selectedGender = gender
+        }
 
-    fun onGenderClick(gender: Gender) {
-        selectedGender = gender
-    }
-
-    fun onNextClick() {
-        viewModelScope.launch {
-            preferences.saveGender(selectedGender)
-            _uiEvent.send(UiEvent.Success)
+        fun onNextClick() {
+            viewModelScope.launch {
+                preferences.saveGender(selectedGender)
+                _uiEvent.send(UiEvent.Success)
+            }
         }
     }
-}

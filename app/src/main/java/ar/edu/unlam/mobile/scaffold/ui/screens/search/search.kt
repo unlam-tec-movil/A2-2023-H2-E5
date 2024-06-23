@@ -65,9 +65,10 @@ fun SearchScreen(
         }
     }
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(spacing.spaceMedium),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(spacing.spaceMedium),
     ) {
         Text(
             text = stringResource(id = R.string.add_meal, mealName),

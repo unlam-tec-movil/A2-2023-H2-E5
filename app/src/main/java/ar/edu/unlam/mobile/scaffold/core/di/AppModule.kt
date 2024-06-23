@@ -18,41 +18,27 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(app: Application): SharedPreferences = app.getSharedPreferences("shared_pref", MODE_PRIVATE)
 
     @Provides
     @Singleton
-    fun provideSharedPreferences(
-        app: Application,
-    ): SharedPreferences {
-        return app.getSharedPreferences("shared_pref", MODE_PRIVATE)
-    }
+    fun providePreferences(sharedPreferences: SharedPreferences): Preferences = DefaultPreferences(sharedPreferences)
 
     @Provides
     @Singleton
-    fun providePreferences(sharedPreferences: SharedPreferences): Preferences {
-        return DefaultPreferences(sharedPreferences)
-    }
+    fun provideFilterOutDigitsUseCase(): FilterOutDigits = FilterOutDigits()
 
     @Provides
     @Singleton
-    fun provideFilterOutDigitsUseCase(): FilterOutDigits {
-        return FilterOutDigits()
-    }
-    @Provides
-    @Singleton
-    fun provideContext(application: Application): Context {
-        return application.applicationContext
-    }
+    fun provideContext(application: Application): Context = application.applicationContext
 
     @Provides
     @Singleton
-    fun provideStepsRepository(): StepsRepository {
-        return StepsRepository()
-    }
+    fun provideStepsRepository(): StepsRepository = StepsRepository()
 
     @Provides
     @Singleton
-    fun provideViewModelFactory(factory: ViewModelProvider.Factory): ViewModelProvider.Factory {
-        return factory
-    }
+    fun provideViewModelFactory(factory: ViewModelProvider.Factory): ViewModelProvider.Factory = factory
 }

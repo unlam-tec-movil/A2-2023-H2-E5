@@ -22,57 +22,55 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object TrackerDataModule {
+    @Provides
+    @Singleton
+    fun provideGson(): Gson = Gson()
 
     @Provides
     @Singleton
-    fun provideGson(): Gson {
-        return Gson()
-    }
-
-    @Provides
-    @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
+    fun provideOkHttpClient(): OkHttpClient =
+        OkHttpClient
+            .Builder()
             .readTimeout(6, TimeUnit.SECONDS)
             .callTimeout(6, TimeUnit.SECONDS)
             .addInterceptor(
                 HttpLoggingInterceptor().apply {
                     level = HttpLoggingInterceptor.Level.BODY
                 },
-            )
-            .build()
-    }
+            ).build()
 
     @Provides
     @Singleton
-    fun provideOpenFoodApi(client: OkHttpClient, gson: Gson): OpenFoodApi {
-        return Retrofit.Builder()
+    fun provideOpenFoodApi(
+        client: OkHttpClient,
+        gson: Gson,
+    ): OpenFoodApi =
+        Retrofit
+            .Builder()
             .baseUrl(OpenFoodApi.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
             .create()
-    }
 
     @Provides
     @Singleton
-    fun provideTrackerDatabase(app: Application): TrackerDatabase {
-        return Room.databaseBuilder(
-            app,
-            TrackerDatabase::class.java,
-            "tracker_db",
-        ).build()
-    }
+    fun provideTrackerDatabase(app: Application): TrackerDatabase =
+        Room
+            .databaseBuilder(
+                app,
+                TrackerDatabase::class.java,
+                "tracker_db",
+            ).build()
 
     @Provides
     @Singleton
     fun provideTrackerRepository(
         api: OpenFoodApi,
         db: TrackerDatabase,
-    ): TrackerRepository {
-        return TrackerRepositoryImpl(
+    ): TrackerRepository =
+        TrackerRepositoryImpl(
             dao = db.dao,
             api = api,
         )
-    }
 }

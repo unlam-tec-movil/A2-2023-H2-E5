@@ -15,49 +15,52 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 @HiltViewModel
-class AgeViewModel @Inject constructor(
-    private val preferences: Preferences,
-    private val filterOutDigits: FilterOutDigits,
-) : ViewModel() {
-    var age by mutableStateOf("13")
-        private set
-    private val MIN_AGE = 13
-    private val MAX_AGE = 100
+class AgeViewModel
+    @Inject
+    constructor(
+        private val preferences: Preferences,
+        private val filterOutDigits: FilterOutDigits,
+    ) : ViewModel() {
+        var age by mutableStateOf("13")
+            private set
+        private val MIN_AGE = 13
+        private val MAX_AGE = 100
 
-    private val _uiEvent = Channel<UiEvent>()
-    val uiEvent = _uiEvent.receiveAsFlow()
+        private val _uiEvent = Channel<UiEvent>()
+        val uiEvent = _uiEvent.receiveAsFlow()
 
-    fun onAgeEnter(age: String) {
-        val filteredAge = filterOutDigits(age)
-        if (filteredAge != this.age && age.length < 3) {
-            this.age = filteredAge
+        fun onAgeEnter(age: String) {
+            val filteredAge = filterOutDigits(age)
+            if (filteredAge != this.age && age.length < 3) {
+                this.age = filteredAge
+            }
         }
-    }
 
-    fun onNextClick() {
-        viewModelScope.launch {
-            val ageNumber = age.toIntOrNull()
-            if (ageNumber == null) {
-                _uiEvent.send(
-                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_age_cant_be_empty)),
-                )
-            } else if (ageNumber <= 0) {
-                _uiEvent.send(
-                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_age_cant_be_zero)),
-                )
-            } else if (ageNumber < MIN_AGE) {
-                _uiEvent.send(
-                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_MIN_AGE)),
-                )
-            } else if (ageNumber > MAX_AGE) {
-                _uiEvent.send(
-                    UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_MAX_AGE)),
-                )
-            } else {
-                preferences.saveAge(ageNumber)
-                _uiEvent.send(UiEvent.Success)
+        fun onNextClick() {
+            viewModelScope.launch {
+                val ageNumber = age.toIntOrNull()
+                if (ageNumber == null) {
+                    _uiEvent.send(
+                        UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_age_cant_be_empty)),
+                    )
+                } else if (ageNumber <= 0) {
+                    _uiEvent.send(
+                        UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_age_cant_be_zero)),
+                    )
+                } else if (ageNumber < MIN_AGE) {
+                    _uiEvent.send(
+                        UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_MIN_AGE)),
+                    )
+                } else if (ageNumber > MAX_AGE) {
+                    _uiEvent.send(
+                        UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_MAX_AGE)),
+                    )
+                } else {
+                    preferences.saveAge(ageNumber)
+                    _uiEvent.send(UiEvent.Success)
+                }
             }
         }
     }
-}

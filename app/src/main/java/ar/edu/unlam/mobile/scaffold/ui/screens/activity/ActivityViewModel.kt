@@ -15,24 +15,25 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ActivityViewModel @Inject constructor(
-    private val preferences: Preferences,
-) : ViewModel() {
+class ActivityViewModel
+    @Inject
+    constructor(
+        private val preferences: Preferences,
+    ) : ViewModel() {
+        var selectedActivityLevel by mutableStateOf<ActivityLevel>(ActivityLevel.Medium)
+            private set
 
-    var selectedActivityLevel by mutableStateOf<ActivityLevel>(ActivityLevel.Medium)
-        private set
+        private val _uiEvent = Channel<UiEvent>()
+        val uiEvent = _uiEvent.receiveAsFlow()
 
-    private val _uiEvent = Channel<UiEvent>()
-    val uiEvent = _uiEvent.receiveAsFlow()
+        fun onActivityLevelClick(activityLevel: ActivityLevel) {
+            selectedActivityLevel = activityLevel
+        }
 
-    fun onActivityLevelClick(activityLevel: ActivityLevel) {
-        selectedActivityLevel = activityLevel
-    }
-
-    fun onNextClick() {
-        viewModelScope.launch {
-            preferences.saveActivityLevel(selectedActivityLevel)
-            _uiEvent.send(UiEvent.Success)
+        fun onNextClick() {
+            viewModelScope.launch {
+                preferences.saveActivityLevel(selectedActivityLevel)
+                _uiEvent.send(UiEvent.Success)
+            }
         }
     }
-}

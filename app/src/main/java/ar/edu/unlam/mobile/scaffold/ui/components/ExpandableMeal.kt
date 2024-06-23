@@ -41,10 +41,11 @@ fun ExpandableMeal(
         modifier = modifier,
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onToggleClick() }
-                .padding(spacing.spaceMedium),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .clickable { onToggleClick() }
+                    .padding(spacing.spaceMedium),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
@@ -64,16 +65,18 @@ fun ExpandableMeal(
                         style = MaterialTheme.typography.h3,
                     )
                     Icon(
-                        imageVector = if (meal.isExpanded) {
-                            Icons.Default.KeyboardArrowUp
-                        } else {
-                            Icons.Default.KeyboardArrowDown
-                        },
-                        contentDescription = if (meal.isExpanded) {
-                            stringResource(id = R.string.collapse)
-                        } else {
-                            stringResource(id = R.string.extend)
-                        },
+                        imageVector =
+                            if (meal.isExpanded) {
+                                Icons.Default.KeyboardArrowUp
+                            } else {
+                                Icons.Default.KeyboardArrowDown
+                            },
+                        contentDescription =
+                            if (meal.isExpanded) {
+                                stringResource(id = R.string.collapse)
+                            } else {
+                                stringResource(id = R.string.extend)
+                            },
                     )
                 }
                 Spacer(modifier = Modifier.height(spacing.spaceSmall))

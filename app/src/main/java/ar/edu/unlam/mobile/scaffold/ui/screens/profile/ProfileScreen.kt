@@ -62,7 +62,7 @@ import com.google.accompanist.permissions.rememberPermissionState
 fun ProfileScreen(
     modifier: Modifier = Modifier,
     viewModel: ProfileViewModel = hiltViewModel(),
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -70,7 +70,9 @@ fun ProfileScreen(
     val userInfo by viewModel.userInfo.observeAsState()
 
     LaunchedEffect(navController) {
-        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<Uri>("imageUri")
+        navController.currentBackStackEntry
+            ?.savedStateHandle
+            ?.getLiveData<Uri>("imageUri")
             ?.observe(lifecycleOwner) { uri ->
                 uri?.let {
                     val bitmap = uriToBitmap(context, it)
@@ -81,17 +83,22 @@ fun ProfileScreen(
             }
     }
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFE0E0E0))
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(Color(0xFFE0E0E0)),
     ) {
         HeaderSection(navController, viewModel)
         BodySection(viewModel, userInfo)
     }
 }
+
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun HeaderSection(navController: NavHostController, viewModel: ProfileViewModel = hiltViewModel(),) {
+fun HeaderSection(
+    navController: NavHostController,
+    viewModel: ProfileViewModel = hiltViewModel(),
+) {
     val profileImage by viewModel.profileImage.collectAsState()
     val lifecycle = LocalLifecycleOwner.current
     val permissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
@@ -103,31 +110,33 @@ fun HeaderSection(navController: NavHostController, viewModel: ProfileViewModel 
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colors.primaryVariant)
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colors.primaryVariant)
+                .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
-            modifier = Modifier
-                .size(100.dp)
-                .background(Color.Gray),
-            contentAlignment = Alignment.Center
+            modifier =
+                Modifier
+                    .size(100.dp)
+                    .background(Color.Gray),
+            contentAlignment = Alignment.Center,
         ) {
             if (profileImage != null) {
                 Image(
                     bitmap = profileImage!!.asImageBitmap(),
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.Crop,
                 )
             } else {
                 Icon(
                     imageVector = Icons.Default.AccountCircle,
                     contentDescription = null,
                     tint = Color.White,
-                    modifier = Modifier.size(80.dp)
+                    modifier = Modifier.size(80.dp),
                 )
             }
 
@@ -139,15 +148,16 @@ fun HeaderSection(navController: NavHostController, viewModel: ProfileViewModel 
                         navController.navigate(Route.CAMERA)
                     }
                 },
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .offset(12.dp, (-12).dp)
+                modifier =
+                    Modifier
+                        .align(Alignment.TopEnd)
+                        .offset(12.dp, (-12).dp),
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
                     contentDescription = "Editar",
                     tint = Color.White,
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp),
                 )
             }
         }
@@ -157,7 +167,10 @@ fun HeaderSection(navController: NavHostController, viewModel: ProfileViewModel 
 }
 
 @Composable
-fun BodySection(viewModel: ProfileViewModel, userInfo: UserInfo?) {
+fun BodySection(
+    viewModel: ProfileViewModel,
+    userInfo: UserInfo?,
+) {
     var isEditing by remember { mutableStateOf(false) }
     var age by remember { mutableStateOf(TextFieldValue(userInfo?.age?.toString() ?: "")) }
     var weight by remember { mutableStateOf(TextFieldValue(userInfo?.weight?.toString() ?: "")) }
@@ -171,11 +184,12 @@ fun BodySection(viewModel: ProfileViewModel, userInfo: UserInfo?) {
     var steps by remember { mutableStateOf(TextFieldValue(userInfo?.steps?.toString() ?: "")) }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            .background(Color.White, shape = MaterialTheme.shapes.medium)
-            .padding(16.dp)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .background(Color.White, shape = MaterialTheme.shapes.medium)
+                .padding(16.dp),
     ) {
         LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             if (userInfo != null) {
@@ -184,7 +198,7 @@ fun BodySection(viewModel: ProfileViewModel, userInfo: UserInfo?) {
                         value = age,
                         onValueChange = { age = it },
                         label = "Edad",
-                        isEditing = isEditing
+                        isEditing = isEditing,
                     )
                 }
                 item {
@@ -192,7 +206,7 @@ fun BodySection(viewModel: ProfileViewModel, userInfo: UserInfo?) {
                         value = weight,
                         onValueChange = { weight = it },
                         label = "Peso",
-                        isEditing = isEditing
+                        isEditing = isEditing,
                     )
                 }
                 item {
@@ -200,7 +214,7 @@ fun BodySection(viewModel: ProfileViewModel, userInfo: UserInfo?) {
                         value = height,
                         onValueChange = { height = it },
                         label = "Altura",
-                        isEditing = isEditing
+                        isEditing = isEditing,
                     )
                 }
                 item {
@@ -208,7 +222,7 @@ fun BodySection(viewModel: ProfileViewModel, userInfo: UserInfo?) {
                         value = gender,
                         onValueChange = { gender = it },
                         label = "Género",
-                        isEditing = isEditing
+                        isEditing = isEditing,
                     )
                 }
                 item {
@@ -216,7 +230,7 @@ fun BodySection(viewModel: ProfileViewModel, userInfo: UserInfo?) {
                         value = activityLevel,
                         onValueChange = { activityLevel = it },
                         label = "Nivel de actividad",
-                        isEditing = isEditing
+                        isEditing = isEditing,
                     )
                 }
                 item {
@@ -224,7 +238,7 @@ fun BodySection(viewModel: ProfileViewModel, userInfo: UserInfo?) {
                         value = goalType,
                         onValueChange = { goalType = it },
                         label = "Tipo de objetivo",
-                        isEditing = isEditing
+                        isEditing = isEditing,
                     )
                 }
                 item {
@@ -232,7 +246,7 @@ fun BodySection(viewModel: ProfileViewModel, userInfo: UserInfo?) {
                         value = carbRatio,
                         onValueChange = { carbRatio = it },
                         label = "Carb Ratio",
-                        isEditing = isEditing
+                        isEditing = isEditing,
                     )
                 }
                 item {
@@ -240,7 +254,7 @@ fun BodySection(viewModel: ProfileViewModel, userInfo: UserInfo?) {
                         value = proteinRatio,
                         onValueChange = { proteinRatio = it },
                         label = "Protein Ratio",
-                        isEditing = isEditing
+                        isEditing = isEditing,
                     )
                 }
                 item {
@@ -248,7 +262,7 @@ fun BodySection(viewModel: ProfileViewModel, userInfo: UserInfo?) {
                         value = fatRatio,
                         onValueChange = { fatRatio = it },
                         label = "Fat Ratio",
-                        isEditing = isEditing
+                        isEditing = isEditing,
                     )
                 }
                 item {
@@ -256,36 +270,37 @@ fun BodySection(viewModel: ProfileViewModel, userInfo: UserInfo?) {
                         value = steps,
                         onValueChange = { steps = it },
                         label = "Steps",
-                        isEditing = isEditing
+                        isEditing = isEditing,
                     )
                 }
                 item {
                     if (isEditing) {
                         Button(
                             onClick = {
-                                val updatedUserInfo = UserInfo(
-                                    gender = Gender.fromString(gender.text),
-                                    age = age.text.toIntOrNull() ?: userInfo.age,
-                                    height = height.text.toIntOrNull() ?: userInfo.height,
-                                    weight = weight.text.toFloatOrNull() ?: userInfo.weight,
-                                    activityLevel = ActivityLevel.fromString(activityLevel.text),
-                                    goalType = GoalType.fromString(goalType.text),
-                                    carbRatio = carbRatio.text.toFloatOrNull() ?: userInfo.carbRatio,
-                                    proteinRatio = proteinRatio.text.toFloatOrNull() ?: userInfo.proteinRatio,
-                                    fatRatio = fatRatio.text.toFloatOrNull() ?: userInfo.fatRatio,
-                                    steps = steps.text.toIntOrNull() ?: userInfo.steps
-                                )
+                                val updatedUserInfo =
+                                    UserInfo(
+                                        gender = Gender.fromString(gender.text),
+                                        age = age.text.toIntOrNull() ?: userInfo.age,
+                                        height = height.text.toIntOrNull() ?: userInfo.height,
+                                        weight = weight.text.toFloatOrNull() ?: userInfo.weight,
+                                        activityLevel = ActivityLevel.fromString(activityLevel.text),
+                                        goalType = GoalType.fromString(goalType.text),
+                                        carbRatio = carbRatio.text.toFloatOrNull() ?: userInfo.carbRatio,
+                                        proteinRatio = proteinRatio.text.toFloatOrNull() ?: userInfo.proteinRatio,
+                                        fatRatio = fatRatio.text.toFloatOrNull() ?: userInfo.fatRatio,
+                                        steps = steps.text.toIntOrNull() ?: userInfo.steps,
+                                    )
                                 viewModel.updateUserInfo(updatedUserInfo)
                                 isEditing = false
                             },
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
                         ) {
                             Text("Guardar")
                         }
                     } else {
                         Button(
                             onClick = { isEditing = true },
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
                         ) {
                             Text("Editar")
                         }
@@ -305,22 +320,25 @@ fun TextFieldWithLabel(
     value: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit,
     label: String,
-    isEditing: Boolean
+    isEditing: Boolean,
 ) {
     if (isEditing) {
         TextField(
             value = value,
             onValueChange = onValueChange,
             label = { Text(label) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
     } else {
         Text(text = "$label: ${value.text}", style = MaterialTheme.typography.body1)
     }
 }
 
-fun uriToBitmap(context: Context, uri: Uri): Bitmap? {
-    return try {
+fun uriToBitmap(
+    context: Context,
+    uri: Uri,
+): Bitmap? =
+    try {
         if (Build.VERSION.SDK_INT < 28) {
             @Suppress("DEPRECATION")
             MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
@@ -332,4 +350,3 @@ fun uriToBitmap(context: Context, uri: Uri): Bitmap? {
         e.printStackTrace()
         null
     }
-}

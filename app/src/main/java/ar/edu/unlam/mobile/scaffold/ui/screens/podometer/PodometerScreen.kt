@@ -1,9 +1,13 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package ar.edu.unlam.mobile.scaffold.ui.screens.podometer
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
@@ -21,21 +25,25 @@ import ar.edu.unlam.mobile.scaffold.ui.screens.pedometer.PodometerViewModel
 import ar.edu.unlam.mobile.scaffold.ui.screens.pedometer.StepCounter
 import java.util.concurrent.TimeUnit
 
+@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun PodometerScreen(viewModel: PodometerViewModel = viewModel()) {
     val context = LocalContext.current
     var permissionRequested by remember { mutableStateOf(false) }
 
-    val permissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        viewModel.isPermissionGranted = isGranted
-    }
+    val permissionLauncher =
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.RequestPermission(),
+        ) { isGranted ->
+            viewModel.isPermissionGranted = isGranted
+        }
 
     LaunchedEffect(Unit) {
-        val isPermissionGranted = ContextCompat.checkSelfPermission(
-            context, Manifest.permission.ACTIVITY_RECOGNITION
-        ) == PackageManager.PERMISSION_GRANTED
+        val isPermissionGranted =
+            ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACTIVITY_RECOGNITION,
+            ) == PackageManager.PERMISSION_GRANTED
 
         if (!isPermissionGranted && !permissionRequested) {
             permissionRequested = true
@@ -52,19 +60,20 @@ fun PodometerScreen(viewModel: PodometerViewModel = viewModel()) {
     val caloriesBurnt by viewModel.activityCalories.observeAsState(0)
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
+        verticalArrangement = Arrangement.Top,
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("${progress}%", style = MaterialTheme.typography.h6)
+                Text("$progress%", style = MaterialTheme.typography.h6)
                 Text("Meta", style = MaterialTheme.typography.body2)
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -79,25 +88,25 @@ fun PodometerScreen(viewModel: PodometerViewModel = viewModel()) {
         Spacer(modifier = Modifier.height(16.dp))
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier.size(200.dp)
+            modifier = Modifier.size(200.dp),
         ) {
             CircularProgressIndicator(
                 progress = progress / 100f,
                 strokeWidth = 8.dp,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
             )
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = "Pasos de hoy",
-                    style = MaterialTheme.typography.body1
+                    style = MaterialTheme.typography.body1,
                 )
                 Text(
                     text = "${stepCounter.steps}",
-                    style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.Bold)
+                    style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.Bold),
                 )
                 Text(
                     text = "Meta: ${stepCounter.goal}",
-                    style = MaterialTheme.typography.body2
+                    style = MaterialTheme.typography.body2,
                 )
             }
         }
@@ -105,11 +114,11 @@ fun PodometerScreen(viewModel: PodometerViewModel = viewModel()) {
         Text(
             text = "Calorias quemadas",
             style = MaterialTheme.typography.h6,
-            modifier = Modifier.padding(vertical = 8.dp)
+            modifier = Modifier.padding(vertical = 8.dp),
         )
         Text(
             text = "$caloriesBurnt",
-            style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.Bold)
+            style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.Bold),
         )
     }
 }

@@ -301,7 +301,7 @@ fun DrawPathPoints(puntos: List<LatLng>) {
         Polyline(
             points = puntos,
             color = Color.Green,
-            width = 11f
+            width = 9f
         )
     }
 }

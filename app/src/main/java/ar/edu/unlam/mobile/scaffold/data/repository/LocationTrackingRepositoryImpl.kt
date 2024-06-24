@@ -13,4 +13,8 @@ class LocationTrackingRepositoryImpl(private val locationDao: LocationDao): Loca
     override suspend fun insertLocationPoint(point: LocationEntity) {
         locationDao.insertLocationPoint(point)
     }
+
+    override suspend fun clearLocationPoints(day: Int) {
+        locationDao.deleteLocationsByDay(day)
+    }
 }

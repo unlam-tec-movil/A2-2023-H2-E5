@@ -22,6 +22,9 @@ interface Preferences {
     fun saveStepsGoals(step: Int)
     fun saveUserName(firstName: StateFlow<String>, lastName: StateFlow<String>)
 
+    fun loadClearedPointsDay(): Int
+    fun saveClearedPointsDay(dayOfMonth:Int)
+
     companion object {
         const val KEY_GENDER = "gender"
         const val KEY_AGE = "age"
@@ -34,5 +37,6 @@ interface Preferences {
         const val KEY_FAT_RATIO = "fat_ratio"
         const val KEY_SHOULD_SHOW_ONBOARDING = "should_show_onboarding"
         const val KEY_STEP = "steps"
+        const val KEY_CLEARED_POINTS_DAY = "cleared_points_day"
     }
 }

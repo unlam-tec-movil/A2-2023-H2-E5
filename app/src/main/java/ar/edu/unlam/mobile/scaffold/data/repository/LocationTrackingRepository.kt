@@ -10,4 +10,6 @@ interface LocationTrackingRepository {
     suspend fun insertLocationPoint(point: LocationEntity)
 
     suspend fun getLocationPoints(): Flow<List<LocationEntity>>
+
+    suspend fun clearLocationPoints(day: Int)
 }

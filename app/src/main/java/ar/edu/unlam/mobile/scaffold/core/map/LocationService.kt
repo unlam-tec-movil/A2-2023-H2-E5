@@ -33,7 +33,7 @@ class LocationService @Inject constructor(
         }
 
         val request = LocationRequest.Builder(10000L)
-            .setIntervalMillis(120000L)
+            .setIntervalMillis(10000L)
             .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
             .build()
 

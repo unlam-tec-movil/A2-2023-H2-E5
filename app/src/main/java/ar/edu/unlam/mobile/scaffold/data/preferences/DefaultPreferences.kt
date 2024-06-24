@@ -103,6 +103,17 @@ class DefaultPreferences(
     }
 
     override fun saveUserName(firstName: StateFlow<String>, lastName: StateFlow<String>) {
-        TODO("Not yet implemented")
+
+    }
+
+
+    override fun loadClearedPointsDay(): Int {
+        return sharedPref.getInt(Preferences.KEY_CLEARED_POINTS_DAY,0)
+    }
+
+    override fun saveClearedPointsDay(dayOfMonth: Int) {
+        sharedPref.edit()
+            .putInt(Preferences.KEY_CLEARED_POINTS_DAY,dayOfMonth)
+            .apply()
     }
 }

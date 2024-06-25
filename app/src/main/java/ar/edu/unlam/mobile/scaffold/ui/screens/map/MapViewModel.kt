@@ -41,7 +41,7 @@ class MapViewModel @Inject constructor(
                 Point(-34.63333, -58.56667),
                 Point(-34.7, -58.58333)
             )
-            if(preferences.loadClearedPointsDay() != 0 && preferences.loadClearedPointsDay() != LocalDateTime.now().dayOfMonth - 1){
+            if(preferences.loadClearedPointsDay() == 0 && preferences.loadClearedPointsDay() != LocalDateTime.now().dayOfMonth){
                 clearLocations()
             }
             updateLocations()
@@ -74,7 +74,7 @@ class MapViewModel @Inject constructor(
     }
 
     private suspend fun clearLocations(){
-        val day = LocalDateTime.now().dayOfMonth - 1
+        val day = LocalDateTime.now().dayOfMonth
         locationUseCases.clearPreviousActivityState(day)
         preferences.saveClearedPointsDay(day)
     }

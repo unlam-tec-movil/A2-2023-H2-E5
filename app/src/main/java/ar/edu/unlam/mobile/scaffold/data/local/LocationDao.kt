@@ -25,7 +25,7 @@ interface LocationDao {
         """
             DELETE
             FROM location
-            WHERE day = :day
+            WHERE day < :day
         """,
     )
     suspend fun deleteLocationsByDay(day:Int)

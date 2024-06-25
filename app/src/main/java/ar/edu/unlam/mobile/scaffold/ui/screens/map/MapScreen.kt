@@ -231,58 +231,7 @@ fun Map(
                     state = MarkerState(position = marker),
                     title = "Mi Posición Actual",
                 )
-                MarkerInfoWindowContent(
-                    state = MarkerState(position = punto1),
-                    snippet = "Punto 1",
-                    icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_map),
-                ) {
-                    selectedDestination = punto1
-                    Box(
-                        modifier = Modifier
-                            .height(290.dp)
-                            .width(300.dp)
-                            .background(Color.White)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_map),
-                            contentDescription = null,
-                            contentScale = ContentScale.FillHeight,
-                            modifier = Modifier
-                                .width(500.dp)
-                                .height(250.dp)
-                                .testTag("imagen punto uno de encuentro"),
-                        )
-                        Text(
-                            text = "Punto De Encuentro 1",
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .padding(top = 250.dp)
-                                .fillMaxWidth()
-                                .testTag(tag = "MapScreen Text punto de encuentro uno"),
-                            fontSize = 30.sp,
-                            color = Color.Black,
 
-                        )
-                    }
-                }
-
-
-                MarkerInfoWindowContent(
-                    state = MarkerState(position = punto2),
-                    snippet = "Punto de encuentro 2",
-                    icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_map)
-                ) {
-                    selectedDestination = punto2
-
-                    Box(
-                        modifier = Modifier
-                            .height(270.dp)
-                            .width(300.dp)
-                            .background(Color.Green)
-                    ) {
-                        // Aquí iría el contenido que deseamos mostrar para el punto de encuentro 2
-                    }
-                }
 
                     DrawPathPoints(puntos = locationsList)
                 

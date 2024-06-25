@@ -19,7 +19,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TrackerOverviewViewmodel @Inject constructor(
-    preferences: Preferences,
     private val trackerUseCases: TrackerUseCases,
 ) : ViewModel() {
 
@@ -33,7 +32,6 @@ class TrackerOverviewViewmodel @Inject constructor(
 
     init {
         refreshFoods()
-        preferences.saveShouldShowOnboarding(false)
     }
 
     fun onEvent(event: TrackerOverviewEvent) {

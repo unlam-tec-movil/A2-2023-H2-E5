@@ -1,7 +1,6 @@
 package ar.edu.unlam.mobile.scaffold.data.local
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -28,7 +27,5 @@ interface LocationDao {
             WHERE day < :day
         """,
     )
-    suspend fun deleteLocationsByDay(day:Int)
-
-
+    suspend fun deleteLocationsByDay(day: Int)
 }

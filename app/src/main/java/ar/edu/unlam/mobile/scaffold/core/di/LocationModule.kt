@@ -31,7 +31,7 @@ object LocationModule {
 
     @Singleton
     @Provides
-    fun provideLocationUseCases(repository: LocationTrackingRepository): LocationUseCases{
+    fun provideLocationUseCases(repository: LocationTrackingRepository): LocationUseCases {
         return LocationUseCases(
             getCurrentActivityState = GetCurrentActivityStateUseCase(repository),
             saveCurrentActivityState = SaveCurrentActivityUseCase(repository),

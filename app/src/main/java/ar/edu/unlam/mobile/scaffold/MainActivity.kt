@@ -211,7 +211,7 @@ class MainActivity : ComponentActivity() {
                                 },
                             )
                         }
-                        composable(Route.CAMERA){
+                        composable(Route.CAMERA) {
                             CameraScreen(
                                 onImageSaved = { uri ->
                                     navController.previousBackStackEntry?.savedStateHandle?.set("imageUri", uri)

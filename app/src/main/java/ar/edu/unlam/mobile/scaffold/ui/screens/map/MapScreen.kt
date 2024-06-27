@@ -7,17 +7,12 @@ import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -34,21 +29,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ar.edu.unlam.mobile.scaffold.R
 import ar.edu.unlam.mobile.scaffold.domain.model.Point
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
@@ -56,29 +47,28 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapType
 import com.google.maps.android.compose.Marker
-import com.google.maps.android.compose.MarkerInfoWindowContent
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
-
-
 
 @OptIn(ExperimentalPermissionsApi::class)
 @RequiresApi(Build.VERSION_CODES.S)
 @Composable
 fun MapScreen(
     modifier: Modifier,
-    viewModel: MapViewModel = hiltViewModel()
+    viewModel: MapViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    val permissionState = rememberMultiplePermissionsState(
-        permissions = listOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+    val permissionState =
+        rememberMultiplePermissionsState(
+            permissions =
+                listOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                ),
         )
-    )
 
     val viewState by viewModel.viewState.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
     val listaDePuntos by viewModel.locations.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
@@ -109,24 +99,23 @@ fun MapScreen(
         }
     }
 
-
     when (val currentState = viewState) {
         is ViewState.Loading -> {
             if (!isGpsEnabled(context)) {
                 Box(
                     modifier = modifier,
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     Text(
                         text = "Por Favor activa el Gps para usar el mapa",
                         style = MaterialTheme.typography.headlineLarge,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
                     )
                 }
             } else {
                 Box(
                     modifier = modifier,
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     CircularProgressIndicator()
                 }
@@ -136,19 +125,20 @@ fun MapScreen(
         ViewState.RevokedPermissions -> {
             Box(
                 modifier = modifier,
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(24.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .padding(24.dp),
                     verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Text(
                         "Necesitas los permisos de localizacion y Gps activado para usar el mapa",
                         style = MaterialTheme.typography.headlineLarge,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
                     )
                     Button(
                         modifier = Modifier.padding(16.dp),
@@ -157,12 +147,12 @@ fun MapScreen(
                             intent.data = Uri.parse("package:${context.packageName}")
                             context.startActivity(intent)
                         },
-                        colors = ButtonDefaults.buttonColors(Color.Green)
+                        colors = ButtonDefaults.buttonColors(Color.Green),
                     ) {
                         Text(
                             "Ajustes",
                             fontSize = 20.sp,
-                            color = Color.Black
+                            color = Color.Black,
                         )
                     }
                 }
@@ -170,10 +160,11 @@ fun MapScreen(
         }
 
         is ViewState.Success -> {
-            val currentLoc = currentState.currentLocation?: LatLng(0.0, 0.0)
-            val cameraState = rememberCameraPositionState {
-                position = CameraPosition.fromLatLngZoom(currentLoc, 18f)
-            }
+            val currentLoc = currentState.currentLocation ?: LatLng(0.0, 0.0)
+            val cameraState =
+                rememberCameraPositionState {
+                    position = CameraPosition.fromLatLngZoom(currentLoc, 18f)
+                }
 
             val puntosDeEncuentroState by viewModel.point.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
             Map(
@@ -181,7 +172,7 @@ fun MapScreen(
                 currentPosition = currentLoc,
                 cameraState = cameraState,
                 puntosDeEncuentroState = puntosDeEncuentroState,
-                locationsList = listaDePuntos
+                locationsList = listaDePuntos,
             )
         }
     }
@@ -192,15 +183,15 @@ fun isGpsEnabled(context: Context): Boolean {
     val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 }
+
 @Composable
 fun Map(
     modifier: Modifier = Modifier,
     currentPosition: LatLng,
     cameraState: CameraPositionState,
     puntosDeEncuentroState: List<Point>,
-    locationsList: List<LatLng>
+    locationsList: List<LatLng>,
 ) {
-
     val punto1 = LatLng(puntosDeEncuentroState[0].coordinates1, puntosDeEncuentroState[0].coordinates2)
     val punto2 = LatLng(puntosDeEncuentroState[1].coordinates1, puntosDeEncuentroState[1].coordinates2)
 
@@ -210,47 +201,43 @@ fun Map(
 
     Box(modifier) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color.Green),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            GoogleMap(
-                modifier = Modifier
+            modifier =
+                Modifier
                     .fillMaxSize()
-                    .testTag("MapScreen googleMap"),
+                    .background(color = Color.Green),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            GoogleMap(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .testTag("MapScreen googleMap"),
                 cameraPositionState = cameraState,
-                properties = MapProperties(
-                    isMyLocationEnabled = true,
-                    mapType = MapType.NORMAL,
-                )
+                properties =
+                    MapProperties(
+                        isMyLocationEnabled = true,
+                        mapType = MapType.NORMAL,
+                    ),
             ) {
                 Marker(
                     state = MarkerState(position = marker),
                     title = "Mi Posición Actual",
                 )
 
-
-                    DrawPathPoints(puntos = locationsList)
-                
+                DrawPathPoints(puntos = locationsList)
             }
-
         }
-
     }
-
 }
-
 
 @Composable
 fun DrawPathPoints(puntos: List<LatLng>) {
-    if(puntos.isNotEmpty() && puntos.size > 2){
+    if (puntos.isNotEmpty() && puntos.size > 2) {
         Polyline(
             points = puntos,
             color = Color.Green,
-            width = 9f
+            width = 9f,
         )
     }
 }

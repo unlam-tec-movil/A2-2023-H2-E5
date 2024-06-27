@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffold.di
+package ar.edu.unlam.mobile.scaffold.core.di
 
 import android.content.Context
 import ar.edu.unlam.mobile.scaffold.core.map.ILocationService
@@ -19,23 +19,21 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object LocationModule {
-
     @Singleton
     @Provides
     fun provideLocationClient(
-        @ApplicationContext context: Context
-    ): ILocationService = LocationService(
-        context,
-        LocationServices.getFusedLocationProviderClient(context)
-    )
+        @ApplicationContext context: Context,
+    ): ILocationService =
+        LocationService(
+            context,
+            LocationServices.getFusedLocationProviderClient(context),
+        )
 
     @Singleton
     @Provides
-    fun provideLocationUseCases(repository: LocationTrackingRepository): LocationUseCases {
-        return LocationUseCases(
-            getCurrentActivityState = GetCurrentActivityStateUseCase(repository),
-            saveCurrentActivityState = SaveCurrentActivityUseCase(repository),
-            clearPreviousActivityState = ClearPreviousActivityUseCase(repository)
-        )
-    }
+    fun provideLocationUseCases(repository: LocationTrackingRepository): LocationUseCases = LocationUseCases(
+        getCurrentActivityState = GetCurrentActivityStateUseCase(repository),
+        saveCurrentActivityState = SaveCurrentActivityUseCase(repository),
+        clearPreviousActivityState = ClearPreviousActivityUseCase(repository),
+    )
 }

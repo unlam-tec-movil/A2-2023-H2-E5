@@ -10,5 +10,5 @@ data class LocationEntity(
     @ColumnInfo("longitud")
     val longitud: Double,
     @ColumnInfo("day")
-    val day: Int
+    val day: Int,
 )

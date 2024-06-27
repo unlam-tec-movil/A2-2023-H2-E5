@@ -7,5 +7,5 @@ import ar.edu.unlam.mobile.scaffold.domain.map.SaveCurrentActivityUseCase
 data class LocationUseCases(
     val getCurrentActivityState: GetCurrentActivityStateUseCase,
     val saveCurrentActivityState: SaveCurrentActivityUseCase,
-    val clearPreviousActivityState: ClearPreviousActivityUseCase
+    val clearPreviousActivityState: ClearPreviousActivityUseCase,
 )

@@ -23,7 +23,7 @@ interface Preferences {
     fun saveUserName(firstName: StateFlow<String>, lastName: StateFlow<String>)
 
     fun loadClearedPointsDay(): Int
-    fun saveClearedPointsDay(dayOfMonth:Int)
+    fun saveClearedPointsDay(dayOfMonth: Int)
 
     companion object {
         const val KEY_GENDER = "gender"

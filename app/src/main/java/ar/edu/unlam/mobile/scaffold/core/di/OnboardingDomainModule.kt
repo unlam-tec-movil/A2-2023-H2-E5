@@ -10,10 +10,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object OnboardingDomainModule {
-
     @Provides
     @Singleton
-    fun provideValidateNutrientUseCase(): ValidateNutrients {
-        return ValidateNutrients()
-    }
+    fun provideValidateNutrientUseCase(): ValidateNutrients = ValidateNutrients()
 }

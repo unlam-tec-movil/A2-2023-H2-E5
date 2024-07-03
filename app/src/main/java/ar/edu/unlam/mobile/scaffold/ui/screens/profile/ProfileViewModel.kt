@@ -1,4 +1,3 @@
-
 package ar.edu.unlam.mobile.scaffold.ui.screens.profile
 
 import android.graphics.Bitmap
@@ -18,23 +17,30 @@ class ProfileViewModel
     constructor(
         private val preferences: Preferences,
     ) : ViewModel() {
+        // Estado mutable para la imagen de perfil
         private val _profileImage = MutableStateFlow<Bitmap?>(null)
         val profileImage: StateFlow<Bitmap?> get() = _profileImage
+
+        // LiveData para la información del usuario
         private val _userInfo = MutableLiveData<UserInfo>()
         val userInfo: LiveData<UserInfo> get() = _userInfo
 
+        // Carga inicial de la información del usuario desde las preferencias
         init {
             loadUserInfo()
         }
 
+        // Método privado para cargar la información del usuario
         private fun loadUserInfo() {
             _userInfo.value = preferences.loadUserInfo()
         }
 
+        // Actualiza la imagen de perfil con una nueva imagen
         fun updateProfileImage(newImage: Bitmap) {
             _profileImage.value = newImage
         }
 
+        // Actualiza la información del usuario y guarda en las preferencias
         fun updateUserInfo(updatedUserInfo: UserInfo) {
             _userInfo.value = updatedUserInfo
             preferences.saveGender(updatedUserInfo.gender)

@@ -25,10 +25,9 @@ data class StepCounter(
 class PodometerViewModel(
     application: Application,
     private val state: SavedStateHandle,
-    private val sensorManager: SensorManager = application.getSystemService(Application.SENSOR_SERVICE) as SensorManager
+    private val sensorManager: SensorManager = application.getSystemService(Application.SENSOR_SERVICE) as SensorManager,
 ) : AndroidViewModel(application),
     SensorEventListener {
-
     // LiveData para el contador de pasos
     private val _stepCounter = state.getLiveData("stepCounter", StepCounter(0, 10000))
     val stepCounter: LiveData<StepCounter> = _stepCounter
@@ -102,7 +101,9 @@ class PodometerViewModel(
                 isPermissionGranted = true
             }
         } else {
-            // Manejar escenario donde el usuario deniega el permiso dos veces
+            // La idea era mostrar una pantalla que indique la persona usuaria
+            // debe acptar el permiso en la configuración de la aplicación para poder
+            // usar el podómetro
         }
     }
 

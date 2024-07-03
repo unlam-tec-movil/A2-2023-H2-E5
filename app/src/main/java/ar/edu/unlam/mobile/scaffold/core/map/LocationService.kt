@@ -20,53 +20,63 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
+// Servicio para manejar la ubicación del dispositivo
 class LocationService
     @Inject
     constructor(
         private val context: Context,
         private val locationClient: FusedLocationProviderClient,
-    ) : ILocationService {
+    ) : ILocationService { // Implementa la interfaz ILocationService para gestionar la ubicación
+
+        // Método para solicitar actualizaciones de ubicación
         @SuppressLint("MissingPermission")
         @RequiresApi(Build.VERSION_CODES.S)
         override fun requestLocationUpdates(): Flow<LatLng?> =
             callbackFlow {
+                // Verificar permisos de ubicación
                 if (!context.hasLocationPermission()) {
-                    trySend(null)
-                    return@callbackFlow
+                    trySend(null) // Enviar null si no se tienen permisos
+                    return@callbackFlow // Salir del flow
                 }
 
+                // Configurar solicitud de ubicación
                 val request =
                     LocationRequest
-                        .Builder(10000L)
+                        .Builder(10000L) // Intervalo de actualización de ubicación en milisegundos
                         .setIntervalMillis(10000L)
-                        .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+                        .setPriority(Priority.PRIORITY_HIGH_ACCURACY) // Prioridad alta de precisión
                         .build()
 
+                // Callback para manejar resultados de ubicación
                 val locationCallback =
                     object : LocationCallback() {
                         override fun onLocationResult(locationResult: LocationResult) {
                             locationResult.locations.lastOrNull()?.let {
-                                trySend(LatLng(it.latitude, it.longitude))
-                                Log.i("locationExample", "onLocationResult: $it")
+                                trySend(LatLng(it.latitude, it.longitude)) // Enviar la ubicación como LatLng
+                                Log.i("locationExample", "onLocationResult: $it") // Log para depuración
                             }
                         }
                     }
 
+                // Solicitar actualizaciones de ubicación al cliente de ubicación
                 locationClient.requestLocationUpdates(
                     request,
                     locationCallback,
-                    Looper.getMainLooper(),
+                    Looper.getMainLooper(), // Looper para manejar el hilo principal
                 )
 
+                // Cerrar el flow cuando no se necesiten más actualizaciones
                 awaitClose {
                     locationClient.removeLocationUpdates(locationCallback)
                 }
             }
 
+        // Método para solicitar la ubicación actual
         override fun requestCurrentLocation(): Flow<LatLng?> {
             TODO("Not yet implemented")
         }
 
+        // Función de extensión para verificar permisos de ubicación en el contexto dado
         fun Context.hasLocationPermission(): Boolean =
             ContextCompat.checkSelfPermission(
                 this,

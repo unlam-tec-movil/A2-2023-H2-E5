@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+// Requiere API nivel 31 (Android 12)
 @RequiresApi(Build.VERSION_CODES.S)
 @HiltViewModel
 class MapViewModel
@@ -20,13 +21,16 @@ class MapViewModel
     constructor(
         private val getLocationUseCase: GetLocationUseCase,
     ) : ViewModel() {
+        // Estado de la vista, se inicializa como Loading
         private val _viewState: MutableStateFlow<ViewState> = MutableStateFlow(ViewState.Loading)
-        val viewState = _viewState.asStateFlow()
+        val viewState = _viewState.asStateFlow() // Estado de la vista como flujo inmutable
 
+        // Lista mutable de puntos
         private var _point = MutableStateFlow(listOf<Point>())
-        val point = _point.asStateFlow()
+        val point = _point.asStateFlow() // Lista de puntos como flujo inmutable
 
         init {
+            // Inicialización de puntos (simulación de datos)
             viewModelScope.launch {
                 _point.value =
                     listOf(
@@ -36,9 +40,11 @@ class MapViewModel
             }
         }
 
+        // Manejo de eventos de permisos
         fun handle(event: PermissionEvent) {
             when (event) {
                 is PermissionEvent.Granted -> {
+                    // Acción cuando se otorgan permisos
                     viewModelScope.launch {
                         getLocationUseCase.invoke().collect {
                             _viewState.value = ViewState.Success(it)
@@ -47,24 +53,27 @@ class MapViewModel
                 }
 
                 PermissionEvent.Revoked -> {
+                    // Acción cuando se revocan permisos
                     _viewState.value = ViewState.RevokedPermissions
                 }
             }
         }
     }
 
+// Interfaz sellada para representar los estados de la vista
 sealed interface ViewState {
-    object Loading : ViewState
+    object Loading : ViewState // Estado de carga
 
     data class Success(
         val location: LatLng?,
-    ) : ViewState
+    ) : ViewState // Estado de éxito con ubicación
 
-    object RevokedPermissions : ViewState
+    object RevokedPermissions : ViewState // Estado de permisos revocados
 }
 
+// Interfaz sellada para representar eventos de permisos
 sealed interface PermissionEvent {
-    object Granted : PermissionEvent
+    object Granted : PermissionEvent // Evento de permisos otorgados
 
-    object Revoked : PermissionEvent
+    object Revoked : PermissionEvent // Evento de permisos revocados
 }

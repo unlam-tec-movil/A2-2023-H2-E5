@@ -49,12 +49,13 @@ import com.google.accompanist.permissions.rememberPermissionState
 import java.io.File
 import java.util.concurrent.Executor
 
+// Pantalla Composable para la cámara
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun CameraScreen(
-    onImageSaved: (Uri?) -> Unit,
-    onCancel: () -> Unit,
-    navController: NavHostController,
+    onImageSaved: (Uri?) -> Unit, // Callback para cuando se guarda una imagen
+    onCancel: () -> Unit, // Callback para cancelar la captura de imagen
+    navController: NavHostController, // Controlador de navegación
 ) {
     val permissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
     val context = LocalContext.current
@@ -64,6 +65,7 @@ fun CameraScreen(
     var imageUri by remember { mutableStateOf<Uri?>(null) }
     var isCameraActive by remember { mutableStateOf(true) }
 
+    // Scaffold de Material3 para la pantalla
     Scaffold(modifier = Modifier.fillMaxSize(), floatingActionButton = {
         if (isCameraActive) {
             Box(
@@ -72,12 +74,13 @@ fun CameraScreen(
             ) {
                 Box(
                     modifier =
-                    Modifier
-                        .size(56.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colors.primaryVariant),
+                        Modifier
+                            .size(56.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colors.primaryVariant),
                     contentAlignment = Alignment.Center,
                 ) {
+                    // Botón para capturar imagen
                     IconButton(
                         onClick = {
                             val executor = ContextCompat.getMainExecutor(context)
@@ -99,17 +102,20 @@ fun CameraScreen(
     }) {
         Box(modifier = Modifier.fillMaxSize()) {
             if (isCameraActive) {
+                // Componente para mostrar la vista de la cámara
                 CameraComponent(modifier = Modifier.padding(it), cameraController, lifecycle)
             } else {
                 imageUri?.let { uri ->
+                    // Mostrar la imagen capturada
                     Image(
                         painter = rememberAsyncImagePainter(uri),
                         contentDescription = null,
                         modifier =
-                        Modifier
-                            .fillMaxSize(),
+                            Modifier
+                                .fillMaxSize(),
                         contentScale = ContentScale.FillWidth,
                     )
+                    // Botones para guardar y cancelar la imagen
                     Box(
                         modifier = Modifier.fillMaxSize().padding(15.dp),
                         contentAlignment = Alignment.BottomCenter,
@@ -118,29 +124,31 @@ fun CameraScreen(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceEvenly,
                         ) {
+                            // Botón de guardar
                             Button(
                                 onClick = {
                                     onImageSaved(uri)
                                 },
                                 colors =
-                                ButtonDefaults.buttonColors(
-                                    backgroundColor = MaterialTheme.colors.primaryVariant,
-                                ),
+                                    ButtonDefaults.buttonColors(
+                                        backgroundColor = MaterialTheme.colors.primaryVariant,
+                                    ),
                             ) {
                                 Icon(
                                     imageVector = Icons.Filled.Check,
                                     contentDescription = "Save",
                                 )
                             }
+                            // Botón de cancelar
                             Button(
                                 onClick = {
                                     imageUri = null
                                     isCameraActive = true
                                 },
                                 colors =
-                                ButtonDefaults.buttonColors(
-                                    backgroundColor = MaterialTheme.colors.primaryVariant,
-                                ),
+                                    ButtonDefaults.buttonColors(
+                                        backgroundColor = MaterialTheme.colors.primaryVariant,
+                                    ),
                             ) {
                                 Icon(
                                     imageVector = Icons.Filled.Close,
@@ -155,6 +163,7 @@ fun CameraScreen(
     }
 }
 
+// Función privada para capturar una imagen
 private fun takePicture(
     cameraController: LifecycleCameraController,
     executor: Executor,
@@ -178,6 +187,7 @@ private fun takePicture(
     )
 }
 
+// Composable para mostrar la vista previa de la cámara
 @Composable
 fun CameraComponent(
     modifier: Modifier = Modifier,

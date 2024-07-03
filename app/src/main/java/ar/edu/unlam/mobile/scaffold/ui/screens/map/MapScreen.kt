@@ -1,7 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens.map
 
-// Importaciones necesarias para la funcionalidad de la aplicación
-
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Context
@@ -61,6 +59,7 @@ import com.google.maps.android.compose.MarkerInfoWindowContent
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 
+@Suppress("ktlint:standard:function-naming")
 @OptIn(ExperimentalPermissionsApi::class)
 @RequiresApi(Build.VERSION_CODES.S)
 @Composable
@@ -68,8 +67,10 @@ fun MapScreen(
     modifier: Modifier,
     viewModel: MapViewModel = hiltViewModel(),
 ) {
-    // Obtener el contexto actual y el propietario del ciclo de vida
+    // Obtener el contexto actual de la aplicación para iniciar actividades
     val context = LocalContext.current
+    // y el propietario del ciclo de vida actual de la pantalla para sincronizar la inicialización, actualización
+    // basada en eventos del ciclo de vida del componente que contiene la UI actual.
     val lifecycleOwner = LocalLifecycleOwner.current
 
     // Estado de los permisos de ubicación
@@ -88,7 +89,6 @@ fun MapScreen(
             permissionState.launchMultiplePermissionRequest()
         }
     }
-
     // Manejo de diferentes estados de permisos
     when {
         // Si todos los permisos están concedidos, notificar al ViewModel

@@ -68,7 +68,6 @@ fun PodometerScreen(viewModel: PodometerViewModel = viewModel()) {
     val distance by viewModel.activityDistance.observeAsState(0.0)
     val caloriesBurnt by viewModel.activityCalories.observeAsState(0)
 
-    // Estructura de la UI usando un Column
     Column(
         modifier =
             Modifier

@@ -1,4 +1,3 @@
-
 package ar.edu.unlam.mobile.scaffold.ui.screens.profile
 
 import android.Manifest
@@ -73,10 +72,10 @@ fun CameraScreen(
             ) {
                 Box(
                     modifier =
-                        Modifier
-                            .size(56.dp)
-                            .clip(CircleShape)
-                            .background(MaterialTheme.colors.primaryVariant),
+                    Modifier
+                        .size(56.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colors.primaryVariant),
                     contentAlignment = Alignment.Center,
                 ) {
                     IconButton(
@@ -107,8 +106,8 @@ fun CameraScreen(
                         painter = rememberAsyncImagePainter(uri),
                         contentDescription = null,
                         modifier =
-                            Modifier
-                                .fillMaxSize(),
+                        Modifier
+                            .fillMaxSize(),
                         contentScale = ContentScale.FillWidth,
                     )
                     Box(
@@ -124,9 +123,9 @@ fun CameraScreen(
                                     onImageSaved(uri)
                                 },
                                 colors =
-                                    ButtonDefaults.buttonColors(
-                                        backgroundColor = MaterialTheme.colors.primaryVariant,
-                                    ),
+                                ButtonDefaults.buttonColors(
+                                    backgroundColor = MaterialTheme.colors.primaryVariant,
+                                ),
                             ) {
                                 Icon(
                                     imageVector = Icons.Filled.Check,
@@ -139,9 +138,9 @@ fun CameraScreen(
                                     isCameraActive = true
                                 },
                                 colors =
-                                    ButtonDefaults.buttonColors(
-                                        backgroundColor = MaterialTheme.colors.primaryVariant,
-                                    ),
+                                ButtonDefaults.buttonColors(
+                                    backgroundColor = MaterialTheme.colors.primaryVariant,
+                                ),
                             ) {
                                 Icon(
                                     imageVector = Icons.Filled.Close,

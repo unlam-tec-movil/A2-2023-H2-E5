@@ -1,6 +1,5 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens.pedometer
 
-
 import android.Manifest.permission.ACTIVITY_RECOGNITION
 import android.app.Application
 import android.content.pm.PackageManager
@@ -26,6 +25,7 @@ data class StepCounter(
 class PodometerViewModel(
     application: Application,
     private val state: SavedStateHandle,
+    private val sensorManager: SensorManager = application.getSystemService(Application.SENSOR_SERVICE) as SensorManager
 ) : AndroidViewModel(application),
     SensorEventListener {
 
@@ -49,8 +49,7 @@ class PodometerViewModel(
     private val _activityCalories = state.getLiveData("activityCalories", 0)
     val activityCalories: LiveData<Int> = _activityCalories
 
-    // Gestión del sensor de Android y el sensor de pasos
-    private val sensorManager: SensorManager = application.getSystemService(Application.SENSOR_SERVICE) as SensorManager
+    // Sensor de pasos
     private val stepSensor: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
     // Variables para mantener el estado del conteo de pasos
@@ -156,14 +155,14 @@ class PodometerViewModel(
     }
 
     // Método para calcular la distancia recorrida en kilómetros
-    private fun calculateDistance(steps: Int): Double {
+    fun calculateDistance(steps: Int): Double {
         // Se asume una longitud promedio de paso de 0.78 metros
         val stepLength = 0.78
         return steps * stepLength / 1000 // Convertir a kilómetros
     }
 
     // Método para calcular las calorías quemadas basadas en la distancia recorrida
-    private fun calculateCalories(distance: Double): Int {
+    fun calculateCalories(distance: Double): Int {
         // Se asume que se queman 50 calorías por kilómetro
         val caloriesPerKm = 50
         return (distance * caloriesPerKm).toInt()

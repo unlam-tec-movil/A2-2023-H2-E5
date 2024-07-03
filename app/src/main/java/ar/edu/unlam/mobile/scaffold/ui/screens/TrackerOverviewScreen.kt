@@ -19,6 +19,7 @@ import ar.edu.unlam.mobile.scaffold.R
 import ar.edu.unlam.mobile.scaffold.ui.components.AddButton
 import ar.edu.unlam.mobile.scaffold.ui.components.DaySelector
 import ar.edu.unlam.mobile.scaffold.ui.components.ExpandableMeal
+import ar.edu.unlam.mobile.scaffold.ui.components.NutrientsHeader
 import ar.edu.unlam.mobile.scaffold.ui.components.TrackedFoodItem
 import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 
@@ -39,6 +40,7 @@ fun TrackerOverviewScreen(
                 .padding(bottom = spacing.spaceMedium),
     ) {
         item {
+            NutrientsHeader(state = state)
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             DaySelector(
                 date = state.date,

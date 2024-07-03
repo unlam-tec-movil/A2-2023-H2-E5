@@ -180,4 +180,10 @@ class PodometerViewModel(
         startTime = System.currentTimeMillis()
         state["startTime"] = startTime
     }
+
+    // Limpiar recursos al finalizar
+    override fun onCleared() {
+        super.onCleared()
+        sensorManager.unregisterListener(this)
+    }
 }

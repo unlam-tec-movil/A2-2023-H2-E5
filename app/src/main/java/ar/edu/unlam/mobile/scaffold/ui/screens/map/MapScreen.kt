@@ -69,8 +69,8 @@ fun MapScreen(
 ) {
     // Obtener el contexto actual de la aplicación para iniciar actividades
     val context = LocalContext.current
-    // y el propietario del ciclo de vida actual de la pantalla para sincronizar la inicialización, actualización
-    // basada en eventos del ciclo de vida del componente que contiene la UI actual.
+    // y el propietario del ciclo de vida actual de la pantalla para sincronizar la inicialización,
+    // actualización basada en eventos del ciclo de vida del componente que contiene la UI actual.
     val lifecycleOwner = LocalLifecycleOwner.current
 
     // Estado de los permisos de ubicación
@@ -80,10 +80,8 @@ fun MapScreen(
                 listOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION),
         )
 
-    // Recolectar el estado de la vista desde el ViewModel con el ciclo de vida del propietario actual
     val viewState by viewModel.viewState.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
 
-    // Efecto lanzado al montar el composable para solicitar permisos si no están concedidos
     LaunchedEffect(Unit) {
         if (!permissionState.allPermissionsGranted) {
             permissionState.launchMultiplePermissionRequest()
@@ -112,8 +110,6 @@ fun MapScreen(
             }
         }
     }
-
-    // Manejo de los diferentes estados de la vista
     when (val currentState = viewState) {
         // Mostrar un indicador de carga o un mensaje para activar el GPS
         is ViewState.Loading -> {
@@ -204,6 +200,7 @@ fun isGpsEnabled(context: Context): Boolean {
     return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 }
 
+@Suppress("ktlint:standard:function-naming")
 @Composable
 fun Map(
     modifier: Modifier = Modifier,
@@ -277,7 +274,7 @@ fun Map(
                                 Modifier
                                     .padding(top = 250.dp)
                                     .fillMaxWidth()
-                                    .testTag(tag = "MapScreen Text punto de encuentro uno"),
+                                    .testTag(tag = "punto de encuentro uno"),
                             fontSize = 30.sp,
                             color = Color.Black,
                         )

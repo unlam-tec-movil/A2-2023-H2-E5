@@ -65,7 +65,7 @@ fun CameraScreen(
     var imageUri by remember { mutableStateOf<Uri?>(null) }
     var isCameraActive by remember { mutableStateOf(true) }
 
-    // Scaffold de Material3 para la pantalla
+    // Scaffold para la pantalla
     Scaffold(modifier = Modifier.fillMaxSize(), floatingActionButton = {
         if (isCameraActive) {
             Box(

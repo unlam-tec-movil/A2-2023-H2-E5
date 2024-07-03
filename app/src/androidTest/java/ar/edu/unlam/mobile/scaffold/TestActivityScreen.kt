@@ -24,7 +24,6 @@ class ActivityScreenTest {
         composeTestRule.setContent {
             ActivityScreen(onNextClick = {})
         }
-
         // Verifica que el texto se muestra correctamente
         composeTestRule.onNodeWithText("Cual es tu nivel de actividad?").assertExists()
 

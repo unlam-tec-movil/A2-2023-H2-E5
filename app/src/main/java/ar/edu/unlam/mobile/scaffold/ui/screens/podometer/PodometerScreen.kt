@@ -25,6 +25,7 @@ import ar.edu.unlam.mobile.scaffold.ui.screens.pedometer.PodometerViewModel
 import ar.edu.unlam.mobile.scaffold.ui.screens.pedometer.StepCounter
 import java.util.concurrent.TimeUnit
 
+@Suppress("ktlint:standard:function-naming")
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun PodometerScreen(viewModel: PodometerViewModel = viewModel()) {

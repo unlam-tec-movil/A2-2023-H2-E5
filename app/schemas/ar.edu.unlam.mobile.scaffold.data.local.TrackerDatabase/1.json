@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3714fdae7296f9ad1a68d6f92790a895",
+    "identityHash": "f4e22de18c2c44d7d0517775ce26cb0e",
     "entities": [
       {
         "tableName": "TrackedFoodEntity",
@@ -89,12 +89,45 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "location",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`latitud` REAL NOT NULL, `longitud` REAL NOT NULL, `day` INTEGER NOT NULL, PRIMARY KEY(`latitud`, `longitud`))",
+        "fields": [
+          {
+            "fieldPath": "latitud",
+            "columnName": "latitud",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitud",
+            "columnName": "longitud",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "day",
+            "columnName": "day",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "latitud",
+            "longitud"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3714fdae7296f9ad1a68d6f92790a895')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f4e22de18c2c44d7d0517775ce26cb0e')"
     ]
   }
 }

@@ -1,5 +1,7 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -19,101 +21,102 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TrackerOverviewViewmodel
-    @Inject
-    constructor(
-        preferences: Preferences,
-        private val trackerUseCases: TrackerUseCases,
-    ) : ViewModel() {
-        var state by mutableStateOf(TrackerOverviewState())
-            private set
+@Inject
+constructor(
+    preferences: Preferences,
+    private val trackerUseCases: TrackerUseCases,
+) : ViewModel() {
+    var state by mutableStateOf(TrackerOverviewState())
+        private set
 
-        private val _uiEvent = Channel<UiEvent> { }
-        val uiEvent = _uiEvent.receiveAsFlow()
+    private val _uiEvent = Channel<UiEvent> { }
+    val uiEvent = _uiEvent.receiveAsFlow()
 
-        private var getFoodsForDate: Job? = null
+    private var getFoodsForDate: Job? = null
 
-        init {
-            refreshFoods()
-            preferences.saveShouldShowOnboarding(false)
-        }
+    init {
+        refreshFoods()
+        preferences.saveShouldShowOnboarding(false)
+    }
 
-        fun onEvent(event: TrackerOverviewEvent) {
-            when (event) {
-                is TrackerOverviewEvent.OnDeleteTrackedFoodClick -> {
-                    viewModelScope.launch {
-                        trackerUseCases.deleteTrackedFood(event.trackedFood)
-                        refreshFoods()
-                    }
-                }
-                is TrackerOverviewEvent.OnNextDayClick -> {
-                    state =
-                        state.copy(
-                            date = state.date.plusDays(1),
-                        )
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun onEvent(event: TrackerOverviewEvent) {
+        when (event) {
+            is TrackerOverviewEvent.OnDeleteTrackedFoodClick -> {
+                viewModelScope.launch {
+                    trackerUseCases.deleteTrackedFood(event.trackedFood)
                     refreshFoods()
-                }
-                is TrackerOverviewEvent.OnPreviousDayClick -> {
-                    state =
-                        state.copy(
-                            date = state.date.minusDays(1),
-                        )
-                    refreshFoods()
-                }
-                is TrackerOverviewEvent.OnToggleMealClick -> {
-                    state =
-                        state.copy(
-                            meals =
-                                state.meals.map {
-                                    if (it.name == event.meal.name) {
-                                        it.copy(isExpanded = !it.isExpanded)
-                                    } else {
-                                        it
-                                    }
-                                },
-                        )
                 }
             }
-        }
-
-        /**
-         * Devuelve las comidas seguidas por fecha
-         */
-        private fun refreshFoods() {
-            getFoodsForDate?.cancel()
-            getFoodsForDate =
-                trackerUseCases
-                    .getFoodsForDate(state.date)
-                    .onEach { foods ->
-                        val nutrientResult = trackerUseCases.calculateMealNutrients(foods)
-                        state =
-                            state.copy(
-                                totalCarbs = nutrientResult.totalCarbs,
-                                totalProtein = nutrientResult.totalProtein,
-                                totalFat = nutrientResult.totalFat,
-                                totalCalories = nutrientResult.totalCalories,
-                                carbsGoal = nutrientResult.carbsGoal,
-                                proteinGoal = nutrientResult.proteinGoal,
-                                fatGoal = nutrientResult.fatGoal,
-                                caloriesGoal = nutrientResult.caloriesGoal,
-                                trackedFoods = foods,
-                                meals =
-                                    state.meals.map {
-                                        val nutrientsForMeal =
-                                            nutrientResult.mealNutrients[it.mealType]
-                                                ?: return@map it.copy(
-                                                    carbs = 0,
-                                                    protein = 0,
-                                                    fat = 0,
-                                                    calories = 0,
-                                                )
-                                        it.copy(
-                                            carbs = nutrientsForMeal.carbs,
-                                            protein = nutrientsForMeal.protein,
-                                            fat = nutrientsForMeal.fat,
-                                            calories = nutrientsForMeal.calories,
-                                        )
-                                    },
-                            )
-                    }.launchIn(viewModelScope)
+            is TrackerOverviewEvent.OnNextDayClick -> {
+                state =
+                    state.copy(
+                        date = state.date.plusDays(1),
+                    )
+                refreshFoods()
+            }
+            is TrackerOverviewEvent.OnPreviousDayClick -> {
+                state =
+                    state.copy(
+                        date = state.date.minusDays(1),
+                    )
+                refreshFoods()
+            }
+            is TrackerOverviewEvent.OnToggleMealClick -> {
+                state =
+                    state.copy(
+                        meals =
+                        state.meals.map {
+                            if (it.name == event.meal.name) {
+                                it.copy(isExpanded = !it.isExpanded)
+                            } else {
+                                it
+                            }
+                        },
+                    )
+            }
         }
     }
+
+    /**
+     * Devuelve las comidas seguidas por fecha
+     */
+    private fun refreshFoods() {
+        getFoodsForDate?.cancel()
+        getFoodsForDate =
+            trackerUseCases
+                .getFoodsForDate(state.date)
+                .onEach { foods ->
+                    val nutrientResult = trackerUseCases.calculateMealNutrients(foods)
+                    state =
+                        state.copy(
+                            totalCarbs = nutrientResult.totalCarbs,
+                            totalProtein = nutrientResult.totalProtein,
+                            totalFat = nutrientResult.totalFat,
+                            totalCalories = nutrientResult.totalCalories,
+                            carbsGoal = nutrientResult.carbsGoal,
+                            proteinGoal = nutrientResult.proteinGoal,
+                            fatGoal = nutrientResult.fatGoal,
+                            caloriesGoal = nutrientResult.caloriesGoal,
+                            trackedFoods = foods,
+                            meals =
+                            state.meals.map {
+                                val nutrientsForMeal =
+                                    nutrientResult.mealNutrients[it.mealType]
+                                        ?: return@map it.copy(
+                                            carbs = 0,
+                                            protein = 0,
+                                            fat = 0,
+                                            calories = 0,
+                                        )
+                                it.copy(
+                                    carbs = nutrientsForMeal.carbs,
+                                    protein = nutrientsForMeal.protein,
+                                    fat = nutrientsForMeal.fat,
+                                    calories = nutrientsForMeal.calories,
+                                )
+                            },
+                        )
+                }.launchIn(viewModelScope)
+    }
+}

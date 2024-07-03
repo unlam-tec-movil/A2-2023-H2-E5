@@ -10,7 +10,9 @@ import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -59,6 +61,7 @@ import com.google.maps.android.compose.MapType
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerInfoWindowContent
 import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -81,6 +84,7 @@ fun MapScreen(
 
     // Recolectar el estado de la vista desde el ViewModel con el ciclo de vida del propietario actual
     val viewState by viewModel.viewState.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
+    val listaDePuntos by viewModel.locations.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
 
     // Efecto lanzado al montar el composable para solicitar permisos si no están concedidos
     LaunchedEffect(Unit) {
@@ -186,12 +190,13 @@ fun MapScreen(
 
             // Recolectar el estado de los puntos de encuentro desde el ViewModel
             val puntosDeEncuentroState by viewModel.point.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
-
             Map(
                 modifier = modifier.fillMaxSize(),
                 currentPosition = currentLoc,
                 cameraState = cameraState,
                 puntosDeEncuentroState = puntosDeEncuentroState,
+
+                locationsList = listaDePuntos
             )
         }
     }
@@ -210,10 +215,12 @@ fun Map(
     currentPosition: LatLng,
     cameraState: CameraPositionState,
     puntosDeEncuentroState: List<Point>,
+    locationsList: List<LatLng>
+
 ) {
-    // Definir los puntos de encuentro como LatLng
     val punto1 = LatLng(puntosDeEncuentroState[0].coordinates1, puntosDeEncuentroState[0].coordinates2)
     val punto2 = LatLng(puntosDeEncuentroState[1].coordinates1, puntosDeEncuentroState[1].coordinates2)
+
     val marker = LatLng(currentPosition.latitude, currentPosition.longitude)
 
     // Estado para la selección del destino
@@ -231,15 +238,15 @@ fun Map(
             // Configuración y renderizado del mapa de Google
             GoogleMap(
                 modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .testTag("MapScreen googleMap"),
+                Modifier
+                    .fillMaxSize()
+                    .testTag("MapScreen googleMap"),
                 cameraPositionState = cameraState,
                 properties =
-                    MapProperties(
-                        isMyLocationEnabled = true,
-                        mapType = MapType.NORMAL,
-                    ),
+                MapProperties(
+                    isMyLocationEnabled = true,
+                    mapType = MapType.NORMAL,
+                ),
             ) {
                 // Marcador para la posición actual del usuario
                 Marker(
@@ -255,29 +262,29 @@ fun Map(
                     selectedDestination = punto1
                     Box(
                         modifier =
-                            Modifier
-                                .height(290.dp)
-                                .width(300.dp)
-                                .background(Color.White),
+                        Modifier
+                            .height(290.dp)
+                            .width(300.dp)
+                            .background(Color.White),
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_map),
                             contentDescription = null,
                             contentScale = ContentScale.FillHeight,
                             modifier =
-                                Modifier
-                                    .width(500.dp)
-                                    .height(250.dp)
-                                    .testTag("imagen punto uno de encuentro"),
+                            Modifier
+                                .width(500.dp)
+                                .height(250.dp)
+                                .testTag("imagen punto uno de encuentro"),
                         )
                         Text(
                             text = "Punto De Encuentro 1",
                             textAlign = TextAlign.Center,
                             modifier =
-                                Modifier
-                                    .padding(top = 250.dp)
-                                    .fillMaxWidth()
-                                    .testTag(tag = "MapScreen Text punto de encuentro uno"),
+                            Modifier
+                                .padding(top = 250.dp)
+                                .fillMaxWidth()
+                                .testTag(tag = "MapScreen Text punto de encuentro uno"),
                             fontSize = 30.sp,
                             color = Color.Black,
                         )
@@ -294,15 +301,30 @@ fun Map(
 
                     Box(
                         modifier =
-                            Modifier
-                                .height(270.dp)
-                                .width(300.dp)
-                                .background(Color.Green),
+                        Modifier
+                            .height(270.dp)
+                            .width(300.dp)
+                            .background(Color.Green),
                     ) {
-                        // Aquí iría el contenido que deseamos mostrar para el punto de encuentro 2
+
                     }
+                    DrawPathPoints(puntos = locationsList)
+
                 }
             }
-        }
-    }
-}
+
+        }}}
+
+
+                @Composable
+                fun DrawPathPoints(puntos: List<LatLng>) {
+                    if (puntos.isNotEmpty() && puntos.size > 2) {
+                        Polyline(
+                            points = puntos,
+                            color = Color.Green,
+                            width = 9f
+                        )
+                    }
+                }
+
+

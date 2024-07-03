@@ -196,7 +196,9 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(Route.MAP) {
-                            MapScreen(modifier = Modifier.padding(padding))
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                                MapScreen(modifier = Modifier.padding(padding))
+                            }
                         }
                         composable(Route.SEARCHBAR) {
                             SearchBarNavigation(

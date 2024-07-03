@@ -7,6 +7,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ar.edu.unlam.mobile.scaffold.domain.preferences.Preferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,14 +16,12 @@ import javax.inject.Inject
 
 // Anotación para indicar que este ViewModel es gestionado por Hilt para inyección de dependencias
 @HiltViewModel
-class HomeViewModel
-    @Inject
-    constructor(
-        context: Context,
-    ) : ViewModel(),
-        SensorEventListener {
-        // Obtiene el servicio del sensor del sistema
-        private val sensorManager: SensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+class HomeViewModel @Inject constructor(
+    context: Context,
+    preferences: Preferences
+) : ViewModel(), SensorEventListener {
+
+    private val sensorManager: SensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         // Obtiene el sensor de contador de pasos
         private val stepSensor: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)

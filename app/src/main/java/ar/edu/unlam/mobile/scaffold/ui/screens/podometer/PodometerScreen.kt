@@ -28,17 +28,23 @@ import java.util.concurrent.TimeUnit
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun PodometerScreen(viewModel: PodometerViewModel = viewModel()) {
+    // Obtener el contexto actual
     val context = LocalContext.current
+    // Variable para rastrear si se ha solicitado el permiso
     var permissionRequested by remember { mutableStateOf(false) }
 
+    // Recordar un lanzador de actividad para solicitar permisos
     val permissionLauncher =
         rememberLauncherForActivityResult(
             contract = ActivityResultContracts.RequestPermission(),
         ) { isGranted ->
+            // Actualizar el ViewModel con el estado del permiso
             viewModel.isPermissionGranted = isGranted
         }
 
+    // Efecto lanzado al montar el composable
     LaunchedEffect(Unit) {
+        // Verificar si el permiso de reconocimiento de actividad está concedido
         val isPermissionGranted =
             ContextCompat.checkSelfPermission(
                 context,
@@ -46,19 +52,23 @@ fun PodometerScreen(viewModel: PodometerViewModel = viewModel()) {
             ) == PackageManager.PERMISSION_GRANTED
 
         if (!isPermissionGranted && !permissionRequested) {
+            // Si el permiso no está concedido y no se ha solicitado, solicitarlo
             permissionRequested = true
             permissionLauncher.launch(Manifest.permission.ACTIVITY_RECOGNITION)
         } else {
+            // Si el permiso ya está concedido, actualizar el ViewModel
             viewModel.isPermissionGranted = true
         }
     }
 
+    // Observadores de LiveData desde el ViewModel
     val stepCounter by viewModel.stepCounter.observeAsState(StepCounter(0, 10000))
     val progress by viewModel.progress.observeAsState(0)
     val activeTime by viewModel.activityTime.observeAsState(0L)
     val distance by viewModel.activityDistance.observeAsState(0.0)
     val caloriesBurnt by viewModel.activityCalories.observeAsState(0)
 
+    // Estructura de la UI usando un Column
     Column(
         modifier =
             Modifier
@@ -123,6 +133,7 @@ fun PodometerScreen(viewModel: PodometerViewModel = viewModel()) {
     }
 }
 
+// Función para formatear el tiempo activo en horas, minutos y segundos
 fun formatActiveTime(seconds: Long): String {
     val hours = TimeUnit.SECONDS.toHours(seconds)
     val minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60

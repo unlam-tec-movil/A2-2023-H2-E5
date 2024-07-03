@@ -1,6 +1,9 @@
 package ar.edu.unlam.mobile.scaffold.ui.screens.map
 
-import android.Manifest
+// Importaciones necesarias para la funcionalidad de la aplicación
+
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Context
 import android.content.Intent
 import android.location.LocationManager
@@ -65,39 +68,44 @@ fun MapScreen(
     modifier: Modifier,
     viewModel: MapViewModel = hiltViewModel(),
 ) {
+    // Obtener el contexto actual y el propietario del ciclo de vida
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
+    // Estado de los permisos de ubicación
     val permissionState =
         rememberMultiplePermissionsState(
             permissions =
-                listOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                ),
+                listOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION),
         )
 
+    // Recolectar el estado de la vista desde el ViewModel con el ciclo de vida del propietario actual
     val viewState by viewModel.viewState.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
 
+    // Efecto lanzado al montar el composable para solicitar permisos si no están concedidos
     LaunchedEffect(Unit) {
         if (!permissionState.allPermissionsGranted) {
             permissionState.launchMultiplePermissionRequest()
         }
     }
 
+    // Manejo de diferentes estados de permisos
     when {
+        // Si todos los permisos están concedidos, notificar al ViewModel
         permissionState.allPermissionsGranted -> {
             LaunchedEffect(Unit) {
                 viewModel.handle(PermissionEvent.Granted)
             }
         }
 
+        // Si se debe mostrar una racional de los permisos, solicitar los permisos de nuevo
         permissionState.shouldShowRationale -> {
             LaunchedEffect(Unit) {
                 permissionState.launchMultiplePermissionRequest()
             }
         }
 
+        // Si los permisos no están concedidos y no se debe mostrar una racional, notificar al ViewModel
         !permissionState.allPermissionsGranted && !permissionState.shouldShowRationale -> {
             LaunchedEffect(Unit) {
                 viewModel.handle(PermissionEvent.Revoked)
@@ -105,7 +113,9 @@ fun MapScreen(
         }
     }
 
+    // Manejo de los diferentes estados de la vista
     when (val currentState = viewState) {
+        // Mostrar un indicador de carga o un mensaje para activar el GPS
         is ViewState.Loading -> {
             if (!isGpsEnabled(context)) {
                 Box(
@@ -113,7 +123,7 @@ fun MapScreen(
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
-                        text = "Por Favor activa el Gps para usar el mapa",
+                        text = "Por favor, activa el GPS para usar el mapa",
                         style = MaterialTheme.typography.headlineLarge,
                         textAlign = TextAlign.Center,
                     )
@@ -128,6 +138,7 @@ fun MapScreen(
             }
         }
 
+        // Mostrar un mensaje de permisos revocados con un botón para ir a los ajustes de la aplicación
         ViewState.RevokedPermissions -> {
             Box(
                 modifier = modifier,
@@ -142,7 +153,7 @@ fun MapScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Text(
-                        "Necesitas los permisos de localizacion y Gps activado para usar el mapa",
+                        "Necesitas los permisos de localización y GPS activado para usar el mapa",
                         style = MaterialTheme.typography.headlineLarge,
                         textAlign = TextAlign.Center,
                     )
@@ -165,6 +176,7 @@ fun MapScreen(
             }
         }
 
+        // Mostrar el mapa con la ubicación actual y los puntos de encuentro
         is ViewState.Success -> {
             val currentLoc = currentState.location ?: LatLng(0.0, 0.0)
             val cameraState =
@@ -172,6 +184,7 @@ fun MapScreen(
                     position = CameraPosition.fromLatLngZoom(currentLoc, 18f)
                 }
 
+            // Recolectar el estado de los puntos de encuentro desde el ViewModel
             val puntosDeEncuentroState by viewModel.point.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
 
             Map(
@@ -186,6 +199,7 @@ fun MapScreen(
 
 @Composable
 fun isGpsEnabled(context: Context): Boolean {
+    // Verificar si el GPS está habilitado
     val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 }
@@ -197,10 +211,12 @@ fun Map(
     cameraState: CameraPositionState,
     puntosDeEncuentroState: List<Point>,
 ) {
+    // Definir los puntos de encuentro como LatLng
     val punto1 = LatLng(puntosDeEncuentroState[0].coordinates1, puntosDeEncuentroState[0].coordinates2)
     val punto2 = LatLng(puntosDeEncuentroState[1].coordinates1, puntosDeEncuentroState[1].coordinates2)
     val marker = LatLng(currentPosition.latitude, currentPosition.longitude)
 
+    // Estado para la selección del destino
     var selectedDestination by remember { mutableStateOf<LatLng?>(null) }
 
     Box(modifier) {
@@ -212,6 +228,7 @@ fun Map(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            // Configuración y renderizado del mapa de Google
             GoogleMap(
                 modifier =
                     Modifier
@@ -224,10 +241,12 @@ fun Map(
                         mapType = MapType.NORMAL,
                     ),
             ) {
+                // Marcador para la posición actual del usuario
                 Marker(
                     state = MarkerState(position = marker),
                     title = "Mi Posición Actual",
                 )
+                // Marcador para el primer punto de encuentro con una ventana de información
                 MarkerInfoWindowContent(
                     state = MarkerState(position = punto1),
                     snippet = "Punto 1",
@@ -265,6 +284,7 @@ fun Map(
                     }
                 }
 
+                // Marcador para el segundo punto de encuentro con una ventana de información
                 MarkerInfoWindowContent(
                     state = MarkerState(position = punto2),
                     snippet = "Punto de encuentro 2",

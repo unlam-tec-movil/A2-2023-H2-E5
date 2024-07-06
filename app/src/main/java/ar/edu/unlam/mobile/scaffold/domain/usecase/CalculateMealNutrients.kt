@@ -78,7 +78,7 @@ class CalculateMealNutrients(
      * calcula un criterio calorias segun la actividad fisica del usuario y su objetivo
      */
 
-    private fun dailyCalorieRequirement(userInfo: UserInfo): Int {
+    fun dailyCalorieRequirement(userInfo: UserInfo): Int {
         val activityFactor =
             when (userInfo.activityLevel) {
                 is ActivityLevel.Low -> 1.2f

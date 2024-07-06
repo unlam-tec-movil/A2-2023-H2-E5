@@ -24,7 +24,7 @@ import ar.edu.unlam.mobile.scaffold.ui.components.UnitTextField
 import ar.edu.unlam.mobile.scaffold.ui.theme.LocalSpacing
 
 @Composable
-fun StepScreen(
+fun StepsScreen(
     scaffoldState: ScaffoldState,
     onNextClick: () -> Unit,
     viewModel: StepsViewModel = hiltViewModel(),
@@ -46,9 +46,10 @@ fun StepScreen(
         }
     }
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(spacing.spaceLarge),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(spacing.spaceLarge),
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),

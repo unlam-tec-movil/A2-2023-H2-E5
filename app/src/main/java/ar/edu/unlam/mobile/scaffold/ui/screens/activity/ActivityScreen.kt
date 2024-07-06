@@ -44,9 +44,10 @@ fun ActivityScreen(
         }
     }
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(spacing.spaceLarge),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(spacing.spaceLarge),
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -65,9 +66,10 @@ fun ActivityScreen(
                     color = MaterialTheme.colors.primaryVariant,
                     selectedTextColor = Color.White,
                     onClick = { viewModel.onActivityLevelClick(ActivityLevel.Low) },
-                    textStyle = MaterialTheme.typography.button.copy(
-                        fontWeight = FontWeight.Normal,
-                    ),
+                    textStyle =
+                        MaterialTheme.typography.button.copy(
+                            fontWeight = FontWeight.Normal,
+                        ),
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
                 SelectableButton(
@@ -76,9 +78,10 @@ fun ActivityScreen(
                     color = MaterialTheme.colors.primaryVariant,
                     selectedTextColor = Color.White,
                     onClick = { viewModel.onActivityLevelClick(ActivityLevel.Medium) },
-                    textStyle = MaterialTheme.typography.button.copy(
-                        fontWeight = FontWeight.Normal,
-                    ),
+                    textStyle =
+                        MaterialTheme.typography.button.copy(
+                            fontWeight = FontWeight.Normal,
+                        ),
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
                 SelectableButton(
@@ -87,9 +90,10 @@ fun ActivityScreen(
                     color = MaterialTheme.colors.primaryVariant,
                     selectedTextColor = Color.White,
                     onClick = { viewModel.onActivityLevelClick(ActivityLevel.High) },
-                    textStyle = MaterialTheme.typography.button.copy(
-                        fontWeight = FontWeight.Normal,
-                    ),
+                    textStyle =
+                        MaterialTheme.typography.button.copy(
+                            fontWeight = FontWeight.Normal,
+                        ),
                 )
             }
         }

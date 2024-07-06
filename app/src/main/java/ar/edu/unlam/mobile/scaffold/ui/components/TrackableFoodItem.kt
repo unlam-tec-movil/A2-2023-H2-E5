@@ -57,16 +57,16 @@ fun TrackableFoodItem(
     val food = trackableFoodUiState.food
     val spacing = LocalSpacing.current
     Column(
-        modifier = modifier
-            .clip(RoundedCornerShape(5.dp))
-            .padding(spacing.spaceExtraSmall)
-            .shadow(
-                elevation = 1.dp,
-                shape = RoundedCornerShape(5.dp),
-            )
-            .background(MaterialTheme.colors.surface)
-            .clickable { onClick() }
-            .padding(end = spacing.spaceMedium),
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(5.dp))
+                .padding(spacing.spaceExtraSmall)
+                .shadow(
+                    elevation = 1.dp,
+                    shape = RoundedCornerShape(5.dp),
+                ).background(MaterialTheme.colors.surface)
+                .clickable { onClick() }
+                .padding(end = spacing.spaceMedium),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -77,19 +77,24 @@ fun TrackableFoodItem(
                 modifier = Modifier.weight(1f),
             ) {
                 Image(
-                    painter = rememberAsyncImagePainter(
-                        ImageRequest.Builder(LocalContext.current).data(data = food.imageUrl)
-                            .apply(block = fun ImageRequest.Builder.() {
-                                crossfade(true)
-                                error(R.drawable.ic_burger)
-                                fallback(R.drawable.ic_burger)
-                            }).build(),
-                    ),
+                    painter =
+                        rememberAsyncImagePainter(
+                            ImageRequest
+                                .Builder(LocalContext.current)
+                                .data(data = food.imageUrl)
+                                .apply(block = fun ImageRequest.Builder.() {
+                                    crossfade(true)
+                                    error(R.drawable.ic_burger)
+                                    fallback(R.drawable.ic_burger)
+                                })
+                                .build(),
+                        ),
                     contentDescription = food.name,
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .size(100.dp)
-                        .clip(RoundedCornerShape(topStart = 5.dp)),
+                    modifier =
+                        Modifier
+                            .size(100.dp)
+                            .clip(RoundedCornerShape(topStart = 5.dp)),
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
                 Column(
@@ -103,10 +108,11 @@ fun TrackableFoodItem(
                     )
                     Spacer(modifier = Modifier.height(spacing.spaceSmall))
                     Text(
-                        text = stringResource(
-                            id = R.string.kcal_per_100g,
-                            food.caloriesPer100g,
-                        ),
+                        text =
+                            stringResource(
+                                id = R.string.kcal_per_100g,
+                                food.caloriesPer100g,
+                            ),
                         style = MaterialTheme.typography.body2,
                     )
                 }
@@ -142,9 +148,10 @@ fun TrackableFoodItem(
         }
         AnimatedVisibility(visible = trackableFoodUiState.isExpanded) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(spacing.spaceMedium),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(spacing.spaceMedium),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = CenterVertically,
             ) {
@@ -152,32 +159,35 @@ fun TrackableFoodItem(
                     BasicTextField(
                         value = trackableFoodUiState.amount,
                         onValueChange = onAmountChange,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = if (trackableFoodUiState.amount.isNotEmpty()) {
-                                ImeAction.Done
-                            } else {
-                                ImeAction.Default
-                            },
-                            keyboardType = KeyboardType.Number,
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                onTrack()
-                                defaultKeyboardAction(ImeAction.Done)
-                            },
-                        ),
+                        keyboardOptions =
+                            KeyboardOptions(
+                                imeAction =
+                                    if (trackableFoodUiState.amount.isNotEmpty()) {
+                                        ImeAction.Done
+                                    } else {
+                                        ImeAction.Default
+                                    },
+                                keyboardType = KeyboardType.Number,
+                            ),
+                        keyboardActions =
+                            KeyboardActions(
+                                onDone = {
+                                    onTrack()
+                                    defaultKeyboardAction(ImeAction.Done)
+                                },
+                            ),
                         singleLine = true,
-                        modifier = Modifier
-                            .border(
-                                shape = RoundedCornerShape(5.dp),
-                                width = 0.5.dp,
-                                color = MaterialTheme.colors.onSurface,
-                            )
-                            .alignBy(LastBaseline)
-                            .padding(spacing.spaceMedium)
-                            .semantics {
-                                contentDescription = "Amount"
-                            },
+                        modifier =
+                            Modifier
+                                .border(
+                                    shape = RoundedCornerShape(5.dp),
+                                    width = 0.5.dp,
+                                    color = MaterialTheme.colors.onSurface,
+                                ).alignBy(LastBaseline)
+                                .padding(spacing.spaceMedium)
+                                .semantics {
+                                    contentDescription = "Amount"
+                                },
                     )
                     Spacer(modifier = Modifier.width(spacing.spaceExtraSmall))
                     Text(

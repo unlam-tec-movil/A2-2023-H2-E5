@@ -70,9 +70,10 @@ fun SearchBarNavigation(
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(spacing.spaceMedium),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(spacing.spaceMedium),
     ) {
         DaySelector(
             date = state.date,
@@ -82,9 +83,10 @@ fun SearchBarNavigation(
             onNextDayClick = {
                 viewmodel.onEvent(TrackerOverviewEvent.OnNextDayClick)
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = spacing.spaceMedium),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = spacing.spaceMedium),
         )
         Spacer(modifier = Modifier.height(spacing.spaceMedium))
         Text(

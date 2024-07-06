@@ -9,6 +9,5 @@ import ar.edu.unlam.mobile.scaffold.data.local.entity.TrackedFoodEntity
     version = 1,
 )
 abstract class TrackerDatabase : RoomDatabase() {
-
     abstract val dao: TrackerDao
 }

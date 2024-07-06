@@ -34,19 +34,22 @@ fun NutrientBarInfo(
 ) {
     val background = MaterialTheme.colors.background
     val goalExceedColor = MaterialTheme.colors.error
-    val angelRatio = remember {
-        Animatable(0f)
-    }
+    val angelRatio =
+        remember {
+            Animatable(0f)
+        }
     LaunchedEffect(key1 = value) {
         angelRatio.animateTo(
-            targetValue = if (goal > 0) {
-                value / goal.toFloat()
-            } else {
-                0f
-            },
-            animationSpec = tween(
-                durationMillis = 300,
-            ),
+            targetValue =
+                if (goal > 0) {
+                    value / goal.toFloat()
+                } else {
+                    0f
+                },
+            animationSpec =
+                tween(
+                    durationMillis = 300,
+                ),
         )
     }
     Box(
@@ -54,9 +57,10 @@ fun NutrientBarInfo(
         contentAlignment = Alignment.Center,
     ) {
         Canvas(
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
         ) {
             drawArc(
                 color = if (value <= goal) background else goalExceedColor,
@@ -64,10 +68,11 @@ fun NutrientBarInfo(
                 sweepAngle = 360f,
                 useCenter = false,
                 size = size,
-                style = Stroke(
-                    width = strokeWidth.toPx(),
-                    cap = StrokeCap.Round,
-                ),
+                style =
+                    Stroke(
+                        width = strokeWidth.toPx(),
+                        cap = StrokeCap.Round,
+                    ),
             )
             if (value <= goal) {
                 drawArc(
@@ -76,10 +81,11 @@ fun NutrientBarInfo(
                     sweepAngle = 360f * angelRatio.value,
                     useCenter = false,
                     size = size,
-                    style = Stroke(
-                        width = strokeWidth.toPx(),
-                        cap = StrokeCap.Round,
-                    ),
+                    style =
+                        Stroke(
+                            width = strokeWidth.toPx(),
+                            cap = StrokeCap.Round,
+                        ),
                 )
             }
         }

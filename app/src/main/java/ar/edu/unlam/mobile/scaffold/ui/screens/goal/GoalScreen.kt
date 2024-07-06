@@ -41,9 +41,10 @@ fun GoalScreen(
         }
     }
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(spacing.spaceLarge),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(spacing.spaceLarge),
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -62,9 +63,10 @@ fun GoalScreen(
                     color = MaterialTheme.colors.primaryVariant,
                     selectedTextColor = Color.White,
                     onClick = { viewModel.onGoalTypeClick(GoalType.LoseWeight) },
-                    textStyle = MaterialTheme.typography.button.copy(
-                        fontWeight = FontWeight.Normal,
-                    ),
+                    textStyle =
+                        MaterialTheme.typography.button.copy(
+                            fontWeight = FontWeight.Normal,
+                        ),
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
                 SelectableButton(
@@ -73,9 +75,10 @@ fun GoalScreen(
                     color = MaterialTheme.colors.primaryVariant,
                     selectedTextColor = Color.White,
                     onClick = { viewModel.onGoalTypeClick(GoalType.KeepWeight) },
-                    textStyle = MaterialTheme.typography.button.copy(
-                        fontWeight = FontWeight.Normal,
-                    ),
+                    textStyle =
+                        MaterialTheme.typography.button.copy(
+                            fontWeight = FontWeight.Normal,
+                        ),
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
                 SelectableButton(
@@ -84,9 +87,10 @@ fun GoalScreen(
                     color = MaterialTheme.colors.primaryVariant,
                     selectedTextColor = Color.White,
                     onClick = { viewModel.onGoalTypeClick(GoalType.GainWeight) },
-                    textStyle = MaterialTheme.typography.button.copy(
-                        fontWeight = FontWeight.Normal,
-                    ),
+                    textStyle =
+                        MaterialTheme.typography.button.copy(
+                            fontWeight = FontWeight.Normal,
+                        ),
                 )
             }
         }

@@ -44,9 +44,10 @@ fun GenderScreen(
         }
     }
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(spacing.spaceLarge),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(spacing.spaceLarge),
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -65,9 +66,10 @@ fun GenderScreen(
                     color = MaterialTheme.colors.primaryVariant,
                     selectedTextColor = Color.White,
                     onClick = { viewModel.onGenderClick(Gender.Male) },
-                    textStyle = MaterialTheme.typography.button.copy(
-                        fontWeight = FontWeight.Normal,
-                    ),
+                    textStyle =
+                        MaterialTheme.typography.button.copy(
+                            fontWeight = FontWeight.Normal,
+                        ),
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
                 SelectableButton(
@@ -76,9 +78,10 @@ fun GenderScreen(
                     color = MaterialTheme.colors.primaryVariant,
                     selectedTextColor = Color.White,
                     onClick = { viewModel.onGenderClick(Gender.Female) },
-                    textStyle = MaterialTheme.typography.button.copy(
-                        fontWeight = FontWeight.Normal,
-                    ),
+                    textStyle =
+                        MaterialTheme.typography.button.copy(
+                            fontWeight = FontWeight.Normal,
+                        ),
                 )
             }
         }

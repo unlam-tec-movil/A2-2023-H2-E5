@@ -17,7 +17,6 @@ import dagger.hilt.android.scopes.ViewModelScoped
 @Module
 @InstallIn(ViewModelComponent::class)
 object TrackerDomainModule {
-
     @ViewModelScoped
     @Provides
     fun provideTrackerUseCases(

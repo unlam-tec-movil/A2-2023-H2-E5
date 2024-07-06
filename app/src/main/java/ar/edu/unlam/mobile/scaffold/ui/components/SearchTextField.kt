@@ -48,28 +48,30 @@ fun SearchTextField(
             value = text,
             onValueChange = onValueChange,
             singleLine = true,
-            keyboardActions = KeyboardActions(
-                onSearch = {
-                    onSearch()
-                    defaultKeyboardAction(ImeAction.Search)
-                },
-            ),
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Search,
-            ),
-            modifier = Modifier
-                .clip(RoundedCornerShape(5.dp))
-                .padding(2.dp)
-                .shadow(
-                    elevation = 2.dp,
-                    shape = RoundedCornerShape(5.dp),
-                )
-                .background(MaterialTheme.colors.surface)
-                .fillMaxWidth()
-                .padding(spacing.spaceMedium)
-                .padding(end = spacing.spaceMedium)
-                .onFocusChanged { onFocusChange(it) }
-                .testTag("search_textfield"),
+            keyboardActions =
+                KeyboardActions(
+                    onSearch = {
+                        onSearch()
+                        defaultKeyboardAction(ImeAction.Search)
+                    },
+                ),
+            keyboardOptions =
+                KeyboardOptions(
+                    imeAction = ImeAction.Search,
+                ),
+            modifier =
+                Modifier
+                    .clip(RoundedCornerShape(5.dp))
+                    .padding(2.dp)
+                    .shadow(
+                        elevation = 2.dp,
+                        shape = RoundedCornerShape(5.dp),
+                    ).background(MaterialTheme.colors.surface)
+                    .fillMaxWidth()
+                    .padding(spacing.spaceMedium)
+                    .padding(end = spacing.spaceMedium)
+                    .onFocusChanged { onFocusChange(it) }
+                    .testTag("search_textfield"),
         )
         if (shouldShowHint) {
             Text(
@@ -77,9 +79,10 @@ fun SearchTextField(
                 style = MaterialTheme.typography.body1,
                 fontWeight = FontWeight.Light,
                 color = Color.LightGray,
-                modifier = Modifier
-                    .align(Alignment.CenterStart)
-                    .padding(start = spacing.spaceMedium),
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterStart)
+                        .padding(start = spacing.spaceMedium),
             )
         }
         IconButton(

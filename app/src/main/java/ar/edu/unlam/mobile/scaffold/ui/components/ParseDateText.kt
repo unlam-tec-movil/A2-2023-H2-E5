@@ -7,9 +7,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun parseDateText(
-    date: LocalDate,
-): String {
+fun parseDateText(date: LocalDate): String {
     val today = LocalDate.now()
     return when (date) {
         today -> stringResource(id = R.string.today)

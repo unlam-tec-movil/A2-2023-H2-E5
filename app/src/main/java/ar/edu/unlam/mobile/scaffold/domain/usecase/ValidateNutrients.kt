@@ -4,7 +4,6 @@ import ar.edu.unlam.mobile.scaffold.R
 import ar.edu.unlam.mobile.scaffold.core.util.UiText
 
 class ValidateNutrients {
-
     operator fun invoke(
         carbRatioText: String,
         proteinRatioText: String,
@@ -36,6 +35,9 @@ class ValidateNutrients {
             val proteinRatio: Float,
             val fatRatio: Float,
         ) : Result()
-        data class Error(val message: UiText) : Result()
+
+        data class Error(
+            val message: UiText,
+        ) : Result()
     }
 }

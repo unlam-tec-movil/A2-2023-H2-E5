@@ -6,10 +6,7 @@ import ar.edu.unlam.mobile.scaffold.domain.repository.TrackerRepository
 class DeleteTrackedFood(
     private val repository: TrackerRepository,
 ) {
-
-    suspend operator fun invoke(
-        trackedFood: TrackedFood,
-    ) {
+    suspend operator fun invoke(trackedFood: TrackedFood) {
         repository.deleteTrackedFood(trackedFood)
     }
 }

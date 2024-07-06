@@ -6,98 +6,117 @@ import ar.edu.unlam.mobile.scaffold.domain.model.Gender
 import ar.edu.unlam.mobile.scaffold.domain.model.GoalType
 import ar.edu.unlam.mobile.scaffold.domain.model.UserInfo
 import ar.edu.unlam.mobile.scaffold.domain.preferences.Preferences
+import kotlinx.coroutines.flow.StateFlow
 
 class DefaultPreferences(
     private val sharedPref: SharedPreferences,
 ) : Preferences {
     override fun saveGender(gender: Gender) {
-        sharedPref.edit()
+        sharedPref
+            .edit()
             .putString(Preferences.KEY_GENDER, gender.name)
             .apply()
     }
 
     override fun saveAge(age: Int) {
-        sharedPref.edit()
+        sharedPref
+            .edit()
             .putInt(Preferences.KEY_AGE, age)
             .apply()
     }
 
     override fun saveWeight(weight: Float) {
-        sharedPref.edit()
+        sharedPref
+            .edit()
             .putFloat(Preferences.KEY_WEIGHT, weight)
             .apply()
     }
 
     override fun saveHeight(height: Int) {
-        sharedPref.edit()
+        sharedPref
+            .edit()
             .putInt(Preferences.KEY_HEIGHT, height)
             .apply()
     }
 
     override fun saveActivityLevel(level: ActivityLevel) {
-        sharedPref.edit()
+        sharedPref
+            .edit()
             .putString(Preferences.KEY_ACTIVITY_LEVEL, level.name)
             .apply()
     }
 
     override fun saveGoalType(type: GoalType) {
-        sharedPref.edit()
+        sharedPref
+            .edit()
             .putString(Preferences.KEY_GOAL_TYPE, type.name)
             .apply()
     }
 
     override fun saveCarbRatio(ratio: Float) {
-        sharedPref.edit()
+        sharedPref
+            .edit()
             .putFloat(Preferences.KEY_CARB_RATIO, ratio)
             .apply()
     }
 
     override fun saveProteinRatio(ratio: Float) {
-        sharedPref.edit()
+        sharedPref
+            .edit()
             .putFloat(Preferences.KEY_PROTEIN_RATIO, ratio)
             .apply()
     }
 
     override fun saveFatRatio(ratio: Float) {
-        sharedPref.edit()
+        sharedPref
+            .edit()
             .putFloat(Preferences.KEY_FAT_RATIO, ratio)
             .apply()
     }
 
-    override fun loadUserInfo(): UserInfo {
-        return UserInfo(
-            gender = Gender.fromString(
-                sharedPref.getString(Preferences.KEY_GENDER, null) ?: "male",
-            ),
+    override fun loadUserInfo(): UserInfo =
+        UserInfo(
+            gender =
+                Gender.fromString(
+                    sharedPref.getString(Preferences.KEY_GENDER, null) ?: "male",
+                ),
             age = sharedPref.getInt(Preferences.KEY_AGE, -1),
             height = sharedPref.getInt(Preferences.KEY_HEIGHT, -1),
             weight = sharedPref.getFloat(Preferences.KEY_WEIGHT, -1f),
-            activityLevel = ActivityLevel.fromString(
-                sharedPref.getString(Preferences.KEY_ACTIVITY_LEVEL, null) ?: "low",
-            ),
-            goalType = GoalType.fromString(
-                sharedPref.getString(Preferences.KEY_GOAL_TYPE, null) ?: "lose_weight",
-            ),
+            activityLevel =
+                ActivityLevel.fromString(
+                    sharedPref.getString(Preferences.KEY_ACTIVITY_LEVEL, null) ?: "low",
+                ),
+            goalType =
+                GoalType.fromString(
+                    sharedPref.getString(Preferences.KEY_GOAL_TYPE, null) ?: "lose_weight",
+                ),
             carbRatio = sharedPref.getFloat(Preferences.KEY_CARB_RATIO, -1f),
             proteinRatio = sharedPref.getFloat(Preferences.KEY_PROTEIN_RATIO, -1f),
             fatRatio = sharedPref.getFloat(Preferences.KEY_FAT_RATIO, -1f),
-            steps = sharedPref.getInt(Preferences.KEY_STEP, -1)
+            steps = sharedPref.getInt(Preferences.KEY_STEP, -1),
         )
-    }
 
     override fun saveShouldShowOnboarding(shouldShow: Boolean) {
-        sharedPref.edit()
+        sharedPref
+            .edit()
             .putBoolean(Preferences.KEY_SHOULD_SHOW_ONBOARDING, shouldShow)
             .apply()
     }
 
-    override fun loadShouldShowOnboarding(): Boolean {
-        return sharedPref.getBoolean(Preferences.KEY_SHOULD_SHOW_ONBOARDING, true)
-    }
+    override fun loadShouldShowOnboarding(): Boolean = sharedPref.getBoolean(Preferences.KEY_SHOULD_SHOW_ONBOARDING, true)
 
     override fun saveStepsGoals(step: Int) {
-        sharedPref.edit()
+        sharedPref
+            .edit()
             .putInt(Preferences.KEY_STEP, step)
             .apply()
+    }
+
+    override fun saveUserName(
+        firstName: StateFlow<String>,
+        lastName: StateFlow<String>,
+    ) {
+        TODO("Not yet implemented")
     }
 }

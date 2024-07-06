@@ -20,13 +20,14 @@ class TrackerRepositoryImpl(
         query: String,
         page: Int,
         pageSize: Int,
-    ): Result<List<TrackableFood>> {
-        return try {
-            val searchDto = api.searchFood(
-                query = query,
-                page = page,
-                pageSize = pageSize,
-            )
+    ): Result<List<TrackableFood>> =
+        try {
+            val searchDto =
+                api.searchFood(
+                    query = query,
+                    page = page,
+                    pageSize = pageSize,
+                )
             Result.success(
                 searchDto.products
                     .filter {
@@ -38,14 +39,12 @@ class TrackerRepositoryImpl(
                         val upperBound = calculatedCalories * 1.01f
                         it.nutriments.energyKcal100g in (lowerBound..upperBound) &&
                             it.nutriments.energyKcal100g != 0.0
-                    }
-                    .mapNotNull { it.toTrackableFood() },
+                    }.mapNotNull { it.toTrackableFood() },
             )
         } catch (e: Exception) {
             e.printStackTrace()
             Result.failure(e)
         }
-    }
 
     override suspend fun insertTrackedFood(food: TrackedFood) {
         dao.insertTrackedFood(food.toTrackedFoodEntity())
@@ -55,13 +54,13 @@ class TrackerRepositoryImpl(
         dao.deleteTrackedFood(food.toTrackedFoodEntity())
     }
 
-    override fun getFoodsForDate(localDate: LocalDate): Flow<List<TrackedFood>> {
-        return dao.getFoodsForDate(
-            day = localDate.dayOfMonth,
-            month = localDate.monthValue,
-            year = localDate.year,
-        ).map { entities ->
-            entities.map { it.toTrackedFood() }
-        }
-    }
+    override fun getFoodsForDate(localDate: LocalDate): Flow<List<TrackedFood>> =
+        dao
+            .getFoodsForDate(
+                day = localDate.dayOfMonth,
+                month = localDate.monthValue,
+                year = localDate.year,
+            ).map { entities ->
+                entities.map { it.toTrackedFood() }
+            }
 }

@@ -1,3 +1,4 @@
+
 package ar.edu.unlam.mobile.scaffold.ui.components
 
 import androidx.compose.animation.core.animateIntAsState
@@ -35,19 +36,19 @@ fun NutrientsHeader(
     val spacing = LocalSpacing.current
     val animatedCalorieCount = animateIntAsState(targetValue = state.totalCalories)
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(
-                RoundedCornerShape(
-                    bottomStart = 50.dp,
-                    bottomEnd = 50.dp,
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(
+                    RoundedCornerShape(
+                        bottomStart = 50.dp,
+                        bottomEnd = 50.dp,
+                    ),
+                ).background(MaterialTheme.colors.primaryVariant)
+                .padding(
+                    horizontal = spacing.spaceLarge,
+                    vertical = spacing.spaceExtraLarge,
                 ),
-            )
-            .background(MaterialTheme.colors.primaryVariant)
-            .padding(
-                horizontal = spacing.spaceLarge,
-                vertical = spacing.spaceExtraLarge,
-            ),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -83,9 +84,10 @@ fun NutrientsHeader(
             fat = state.totalFat,
             calories = state.totalCalories,
             calorieGoal = state.caloriesGoal,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(30.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(30.dp),
         )
         Spacer(modifier = Modifier.height(spacing.spaceLarge))
         Row(
@@ -100,19 +102,25 @@ fun NutrientsHeader(
                 modifier = Modifier.size(90.dp),
             )
             NutrientBarInfo(
-                value = state.totalProtein,
-                goal = state.proteinGoal,
-                name = stringResource(id = R.string.protein),
-                color = ProteinColor,
-                modifier = Modifier.size(90.dp),
-            )
-            NutrientBarInfo(
                 value = state.totalFat,
                 goal = state.fatGoal,
                 name = stringResource(id = R.string.fat),
                 color = FatColor,
                 modifier = Modifier.size(90.dp),
             )
+            NutrientBarInfo(
+                value = state.totalProtein,
+                goal = state.proteinGoal,
+                name = stringResource(id = R.string.protein),
+                color = ProteinColor,
+                modifier = Modifier.size(90.dp),
+            )
+        }
+        Spacer(modifier = Modifier.height(spacing.spaceLarge))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
         }
     }
 }

@@ -15,24 +15,25 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GoalViewModel @Inject constructor(
-    private val preferences: Preferences,
-) : ViewModel() {
+class GoalViewModel
+    @Inject
+    constructor(
+        private val preferences: Preferences,
+    ) : ViewModel() {
+        var selectedGoalType by mutableStateOf<GoalType>(GoalType.KeepWeight)
+            private set
 
-    var selectedGoalType by mutableStateOf<GoalType>(GoalType.KeepWeight)
-        private set
+        private val _uiEvent = Channel<UiEvent>()
+        val uiEvent = _uiEvent.receiveAsFlow()
 
-    private val _uiEvent = Channel<UiEvent>()
-    val uiEvent = _uiEvent.receiveAsFlow()
+        fun onGoalTypeClick(goalType: GoalType) {
+            selectedGoalType = goalType
+        }
 
-    fun onGoalTypeClick(goalType: GoalType) {
-        selectedGoalType = goalType
-    }
-
-    fun onNextClick() {
-        viewModelScope.launch {
-            preferences.saveGoalType(selectedGoalType)
-            _uiEvent.send(UiEvent.Success)
+        fun onNextClick() {
+            viewModelScope.launch {
+                preferences.saveGoalType(selectedGoalType)
+                _uiEvent.send(UiEvent.Success)
+            }
         }
     }
-}
